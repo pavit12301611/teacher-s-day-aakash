@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A heartfelt Teacher's Day tribute to the amazing teachers of Aakash Coaching Centre — personalized messages, written with love."
+    />
+    <title>Happy Teacher's Day 💙 | Aakash Coaching Centre</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Scroll progress -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="nav" id="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#home">
+          <span class="brand-badge">🎓</span>
+          <span class="brand-text">Teacher's <span class="grad-text">Day</span></span>
+        </a>
+
+        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#teachers" class="nav-link">Our Teachers</a>
+          <a href="#fun-zone" class="nav-link">Fun Zone</a>
+          <a href="#teachers" class="btn btn-primary btn-sm" data-wish-cta>💌 Send a Wish</a>
+        </nav>
+
+        <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+      <div class="hero-blob blob-a" aria-hidden="true"></div>
+      <div class="hero-blob blob-b" aria-hidden="true"></div>
+      <div class="hero-blob blob-c" aria-hidden="true"></div>
+      <div class="hero-doodles" aria-hidden="true">
+        <span style="--d: 0s; left: 8%; top: 22%">✏️</span>
+        <span style="--d: 1.2s; left: 16%; top: 64%">🖍️</span>
+        <span style="--d: 0.6s; left: 84%; top: 26%">📐</span>
+        <span style="--d: 1.8s; left: 76%; top: 66%">⭐</span>
+        <span style="--d: 0.9s; left: 46%; top: 12%">🧪</span>
+        <span style="--d: 2.2s; left: 60%; top: 80%">📚</span>
+      </div>
+
+      <div class="container hero-content">
+        <p class="hero-badge reveal">
+          <span class="ping-dot"></span>
+          5th September &middot; Teachers' Day 2026 &middot; Aakash Coaching Centre
+        </p>
+
+        <h1 class="hero-title">
+          Happy <span class="hero-highlight">Teacher's</span> Day!
+        </h1>
+
+        <p class="hero-sub reveal">
+          A little corner of the internet built with <strong>love, laughter &amp; late-night
+          doubt sessions</strong> — a thank-you card for every teacher who makes Aakash feel like a
+          second home. 💙
+        </p>
+
+        <div class="hero-actions reveal">
+          <a href="#teachers" class="btn btn-primary btn-lg">👩‍🏫 Meet Our Superheroes</a>
+          <button class="btn btn-ghost btn-lg" id="hero-surprise">🎉 Surprise Me</button>
+        </div>
+
+        <div class="hero-scroll" aria-hidden="true">
+          <a href="#teachers"><span class="mouse"><span class="wheel"></span></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee-track">
+        <span>📚 KNOWLEDGE</span><span>✨ GRACE</span><span>📐 MATHS</span><span>🧪 CHEMISTRY</span>
+        <span>🧬 BIOLOGY</span><span>🚀 PHYSICS</span><span>💙 THANKS</span><span>🎓 TEACHERS</span>
+      </div>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat-card reveal">
+          <span class="stat-icon">👩‍🏫</span>
+          <strong class="stat-value" id="stat-teachers">0</strong>
+          <span class="stat-label">Amazing Teachers</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-icon">📖</span>
+          <strong class="stat-value" id="stat-subjects">0</strong>
+          <span class="stat-label">Subjects Mastered</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-icon">💌</span>
+          <strong class="stat-value" id="stat-wishes">0</strong>
+          <span class="stat-label">Wishes Sent To Them</span>
+        </div>
+        <div class="stat-card reveal">
+          <span class="stat-icon">♾️</span>
+          <strong class="stat-value">∞</strong>
+          <span class="stat-label">Doubts Cleared</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TEACHERS ===== -->
+    <section class="teachers" id="teachers">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">💌 Our Superhero Teachers</span>
+          <h2>Personalised messages,<br /><span class="grad-text">written with heart</span></h2>
+          <p class="section-sub">
+            Tap any teacher card to read your personal message. Real photos &amp; more names are
+            coming very soon — the love is already here. 💙
+          </p>
+        </div>
+
+        <div class="teacher-controls reveal">
+          <div class="filter-pills" id="filter-pills" role="group" aria-label="Filter by subject"></div>
+          <label class="search-box" for="teacher-search">
+            <span aria-hidden="true">🔎</span>
+            <input
+              id="teacher-search"
+              type="search"
+              placeholder="Search a teacher or subject…"
+              autocomplete="off"
+            />
+          </label>
+        </div>
+
+        <div class="teacher-grid" id="teacher-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== FUN ZONE ===== -->
+    <section class="fun-zone" id="fun-zone">
+      <div class="container fun-inner">
+        <div class="fun-copy reveal">
+          <span class="eyebrow">🎪 The Fun Zone</span>
+          <h2>Chalkboard truths<br />from our classroom</h2>
+          <p class="section-sub">
+            Real talk about school life, straight from the back bench (we sit there, we know
+            everything). Press the buttons — chaos guaranteed but harmless. 😄
+          </p>
+          <div class="fun-actions">
+            <button class="btn btn-white" id="fact-next">🧮 Next Chalk Fact</button>
+            <button class="btn btn-primary" id="fun-surprise">🎆 Confetti Surprise</button>
+          </div>
+        </div>
+
+        <div class="chalkboard reveal" id="chalkboard">
+          <div class="chalk-doodles" aria-hidden="true">
+            <span style="left: 6%; top: 10%">✏️</span>
+            <span style="right: 8%; bottom: 12%">🧽</span>
+            <span style="right: 12%; top: 10%">⭐</span>
+          </div>
+          <div class="chalk-head">
+            <span class="chalk-title">Today's Truth</span>
+            <span class="chalk-star" id="fact-dots"><i></i><i></i><i></i></span>
+          </div>
+          <p class="chalk-fact" id="chalk-fact">Starting the chalkboard… ✍️</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p class="footer-title">Made with 💙 by your students</p>
+        <p class="footer-sub">
+          Aakash Coaching Centre &middot; Happy Teacher's Day 2026 &middot; Built with
+          <strong>TypeScript</strong> &amp; a lot of homework breaks
+        </p>
+        <a href="#home" class="footer-top">↑ Back to top</a>
+      </div>
+    </footer>
+
+    <!-- ===== TEACHER MODAL ===== -->
+    <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+      <article class="modal-card" id="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+        <button class="modal-close" id="modal-close" aria-label="Close message">✕</button>
+        <div class="modal-body" id="modal-body"><!-- rendered by TS --></div>
+      </article>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
