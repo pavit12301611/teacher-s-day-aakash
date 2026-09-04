@@ -11,9 +11,9 @@ confetti engine, buttery smooth animations).
 
 | Page | File | What it is |
 |------|------|------------|
-| Home | `index.html` | Aurora hero, stats, featured teachers, subjects, how-it-works, quote, CTA |
+| Home | `index.html` | Aurora hero, multilingual thank-you marquee, a **daily wish that changes each weekday**, stats, spotlight, featured teachers, subjects, how-it-works, **shuffling quote pool**, CTA |
 | All Teachers | `teachers.html` | Search + filter by subject, gallery of every teacher |
-| **Teacher dedication** | `teacher.html?id=<teacher-id>` | **Individual page per teacher** — letter, quote, superpower, dialogue, Read Aloud, Send a Wish, WhatsApp share, prev/next, related teachers |
+| **Teacher dedication** | `teacher.html?id=<teacher-id>` | **Individual page per teacher** — a **sealed letter that types itself out** (time-of-day greeting), Read Aloud, Send a Wish, **a subject minigame**, **4 hidden secrets**, a **"from your students" message library**, WhatsApp share, prev/next, related teachers |
 | Memories Room | `memories.html` | Chalkboard fun zone, live wish wall (saved on device), confetti playground |
 | Our Story | `about.html` | Values, timeline of an Aakash day, love note |
 | Subject Category | `category.html?subject=Physics` | 🗂️ Landing page per subject — line-up, famous dialogues, quotes |
@@ -69,6 +69,18 @@ TypeScript validates the shape for you.
 - **Categories everywhere** — Subjects dropdown in nav, per-subject landing pages, wish-wall
   categories (😂 Funny · 🥹 Emotional · ✨ Inspirational · 🙏 Thank You) with filters
 - **Daily Teacher Spotlight** on Home, **Print the Letter** + **←/→ keyboard walk** on dedications
+- **Multilingual "thank you" marquee** — Thank You / धन्यवाद / शुक्रिया / ধন্যবাদ / நன்றி … scrolling on the home page
+- **Daily wish** — a fresh little tribute every day of the week (Sunday → Saturday)
+- **Shuffling quote pool** — tap "Another one" to cycle through the site's best lines
+- **Sealed, self-typing letter** — tap to break the seal, watch it type itself out with a
+  good-morning / good-afternoon / good-evening greeting, and skip anytime
+- **Subject minigames** on every dedication page:
+  - 🥧 **Maths** — type as many digits of π as you can
+  - 🔈 **Physics** — a Web Audio "sound lab" with a live frequency wave + heartbeat pulse
+  - ⚗️ **Chemistry** — spell your name as periodic-table element tiles
+  - 🧬 **Biology** — a rapid-fire 3-question quiz
+- **4 hidden secrets** per teacher — tap a card to unseal it (remembered on this device)
+- **"From your students" message library** — browse the class's thank-yous with ← → arrows
 - **Design System page** — every colour/font/component categorised, tap any swatch to copy hex
 - **Memories Room** — chalkboard with rotating student-life facts + your own wish wall
 - Filter by subject (deep-linkable: `teachers.html?subject=Physics`) + instant search

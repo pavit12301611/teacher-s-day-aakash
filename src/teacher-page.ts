@@ -25,8 +25,19 @@ import {
 } from "./site";
 import { avatarHTML, teacherCardHTML } from "./cards";
 import { launchConfetti } from "./confetti";
+import { renderMinigame } from "./minigames";
+import {
+  typeLetter,
+  stopTypewriter,
+  timeGreeting,
+  greetingEmoji,
+  secretsFor,
+  messagesFor,
+  type TypeHandle
+} from "./surprises";
 
 const WISHED_KEY = "aakash-td-wished-ids";
+const SECRETS_KEY = "aakash-td-secrets";
 
 function wishedIds(): string[] {
   try {
@@ -100,10 +111,21 @@ function dedicationHTML(t: Teacher): string {
         </div>
       </div>
 
-      <div class="paper">
+      <div class="paper" id="letter">
+        <div class="letter-toolbar" id="letter-toolbar" hidden>
+          <span class="letter-badge">💌 A sealed letter · just for ${escapeHtml(t.salutation)}</span>
+          <button class="letter-skip" id="btn-skip-letter">⏩ Read now</button>
+        </div>
+        <div class="seal-overlay" id="seal-overlay">
+          <div class="seal-inner">
+            <span class="seal-emoji">💌</span>
+            <p class="seal-title">A sealed letter for ${escapeHtml(t.salutation)}</p>
+            <p class="seal-sub">Tap to break the seal and let it type itself out ✨</p>
+            <button class="btn btn-gold" id="btn-open-letter">💌 Open the Letter</button>
+          </div>
+        </div>
         <h3>A letter for ${escapeHtml(t.salutation)} 💌</h3>
-        ${t.message.map((p) => `<p>${escapeHtml(p)}</p>`).join("")}
-        <p class="letter-sign">— with love, your students at Aakash 💙</p>
+        <div class="letter-body" id="letter-body" aria-live="polite"></div>
       </div>
 
       <aside class="note-callout"><span class="nc-emoji">🎈</span><span>${escapeHtml(t.note)}</span></aside>
@@ -112,6 +134,36 @@ function dedicationHTML(t: Teacher): string {
         <div class="fact-chip"><small>⚡ Superpower</small><strong>${escapeHtml(t.superpower)}</strong></div>
         <div class="fact-chip"><small>🎬 Legendary dialogue</small><strong>${escapeHtml(t.dialogue)}</strong></div>
         <div class="fact-chip"><small>📚 Subject</small><strong>${t.emoji} ${t.subject} · ${escapeHtml(t.tagline)}</strong></div>
+      </div>
+
+      <div class="minigame-slot reveal" id="minigame"></div>
+
+      <div class="secret-box reveal">
+        <div class="secret-head">
+          <span class="secret-emoji">🤫</span>
+          <div>
+            <b>4 hidden secrets</b>
+            <small>only the students who were really there would know these</small>
+          </div>
+        </div>
+        <div class="secret-list" id="secret-list"></div>
+        <p class="secret-hint">Tap a card to unseal it… 🔓</p>
+      </div>
+
+      <div class="msg-lib reveal">
+        <div class="msg-lib-head">
+          <span class="msg-lib-emoji">💬</span>
+          <div>
+            <b>From your students</b>
+            <small>a little library of thank-yous for ${escapeHtml(t.salutation)}</small>
+          </div>
+        </div>
+        <div class="msg-lib-body" id="msg-lib-body"></div>
+        <div class="msg-lib-nav">
+          <button class="msg-arrow" id="msg-prev" aria-label="Previous message">←</button>
+          <span class="msg-count" id="msg-count">1 / 1</span>
+          <button class="msg-arrow" id="msg-next" aria-label="Next message">→</button>
+        </div>
       </div>
 
       <div class="share-row">
@@ -142,6 +194,147 @@ function dedicationHTML(t: Teacher): string {
     <div class="center-cta">
       <a class="btn btn-dark" href="teachers.html">👩‍🏫 See all teachers</a>
     </div>`;
+}
+
+function wireSealedLetter(t: Teacher): void {
+  const overlay = qs<HTMLElement>("#seal-overlay");
+  const toolbar = qs<HTMLElement>("#letter-toolbar");
+  const body = qs<HTMLElement>("#letter-body");
+  const skipBtn = qs<HTMLButtonElement>("#btn-skip-letter");
+  if (!overlay || !body) return;
+
+  const hour = new Date().getHours();
+  const greeting = timeGreeting(new Date());
+  const chunks: string[] = [
+    `${greeting}, ${t.salutation} ${greetingEmoji(hour)}`,
+    ...t.message
+  ];
+
+  let letterHandle: TypeHandle | null = null;
+
+  const startTyping = (): void => {
+    try {
+      sessionStorage.setItem("aakash-td-opened-" + t.id, "1");
+    } catch {
+      /* noop */
+    }
+    overlay.classList.add("open");
+    window.setTimeout(() => overlay.remove(), 500);
+    if (toolbar) toolbar.hidden = false;
+    letterHandle = typeLetter(body, chunks);
+    launchConfetti({ count: 120, origin: { x: 0.5, y: 0.25 }, shapes: ["heart", "dot"] });
+  };
+
+  qs<HTMLButtonElement>("#btn-open-letter")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    startTyping();
+  });
+  skipBtn?.addEventListener("click", () => {
+    letterHandle?.skip();
+  });
+  // Clicking the open letter body skips the typing too
+  body.addEventListener("click", () => {
+    if (letterHandle && !letterHandle.done) letterHandle.skip();
+  });
+
+  // If built after already open (e.g. re-render), reveal immediately
+  if (sessionStorage.getItem("aakash-td-opened-" + t.id) === "1") {
+    startTyping();
+  }
+}
+
+function wireMinigame(t: Teacher): void {
+  const slot = qs<HTMLElement>("#minigame");
+  if (!slot) return;
+  renderMinigame(slot, t);
+}
+
+function wireSecrets(t: Teacher): void {
+  const list = qs<HTMLElement>("#secret-list");
+  if (!list) return;
+  const secrets = secretsFor(t);
+
+  const read = (): number[] => {
+    try {
+      const raw = window.localStorage.getItem(SECRETS_KEY);
+      const parsed: unknown = raw ? JSON.parse(raw) : {};
+      const map = (parsed && typeof parsed === "object" ? parsed : {}) as Record<string, number[]>;
+      const mine = map[t.id];
+      return Array.isArray(mine) ? mine.filter((x): x is number => typeof x === "number") : [];
+    } catch {
+      return [];
+    }
+  };
+  const save = (list: number[]): void => {
+    try {
+      const raw = window.localStorage.getItem(SECRETS_KEY);
+      const parsed: unknown = raw ? JSON.parse(raw) : {};
+      const map = (parsed && typeof parsed === "object" ? parsed : {}) as Record<string, number[]>;
+      map[t.id] = list;
+      window.localStorage.setItem(SECRETS_KEY, JSON.stringify(map));
+    } catch {
+      /* noop */
+    }
+  };
+
+  const paint = (): void => {
+    const revealed = new Set(read());
+    list.innerHTML = secrets
+      .map((s, i) => {
+        const open = revealed.has(i);
+        return `
+        <button class="secret-card ${open ? "revealed" : ""}" data-i="${i}" aria-expanded="${open}">
+          <span class="secret-lock">${open ? "🔓" : "🔒"}</span>
+          <span class="secret-card-name">${open ? escapeHtml(s) : `Secret ${i + 1}`}</span>
+          <span class="secret-card-ico">${open ? "✨" : "🤫"}</span>
+        </button>`;
+      })
+      .join("");
+    list.querySelectorAll<HTMLButtonElement>(".secret-card").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const i = Number(btn.dataset.i);
+        const cur = new Set(read());
+        if (cur.has(i)) {
+          cur.delete(i);
+        } else {
+          cur.add(i);
+        }
+        save([...cur]);
+        paint();
+      });
+    });
+  };
+
+  paint();
+}
+
+function wireMessages(t: Teacher): void {
+  const body = qs<HTMLElement>("#msg-lib-body");
+  const countEl = qs<HTMLElement>("#msg-count");
+  const prev = qs<HTMLButtonElement>("#msg-prev");
+  const next = qs<HTMLButtonElement>("#msg-next");
+  if (!body || !countEl) return;
+
+  const messages = messagesFor(t, 6);
+  let index = 0;
+
+  const paint = (): void => {
+    body.innerHTML = `
+      <p class="msg-text">“${escapeHtml(messages[index])}”</p>
+      <span class="msg-by">— one of ${t.salutation}'s students 💙</span>`;
+    countEl.textContent = `${index + 1} / ${messages.length}`;
+  };
+
+  prev?.addEventListener("click", () => {
+    index = (index - 1 + messages.length) % messages.length;
+    paint();
+  });
+  next?.addEventListener("click", () => {
+    index = (index + 1) % messages.length;
+    paint();
+  });
+
+  paint();
 }
 
 function wireDedication(t: Teacher): void {
@@ -228,6 +421,14 @@ function wireDedication(t: Teacher): void {
     if (e.key === "ArrowLeft") window.location.href = goPrev;
     else if (e.key === "ArrowRight") window.location.href = goNext;
   });
+
+  // New surprises: sealed letter, minigame, secrets, message library
+  wireSealedLetter(t);
+  wireMinigame(t);
+  wireSecrets(t);
+  wireMessages(t);
+
+  window.addEventListener("pagehide", () => stopTypewriter());
 
   const related = qs("#related-grid");
   if (related) {

@@ -20,9 +20,74 @@ import {
 } from "./site";
 import { avatarHTML, teacherCardHTML } from "./cards";
 
+const DAILY_WISHES: Array<{ day: string; emoji: string; title: string; text: string }> = [
+  { day: "Sunday", emoji: "🌞", title: "A day to rest & recharge", text: "Even the best teachers need a Sunday. Today, wish them a slow morning and a warm chai — they've earned it." },
+  { day: "Monday", emoji: "🌅", title: "Fresh start, fresh mind", text: "A brand-new week for the people who make Monday feel a little less Monday. Start it with a smile for them." },
+  { day: "Tuesday", emoji: "📚", title: "The doubt-clearing hour", text: "Somewhere a teacher is answering that '45th time' a doubt. Send them a little patience today." },
+  { day: "Wednesday", emoji: "💙", title: "Mid-week gratitude", text: "You've made it to the middle of the week. Take 30 seconds and thank a teacher who changed your mood." },
+  { day: "Thursday", emoji: "🎯", title: "Focus & fire", text: "The ones who keep us focused deserve a little focus back. Today, no noise — just a heartfelt 'thank you'." },
+  { day: "Friday", emoji: "🎉", title: "Almost the weekend", text: "The last school day energy is real. Celebrate a teacher who made the week a little lighter." },
+  { day: "Saturday", emoji: "✨", title: "Weekend magic", text: "Teachers' weekends are for marking, planning and coffee. Sneak in a tiny wish to make it sweeter." }
+];
+
+const QUOTE_POOL: Array<{ quote: string; by: string }> = [
+  { quote: "The best teachers don't hand out answers — they hand out confidence.", by: "Back bench, front hearts · Aakash Batch of 2026" },
+  { quote: "A teacher takes a hand, opens a mind, and touches a heart.", by: "Aakash students · everywhere" },
+  { quote: "Teaching is the one profession that creates all other professions.", by: "The back bench, being deep" },
+  { quote: "Mistakes are the first step to marks — and they taught us that.", by: "Aakash Batch of 2026" },
+  { quote: "Some give knowledge. The great ones give courage.", by: "Your students · every year" },
+  { quote: "It takes a big heart to shape little minds.", by: "The front bench, whispering" },
+  { quote: "The classroom is where futures get their first draft.", by: "Aakash · Class of 2026" },
+  { quote: "They saw the best in us before we could.", by: "Every student who ever doubted themselves" },
+  { quote: "A good teacher is a light that never dims.", by: "The night-before-exam batch" }
+];
+
 function duplicateMarquee(): void {
   document.querySelectorAll<HTMLElement>(".marquee-track").forEach((track) => {
     track.innerHTML += track.innerHTML;
+  });
+}
+
+function renderDailyWish(): void {
+  const root = qs("#daily-wish");
+  if (!root) return;
+  const now = new Date();
+  const wish = DAILY_WISHES[now.getDay()] ?? DAILY_WISHES[0]!;
+  const dateStr = now.toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  });
+  root.innerHTML = `
+    <span class="dw-emoji">${wish.emoji}</span>
+    <div class="dw-body">
+      <span class="dw-day">Today's wish · ${escapeHtml(dateStr)}</span>
+      <h3>${escapeHtml(wish.title)}</h3>
+      <p>${escapeHtml(wish.text)}</p>
+    </div>
+    <span class="dw-spark" aria-hidden="true">✦</span>`;
+}
+
+function renderQuotePool(): void {
+  const text = qs("#quote-text");
+  const by = qs("#quote-by");
+  const next = qs<HTMLButtonElement>("#quote-next");
+  if (!text || !by) return;
+
+  let idx = Math.floor(Math.random() * QUOTE_POOL.length);
+  const paint = (): void => {
+    const item = QUOTE_POOL[idx]!;
+    text.textContent = item.quote;
+    by.textContent = item.by;
+    text.classList.remove("quote-swap");
+    void text.offsetWidth;
+    text.classList.add("quote-swap");
+  };
+  paint();
+
+  next?.addEventListener("click", () => {
+    idx = (idx + 1 + Math.floor(Math.random() * (QUOTE_POOL.length - 1))) % QUOTE_POOL.length;
+    paint();
   });
 }
 
@@ -104,9 +169,11 @@ function renderSubjects(): void {
 function boot(): void {
   initSite();
   duplicateMarquee();
+  renderDailyWish();
   renderSpotlight();
   renderFeatured();
   renderSubjects();
+  renderQuotePool();
 }
 
 if (document.readyState === "loading") {
