@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The Memories Room — chalkboard classroom truths, a live wish wall for Aakash teachers, and confetti cannons."
+    />
+    <meta name="theme-color" content="#030b26" />
+    <meta property="og:title" content="Memories Room 🎪 | Aakash Teacher's Day" />
+    <meta property="og:type" content="website" />
+    <title>Memories Room 🎪 | Aakash Teacher's Day</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎪</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-page="memories">
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
+
+    <header class="nav" id="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html" aria-label="Teacher's Day home">
+          <span class="brand-badge">🎓</span>
+          <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+          <a href="index.html" class="nav-link" data-nav="home">Home</a>
+          <a href="teachers.html" class="nav-link" data-nav="teachers">Teachers</a>
+          <div class="nav-drop">
+            <button class="nav-link drop-btn" data-nav="category" aria-haspopup="true" aria-expanded="false">Subjects <span class="chev">▾</span></button>
+            <div class="drop-menu" role="menu">
+              <a href="category.html?subject=Physics" role="menuitem">🚀 Physics</a>
+              <a href="category.html?subject=Chemistry" role="menuitem">🧪 Chemistry</a>
+              <a href="category.html?subject=Mathematics" role="menuitem">📐 Mathematics</a>
+              <a href="category.html?subject=Biology" role="menuitem">🧬 Biology</a>
+              <a href="teachers.html" class="drop-all" role="menuitem">✨ All Teachers →</a>
+            </div>
+          </div>
+          <a href="memories.html" class="nav-link" data-nav="memories">Memories</a>
+          <a href="about.html" class="nav-link" data-nav="about">About</a>
+          <a href="teachers.html" class="btn btn-gold btn-sm nav-cta">💌 Send a Wish</a>
+        </nav>
+        <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="container page-hero-inner">
+        <nav class="crumbs reveal" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>›</span><span class="here">Memories</span>
+        </nav>
+        <span class="eyebrow reveal">🎪 The Fun Zone</span>
+        <h1 class="reveal">The fun zone <em>never closes.</em></h1>
+        <p class="lede reveal">
+          Chalkboard truths from the back bench, a live wish wall for the whole batch,
+          and confetti buttons for… reasons. Chaos guaranteed, harmless I promise. 😄
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== CHALKBOARD ===== -->
+    <section class="section" style="padding-top: 54px">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow eyebrow-light">✏️ Chalkboard truths</span>
+          <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; margin: 18px 0 12px;">
+            Straight from the <span class="grad-text-blue">back bench</span>
+          </h2>
+          <p class="section-sub">We sit there. We know everything. Press the buttons — new truth, fresh confetti, zero homework.</p>
+          <div class="playground">
+            <button class="btn btn-dark" id="fact-next">🧮 Next Chalk Fact</button>
+            <button class="btn btn-primary" id="fun-surprise">🎆 Confetti Surprise</button>
+            <button class="btn btn-outline" id="party-all">🎉 Full Celebration</button>
+          </div>
+        </div>
+        <div class="split-visual reveal" style="--delay: 120ms">
+          <div class="chalkboard" id="chalkboard">
+            <div class="chalk-doodles" aria-hidden="true">
+              <span style="left: 6%; top: 10%">✏️</span>
+              <span style="right: 8%; bottom: 12%">🧽</span>
+              <span style="right: 12%; top: 10%">⭐</span>
+            </div>
+            <div class="chalk-head">
+              <span class="chalk-title">Today's Truth</span>
+              <span class="chalk-star"><i></i><i></i><i></i></span>
+            </div>
+            <p class="chalk-fact" id="chalk-fact">Starting the chalkboard… ✍️</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WISH WALL ===== -->
+    <section class="section" style="padding-top: 0">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow eyebrow-light">💌 The Wish Wall · <span id="wall-count"></span></span>
+          <h2>Pin your love <span class="grad-text-blue">on the wall</span></h2>
+          <p class="section-sub">Write a few lines for your favourite teacher. It saves on this device and shows up instantly below.</p>
+        </div>
+        <div class="wish-layout">
+          <aside class="wish-form-card reveal">
+            <h3>Write a wish ✍️</h3>
+            <p>20 seconds. Zero marks deducted. Infinite smiles guaranteed.</p>
+            <form id="wish-form">
+              <div class="field">
+                <label for="wish-name">Your name (or batch nickname)</label>
+                <input id="wish-name" maxlength="40" placeholder="e.g. Back Bench Hero" autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for="wish-for">This wish is for…</label>
+                <select id="wish-for"></select>
+              </div>
+              <div class="field">
+                <label for="wish-cat">Vibe / category</label>
+                <select id="wish-cat"></select>
+              </div>
+              <div class="field">
+                <label for="wish-text">Your message</label>
+                <textarea id="wish-text" maxlength="280" placeholder="Thank you for… 💙"></textarea>
+              </div>
+              <button class="btn btn-gold" type="submit" style="width: 100%">📌 Pin it on the wall</button>
+            </form>
+          </aside>
+          <div>
+            <div class="chip-row" id="wish-filters" role="group" aria-label="Filter wishes by category"></div>
+            <div class="wish-wall" id="wish-wall"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee light" aria-hidden="true">
+      <div class="marquee-track">
+        <span>💙 SHUKRIYA</span><span>🎓 TEACHERS</span><span>📚 KNOWLEDGE</span>
+        <span>✨ GRACE</span><span>🎉 DHAMAKA</span><span>💌 WISHES</span>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <span class="brand-badge">🎓</span>
+            <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
+          </a>
+          <p>Made with 💙 by your students — late-night doubt sessions, early-morning revisions, and endless gratitude included.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="teachers.html">👩‍🏫 All Teachers</a></li>
+            <li><a href="memories.html">🎪 Memories Room</a></li>
+            <li><a href="about.html">📖 Our Story</a></li>
+            <li><a href="design.html">🎨 Design System</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category.html?subject=Physics">🚀 Physics Heroes</a></li>
+            <li><a href="category.html?subject=Chemistry">🧪 Chemistry Heroes</a></li>
+            <li><a href="category.html?subject=Mathematics">📐 Maths Heroes</a></li>
+            <li><a href="category.html?subject=Biology">🧬 Biology Heroes</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Dedication pages</h4>
+          <div class="footer-teacher-links">
+            <a href="teacher.html?id=rakesh-sir">🚀 Rakesh Sir</a>
+            <a href="teacher.html?id=anjali-mam">🧪 Anjali Ma'am</a>
+            <a href="teacher.html?id=vikram-sir">📐 Vikram Sir</a>
+            <a href="teacher.html?id=priya-mam">🧬 Priya Ma'am</a>
+            <a href="teacher.html?id=amit-sir">⚡ Amit Sir</a>
+            <a href="teacher.html?id=neha-mam">🔬 Neha Ma'am</a>
+            <a href="teacher.html?id=suresh-sir">🧮 Suresh Sir</a>
+            <a href="teacher.html?id=kavita-mam">🌻 Kavita Ma'am</a>
+          </div>
+        </div>
+      </div>
+      <div class="container"><div class="giant-word" aria-hidden="true">SHUKRIYA</div></div>
+      <div class="container footer-bottom">
+        <span>Aakash Coaching Centre · Happy Teacher's Day <span id="year">2026</span> · Built with <strong>TypeScript</strong> &amp; homework breaks</span>
+        <a href="memories.html" class="footer-top-link">↑ Back to top</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <button id="to-top" aria-label="Back to top">↑</button>
+
+    <script type="module" src="/src/memories-page.ts"></script>
+  </body>
+</html>
