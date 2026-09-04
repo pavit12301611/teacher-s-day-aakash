@@ -24,8 +24,10 @@ export default defineConfig({
         home: resolve(here, "index.html"),
         teachers: resolve(here, "teachers.html"),
         teacher: resolve(here, "teacher.html"),
+        category: resolve(here, "category.html"),
         memories: resolve(here, "memories.html"),
-        about: resolve(here, "about.html")
+        about: resolve(here, "about.html"),
+        design: resolve(here, "design.html")
       }
     }
   }

@@ -219,6 +219,16 @@ function wireDedication(t: Teacher): void {
     }
   });
 
+  qs("#btn-print")?.addEventListener("click", () => window.print());
+
+  // Keyboard: ← previous teacher, → next teacher
+  const goPrev = `teacher.html?id=${prevTeacher(t).id}`;
+  const goNext = `teacher.html?id=${nextTeacher(t).id}`;
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") window.location.href = goPrev;
+    else if (e.key === "ArrowRight") window.location.href = goNext;
+  });
+
   const related = qs("#related-grid");
   if (related) {
     observeReveals(related);

@@ -5,19 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A personal Teacher's Day dedication — a heartfelt letter, legendary dialogues and wishes for your favourite Aakash teacher."
+      content="Subject category page — meet the Aakash heroes of Physics, Chemistry, Mathematics or Biology."
     />
     <meta name="theme-color" content="#030b26" />
-    <meta property="og:title" content="A Teacher's Day Dedication 💌 | Aakash" />
-    <meta
-      property="og:description"
-      content="A personal dedication page with a heartfelt letter for your favourite Aakash teacher."
-    />
+    <meta property="og:title" content="Subject Heroes 🗂️ | Aakash Teacher's Day" />
     <meta property="og:type" content="website" />
-    <title>Teacher's Dedication 💌 | Aakash Teacher's Day</title>
+    <title>Subject Heroes 🗂️ | Aakash Teacher's Day</title>
     <link
       rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗂️</text></svg>"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,7 +22,7 @@
       rel="stylesheet"
     />
   </head>
-  <body data-page="teacher">
+  <body data-page="category">
     <div id="scroll-progress" aria-hidden="true"></div>
     <div id="cursor-glow" aria-hidden="true"></div>
 
@@ -59,30 +55,65 @@
       </div>
     </header>
 
-    <!-- ===== PAGE HERO ===== -->
-    <section class="page-hero" style="padding-bottom: 110px">
+    <!-- ===== CATEGORY HERO ===== -->
+    <section class="page-hero" id="cat-hero">
       <div class="stars" aria-hidden="true"></div>
-      <div class="container page-hero-inner">
+      <div class="cat-glow" aria-hidden="true"></div>
+      <div class="container page-hero-inner" id="cat-root">
         <nav class="crumbs reveal" aria-label="Breadcrumb">
           <a href="index.html">Home</a><span>›</span>
           <a href="teachers.html">Teachers</a><span>›</span>
-          <span class="here">Dedication</span>
+          <span class="here" id="cat-crumb-here">Subject</span>
         </nav>
-        <span class="eyebrow reveal">💌 A Personal Dedication</span>
-        <h1 class="reveal">Sealed with love, <em>delivered with dhamaka.</em></h1>
-        <p class="lede reveal">
-          This page belongs to one teacher and one teacher only. Read the letter, press
-          play to hear it aloud, send a wish — then forward it to the whole class. 💙
-        </p>
+        <div class="cat-icon-big reveal" id="cat-icon">📚</div>
+        <span class="eyebrow reveal">🗂️ Subject Category</span>
+        <h1 class="reveal" id="cat-name">Loading heroes…</h1>
+        <p class="lede reveal" id="cat-blurb"></p>
+        <div class="cat-chips reveal" id="cat-topics"></div>
+        <div class="cat-chips reveal" id="cat-count"></div>
       </div>
     </section>
 
-    <!-- ===== DEDICATION (rendered per teacher) ===== -->
-    <main class="ded-wrap">
-      <div class="container" id="ded-root">
-        <div class="ded-card"><div class="notfound-wrap"><span class="big">💌</span><p style="color: var(--muted)">Opening the envelope…</p></div></div>
+    <!-- ===== CATEGORY BODY ===== -->
+    <section class="section" style="padding-top: 54px">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow eyebrow-light">👩‍🏫 The line-up</span>
+          <h2 id="cat-grid-title">The line-up</h2>
+        </div>
+        <div class="teacher-grid cols-3" id="cat-teachers"></div>
+
+        <div id="cat-extra">
+          <div class="section-gap">
+            <div class="section-head reveal">
+              <span class="eyebrow eyebrow-light">🎬 Famous dialogues</span>
+              <h2>Lines this category <span class="grad-text-blue">is famous for</span></h2>
+            </div>
+            <div class="dialogue-list" id="cat-dialogues"></div>
+          </div>
+
+          <div class="section-gap">
+            <div class="section-head reveal">
+              <span class="eyebrow eyebrow-light">💬 Words to live by</span>
+              <h2>Quotes from <span class="grad-text-blue">the masters</span></h2>
+            </div>
+            <div class="quote-wall" id="cat-quotes"></div>
+          </div>
+
+          <div class="section-gap">
+            <div class="cta-banner reveal">
+              <span class="eyebrow">💌 Loved this category?</span>
+              <h2>Send them a wish today</h2>
+              <p>Open any dedication page, smash the wish button and pin a message on the Memories wall.</p>
+              <div class="cta-actions">
+                <a href="teachers.html" class="btn btn-gold btn-lg">👩‍🏫 All Teachers</a>
+                <a href="memories.html" class="btn btn-ghost btn-lg">🎪 Wish Wall</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
+    </section>
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
@@ -130,13 +161,13 @@
       <div class="container"><div class="giant-word" aria-hidden="true">SHUKRIYA</div></div>
       <div class="container footer-bottom">
         <span>Aakash Coaching Centre · Happy Teacher's Day <span id="year">2026</span> · Built with <strong>TypeScript</strong> &amp; homework breaks</span>
-        <a href="index.html" class="footer-top-link">↑ Back to top</a>
+        <a href="category.html" class="footer-top-link">↑ Back to top</a>
       </div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <button id="to-top" aria-label="Back to top">↑</button>
 
-    <script type="module" src="/src/teacher-page.ts"></script>
+    <script type="module" src="/src/category-page.ts"></script>
   </body>
 </html>

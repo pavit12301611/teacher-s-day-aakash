@@ -234,42 +234,68 @@ export const SUBJECTS: SubjectInfo[] = [
 ];
 
 /** Preset messages for the Memories wish-wall */
+export type WishCategory = "Funny" | "Emotional" | "Inspirational" | "Thank You";
+
+export interface WishCategoryInfo {
+  id: WishCategory;
+  emoji: string;
+}
+
+/** Categories that organise every wish on the wall */
+export const WISH_CATEGORIES: WishCategoryInfo[] = [
+  { id: "Funny", emoji: "😂" },
+  { id: "Emotional", emoji: "🥹" },
+  { id: "Inspirational", emoji: "✨" },
+  { id: "Thank You", emoji: "🙏" }
+];
+
+export function wishCategoryEmoji(cat: string): string {
+  return WISH_CATEGORIES.find((c) => c.id === cat)?.emoji ?? "💙";
+}
+
 export interface WallWish {
   name: string;
   forTeacher: string;
   text: string;
+  category: WishCategory;
 }
 
 export const WALL_WISHES: WallWish[] = [
   {
     name: "Back Bench Batch",
     forTeacher: "All Teachers",
-    text: "Sorry for the last-bench noise, thank you for never giving up on us. You are the real MVPs! 💙"
+    text: "Sorry for the last-bench noise, thank you for never giving up on us. You are the real MVPs! 💙",
+    category: "Funny"
   },
   {
     name: "Neet Aspirant '26",
     forTeacher: "Priya Ma'am",
-    text: "Your diagrams got me through the whole human physiology chapter in one night. Legend! 🌿"
+    text: "Your diagrams got me through the whole human physiology chapter in one night. Legend! 🌿",
+    category: "Thank You"
   },
   {
     name: "JEE Warrior",
     forTeacher: "Rakesh Sir",
-    text: "Rotational mechanics finally rotates in my brain instead of scaring it. Thank you, Sir! 🚀"
+    text: "Rotational mechanics finally rotates in my brain instead of scaring it. Thank you, Sir! 🚀",
+    category: "Inspirational"
   },
   {
     name: "Class Topper (nervous)",
     forTeacher: "Vikram Sir",
-    text: "Your shortcut notes are my most-guarded treasure. Happy Teacher's Day! 📐"
+    text: "Your shortcut notes are my most-guarded treasure. Happy Teacher's Day! 📐",
+    category: "Funny"
   },
   {
     name: "Front Bench First-Row",
     forTeacher: "Anjali Ma'am",
-    text: "\"Ab dekho ek magic hoga\" — and our marks magically improved. Coincidence? We think not. 🧪"
+    text: "\"Ab dekho ek magic hoga\" — and suddenly chemistry felt like home. I'll carry that magic everywhere. 🧪",
+    category: "Emotional"
   },
   {
     name: "Silent Doubt Asker",
     forTeacher: "Neha Ma'am",
-    text: "Thank you for answering my silliest questions like they were the smartest ones. 🔬"
+    text: "Thank you for answering my silliest questions like they were the smartest ones. 🔬",
+    category: "Thank You"
   }
 ];
 

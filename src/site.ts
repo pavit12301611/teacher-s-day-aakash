@@ -353,6 +353,42 @@ function initNav(): void {
     });
   });
 
+  // Subjects dropdown (desktop hover/click + mobile drawer + touch)
+  document.querySelectorAll<HTMLElement>(".nav-drop").forEach((drop) => {
+    const btn = drop.querySelector<HTMLButtonElement>(".drop-btn");
+    if (!btn) return;
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wasOpen = drop.classList.contains("open");
+      document
+        .querySelectorAll(".nav-drop.open")
+        .forEach((d) => d.classList.remove("open"));
+      if (!wasOpen) {
+        drop.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+      } else {
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+    drop.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        drop.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  });
+  document.addEventListener("click", () => {
+    document.querySelectorAll(".nav-drop.open").forEach((d) => {
+      d.classList.remove("open");
+      d.querySelector(".drop-btn")?.setAttribute("aria-expanded", "false");
+    });
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      document.querySelectorAll(".nav-drop.open").forEach((d) => d.classList.remove("open"));
+    }
+  });
+
   qs("#to-top")?.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });

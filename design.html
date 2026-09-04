@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The Aakash Teacher's Day design system — colours, typography, buttons and components, all categorised in one living style guide."
+    />
+    <meta name="theme-color" content="#030b26" />
+    <meta property="og:title" content="Design System 🎨 | Aakash Teacher's Day" />
+    <meta property="og:type" content="website" />
+    <title>Design System 🎨 | Aakash Teacher's Day</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-page="design">
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
+
+    <header class="nav" id="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html" aria-label="Teacher's Day home">
+          <span class="brand-badge">🎓</span>
+          <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+          <a href="index.html" class="nav-link" data-nav="home">Home</a>
+          <a href="teachers.html" class="nav-link" data-nav="teachers">Teachers</a>
+          <div class="nav-drop">
+            <button class="nav-link drop-btn" data-nav="category" aria-haspopup="true" aria-expanded="false">Subjects <span class="chev">▾</span></button>
+            <div class="drop-menu" role="menu">
+              <a href="category.html?subject=Physics" role="menuitem">🚀 Physics</a>
+              <a href="category.html?subject=Chemistry" role="menuitem">🧪 Chemistry</a>
+              <a href="category.html?subject=Mathematics" role="menuitem">📐 Mathematics</a>
+              <a href="category.html?subject=Biology" role="menuitem">🧬 Biology</a>
+              <a href="teachers.html" class="drop-all" role="menuitem">✨ All Teachers →</a>
+            </div>
+          </div>
+          <a href="memories.html" class="nav-link" data-nav="memories">Memories</a>
+          <a href="about.html" class="nav-link" data-nav="about">About</a>
+          <a href="teachers.html" class="btn btn-gold btn-sm nav-cta">💌 Send a Wish</a>
+        </nav>
+        <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="container page-hero-inner">
+        <nav class="crumbs reveal" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>›</span><span class="here">Design System</span>
+        </nav>
+        <span class="eyebrow reveal">🎨 Living style guide</span>
+        <h1 class="reveal">The design, <em>categorised.</em></h1>
+        <p class="lede reveal">
+          Every colour, font and component of this site in one place. Tap any colour
+          to copy its hex — future batches, this is your recipe book. 💙
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== SYSTEM ===== -->
+    <section class="section" style="padding-top: 54px">
+      <div class="container">
+        <div class="ds-section reveal">
+          <h3>01 · Brand colours</h3>
+          <p>Midnight navy grounds everything, royal blue carries the action, sky keeps it friendly and gold saves the celebration. Tap to copy.</p>
+          <div class="swatch-grid">
+            <button class="swatch" data-hex="#030b26"><span class="sw-color" style="background: #030b26"></span><span class="sw-info"><strong>Midnight</strong><code>#030b26</code></span></button>
+            <button class="swatch" data-hex="#071743"><span class="sw-color" style="background: #071743"></span><span class="sw-info"><strong>Deep Navy</strong><code>#071743</code></span></button>
+            <button class="swatch" data-hex="#2456e6"><span class="sw-color" style="background: #2456e6"></span><span class="sw-info"><strong>Royal</strong><code>#2456e6</code></span></button>
+            <button class="swatch" data-hex="#2f7cf6"><span class="sw-color" style="background: #2f7cf6"></span><span class="sw-info"><strong>Aakash Blue</strong><code>#2f7cf6</code></span></button>
+            <button class="swatch" data-hex="#38bdf8"><span class="sw-color" style="background: #38bdf8"></span><span class="sw-info"><strong>Sky</strong><code>#38bdf8</code></span></button>
+            <button class="swatch" data-hex="#bfe3ff"><span class="sw-color" style="background: #bfe3ff"></span><span class="sw-info"><strong>Ice Blue</strong><code>#bfe3ff</code></span></button>
+            <button class="swatch" data-hex="#ffc94d"><span class="sw-color" style="background: #ffc94d"></span><span class="sw-info"><strong>Celebration Gold</strong><code>#ffc94d</code></span></button>
+            <button class="swatch" data-hex="#ff8fb5"><span class="sw-color" style="background: #ff8fb5"></span><span class="sw-info"><strong>Gulab Rose</strong><code>#ff8fb5</code></span></button>
+          </div>
+        </div>
+
+        <div class="ds-section reveal">
+          <h3>02 · Subject accents</h3>
+          <p>Each subject keeps its own blue-family accent so cards, chips and category pages feel related but distinct.</p>
+          <div class="swatch-grid">
+            <button class="swatch" data-hex="#2563eb"><span class="sw-color" style="background: #2563eb"></span><span class="sw-info"><strong>Physics 🚀</strong><code>#2563eb</code></span></button>
+            <button class="swatch" data-hex="#0ea5e9"><span class="sw-color" style="background: #0ea5e9"></span><span class="sw-info"><strong>Chemistry 🧪</strong><code>#0ea5e9</code></span></button>
+            <button class="swatch" data-hex="#4f46e5"><span class="sw-color" style="background: #4f46e5"></span><span class="sw-info"><strong>Maths 📐</strong><code>#4f46e5</code></span></button>
+            <button class="swatch" data-hex="#0891b2"><span class="sw-color" style="background: #0891b2"></span><span class="sw-info"><strong>Biology 🧬</strong><code>#0891b2</code></span></button>
+          </div>
+        </div>
+
+        <div class="ds-section reveal">
+          <h3>03 · Typography</h3>
+          <p>Three voices: Fraunces for grand headlines, Outfit for friendly UI, Caveat for handwritten love-notes.</p>
+          <div class="type-spec">
+            <div class="type-row"><small>Display · Fraunces</small><span class="type-display">Those who light minds shine forever.</span></div>
+            <div class="type-row"><small>Body · Outfit</small><span class="type-body">A little corner of the internet built with love, laughter &amp; late-night doubt sessions for every teacher at Aakash.</span></div>
+            <div class="type-row"><small>Hand · Caveat</small><span class="type-hand">“to the ones who never gave up on us” 💙</span></div>
+          </div>
+        </div>
+
+        <div class="ds-section ds-dark reveal">
+          <h3>04 · Buttons</h3>
+          <p>Gold for the main action, primary blue for trust, ghost for secondary moves on dark backgrounds.</p>
+          <div class="comp-row">
+            <a class="btn btn-gold" href="teachers.html">💌 Send a Wish</a>
+            <a class="btn btn-primary" href="teachers.html">👩‍🏫 Meet Teachers</a>
+            <button class="btn btn-ghost" data-celebrate>🎉 Surprise Me</button>
+            <button class="btn btn-white">⬜ White</button>
+          </div>
+        </div>
+
+        <div class="ds-section reveal">
+          <h3>05 · Tags &amp; filters</h3>
+          <p>Eyebrows label sections, subject chips mark cards, pills filter galleries, category chips organise the wish wall.</p>
+          <div class="comp-row" style="margin-bottom: 14px">
+            <span class="eyebrow eyebrow-light">💌 Our Superhero Teachers</span>
+            <span class="card-subject" style="--accent: #2563eb; --soft: #e5efff">🚀 Physics</span>
+          </div>
+          <div class="comp-row" style="margin-bottom: 14px">
+            <span class="pill active">✨ All Teachers</span>
+            <span class="pill">Physics</span>
+            <span class="pill">Chemistry</span>
+          </div>
+          <div class="comp-row">
+            <span class="chip active">💙 All</span>
+            <span class="chip">😂 Funny</span>
+            <span class="chip">🥹 Emotional</span>
+            <span class="chip">✨ Inspirational</span>
+            <span class="chip">🙏 Thank You</span>
+          </div>
+        </div>
+
+        <div class="ds-section reveal">
+          <h3>06 · Playground</h3>
+          <p>The living bits — confetti cannons and chalkboard truths, straight from the Memories Room.</p>
+          <div class="comp-row">
+            <button class="btn btn-dark" data-celebrate>🎆 Fire Confetti</button>
+            <a class="btn btn-outline" href="memories.html">🎪 Open Memories Room</a>
+            <a class="btn btn-outline" href="category.html?subject=Physics">🗂️ Sample Category</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee light" aria-hidden="true">
+      <div class="marquee-track">
+        <span>🎨 DESIGN</span><span>💙 SYSTEM</span><span>✨ TOKENS</span>
+        <span>📐 COMPONENTS</span><span>🌟 CRAFT</span>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <span class="brand-badge">🎓</span>
+            <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
+          </a>
+          <p>Made with 💙 by your students — late-night doubt sessions, early-morning revisions, and endless gratitude included.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="teachers.html">👩‍🏫 All Teachers</a></li>
+            <li><a href="memories.html">🎪 Memories Room</a></li>
+            <li><a href="about.html">📖 Our Story</a></li>
+            <li><a href="design.html">🎨 Design System</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="category.html?subject=Physics">🚀 Physics Heroes</a></li>
+            <li><a href="category.html?subject=Chemistry">🧪 Chemistry Heroes</a></li>
+            <li><a href="category.html?subject=Mathematics">📐 Maths Heroes</a></li>
+            <li><a href="category.html?subject=Biology">🧬 Biology Heroes</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Dedication pages</h4>
+          <div class="footer-teacher-links">
+            <a href="teacher.html?id=rakesh-sir">🚀 Rakesh Sir</a>
+            <a href="teacher.html?id=anjali-mam">🧪 Anjali Ma'am</a>
+            <a href="teacher.html?id=vikram-sir">📐 Vikram Sir</a>
+            <a href="teacher.html?id=priya-mam">🧬 Priya Ma'am</a>
+            <a href="teacher.html?id=amit-sir">⚡ Amit Sir</a>
+            <a href="teacher.html?id=neha-mam">🔬 Neha Ma'am</a>
+            <a href="teacher.html?id=suresh-sir">🧮 Suresh Sir</a>
+            <a href="teacher.html?id=kavita-mam">🌻 Kavita Ma'am</a>
+          </div>
+        </div>
+      </div>
+      <div class="container"><div class="giant-word" aria-hidden="true">SHUKRIYA</div></div>
+      <div class="container footer-bottom">
+        <span>Aakash Coaching Centre · Happy Teacher's Day <span id="year">2026</span> · Built with <strong>TypeScript</strong> &amp; homework breaks</span>
+        <a href="design.html" class="footer-top-link">↑ Back to top</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <button id="to-top" aria-label="Back to top">↑</button>
+
+    <script type="module" src="/src/design-page.ts"></script>
+  </body>
+</html>

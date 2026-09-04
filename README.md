@@ -16,6 +16,8 @@ confetti engine, buttery smooth animations).
 | **Teacher dedication** | `teacher.html?id=<teacher-id>` | **Individual page per teacher** — letter, quote, superpower, dialogue, Read Aloud, Send a Wish, WhatsApp share, prev/next, related teachers |
 | Memories Room | `memories.html` | Chalkboard fun zone, live wish wall (saved on device), confetti playground |
 | Our Story | `about.html` | Values, timeline of an Aakash day, love note |
+| Subject Category | `category.html?subject=Physics` | 🗂️ Landing page per subject — line-up, famous dialogues, quotes |
+| Design System | `design.html` | 🎨 Categorised style guide — colours (tap to copy hex), type, components |
 
 Example individual pages: `teacher.html?id=rakesh-sir`, `teacher.html?id=anjali-mam`, …
 
@@ -64,6 +66,10 @@ TypeScript validates the shape for you.
 - **Individual dedication page per teacher** — paper-style letter, Read Aloud (Indian
   English voice), Send a Wish (heart confetti + counter), WhatsApp/copy-link share,
   prev-next + related teachers
+- **Categories everywhere** — Subjects dropdown in nav, per-subject landing pages, wish-wall
+  categories (😂 Funny · 🥹 Emotional · ✨ Inspirational · 🙏 Thank You) with filters
+- **Daily Teacher Spotlight** on Home, **Print the Letter** + **←/→ keyboard walk** on dedications
+- **Design System page** — every colour/font/component categorised, tap any swatch to copy hex
 - **Memories Room** — chalkboard with rotating student-life facts + your own wish wall
 - Filter by subject (deep-linkable: `teachers.html?subject=Physics`) + instant search
 - Confetti everywhere, scroll progress bar, cursor glow, 3D tilt + spotlight cards,

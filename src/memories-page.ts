@@ -1,6 +1,14 @@
 /* 🎪 Memories + Fun Zone + Wish Wall page */
 import "./style.css";
-import { CHALK_FACTS, TEACHERS, WALL_WISHES, type WallWish } from "./teachers";
+import {
+  CHALK_FACTS,
+  TEACHERS,
+  WALL_WISHES,
+  WISH_CATEGORIES,
+  wishCategoryEmoji,
+  type WallWish,
+  type WishCategory
+} from "./teachers";
 import {
   initSite,
   must,
@@ -42,18 +50,29 @@ function storedWall(): WallWish[] {
     const raw = window.localStorage.getItem(WALL_KEY);
     const parsed: unknown = raw ? JSON.parse(raw) : [];
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (w): w is WallWish =>
-        typeof w === "object" &&
-        w !== null &&
-        typeof (w as WallWish).name === "string" &&
-        typeof (w as WallWish).text === "string" &&
-        typeof (w as WallWish).forTeacher === "string"
-    );
+    const valid = ["Funny", "Emotional", "Inspirational", "Thank You"] as const;
+    type ValidCat = (typeof valid)[number];
+    return parsed
+      .filter(
+        (w): w is WallWish =>
+          typeof w === "object" &&
+          w !== null &&
+          typeof (w as WallWish).name === "string" &&
+          typeof (w as WallWish).text === "string" &&
+          typeof (w as WallWish).forTeacher === "string"
+      )
+      .map((w) => ({
+        ...w,
+        category: (valid as readonly string[]).includes(w.category as string)
+          ? (w.category as ValidCat)
+          : ("Thank You" as ValidCat)
+      }));
   } catch {
     return [];
   }
 }
+
+let wallFilter: "All" | WishCategory = "All";
 
 function saveWall(wishes: WallWish[]): void {
   try {
@@ -67,6 +86,7 @@ function wishCardHTML(w: WallWish, mine: boolean, idx: number): string {
   return `
     <article class="wish-card reveal in">
       <span class="w-for">💙 For ${escapeHtml(w.forTeacher)}</span>
+      <span class="w-cat">${wishCategoryEmoji(w.category)} ${escapeHtml(w.category)}</span>
       <p>${escapeHtml(w.text)}</p>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
         <span class="w-by">— ${escapeHtml(w.name)}</span>
@@ -79,16 +99,44 @@ function wishCardHTML(w: WallWish, mine: boolean, idx: number): string {
     </article>`;
 }
 
+function renderFilters(): void {
+  const row = qs("#wish-filters");
+  if (!row) return;
+  const pills: Array<"All" | WishCategory> = ["All", ...WISH_CATEGORIES.map((c) => c.id)];
+  row.innerHTML = pills
+    .map((c) => {
+      const label = c === "All" ? "All Wishes" : `${wishCategoryEmoji(c)} ${c}`;
+      return `<button class="chip ${wallFilter === c ? "active" : ""}" data-cat="${c}">${label}</button>`;
+    })
+    .join("");
+  row.querySelectorAll<HTMLButtonElement>("[data-cat]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      wallFilter = btn.dataset.cat as "All" | WishCategory;
+      renderFilters();
+      renderWall();
+    });
+  });
+}
+
 function renderWall(): void {
   const wall = must("#wish-wall");
   const mine = storedWall();
+  const keep = (w: WallWish): boolean => wallFilter === "All" || w.category === wallFilter;
+  const mineShown = mine.map((w, i) => ({ w, i })).filter(({ w }) => keep(w));
+  const presetShown = WALL_WISHES.filter(keep);
   const cards = [
-    ...mine.map((w, i) => wishCardHTML(w, true, i)),
-    ...WALL_WISHES.map((w) => wishCardHTML(w, false, -1))
+    ...mineShown.map(({ w, i }) => wishCardHTML(w, true, i)),
+    ...presetShown.map((w) => wishCardHTML(w, false, -1))
   ];
-  wall.innerHTML = cards.join("");
+  wall.innerHTML =
+    cards.join("") ||
+    `<div class="empty-state reveal in" style="border-color:var(--line);color:var(--muted);background:#fff"><span>\u{1FAD7}</span><p>No wishes in this category yet.<br />Be the first to pin one!</p></div>`;
   const count = qs("#wall-count");
-  if (count) count.textContent = `${mine.length + WALL_WISHES.length} wishes on the wall`;
+  if (count) {
+    const total = mine.length + WALL_WISHES.length;
+    count.textContent =
+      wallFilter === "All" ? `${total} wishes on the wall` : `${cards.length} of ${total}`;
+  }
   wall.querySelectorAll<HTMLButtonElement>("[data-del]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const i = Number(btn.dataset.del);
@@ -111,6 +159,14 @@ function fillTeacherSelect(): void {
     ).join("");
 }
 
+function fillCatSelect(): void {
+  const select = qs<HTMLSelectElement>("#wish-cat");
+  if (!select) return;
+  select.innerHTML = WISH_CATEGORIES.map(
+    (c) => `<option value="${c.id}">${c.emoji} ${c.id}</option>`
+  ).join("");
+}
+
 function wireForm(): void {
   const form = qs<HTMLFormElement>("#wish-form");
   if (!form) return;
@@ -124,7 +180,12 @@ function wireForm(): void {
       return;
     }
     const list = storedWall();
-    list.unshift({ name: name.slice(0, 40), forTeacher, text: text.slice(0, 280) });
+    const rawCat = qs<HTMLSelectElement>("#wish-cat")?.value ?? "Thank You";
+    const validCats: WishCategory[] = ["Funny", "Emotional", "Inspirational", "Thank You"];
+    const category: WishCategory = validCats.includes(rawCat as WishCategory)
+      ? (rawCat as WishCategory)
+      : "Thank You";
+    list.unshift({ name: name.slice(0, 40), forTeacher, text: text.slice(0, 280), category });
     saveWall(list);
     renderWall();
     form.reset();
@@ -158,6 +219,8 @@ function boot(): void {
   });
 
   fillTeacherSelect();
+  fillCatSelect();
+  renderFilters();
   renderWall();
   wireForm();
 }
