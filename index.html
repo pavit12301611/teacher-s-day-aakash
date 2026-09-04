@@ -5,36 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A heartfelt Teacher's Day tribute to the amazing teachers of Aakash Coaching Centre — personalized messages, written with love."
+      content="A heartfelt Teacher's Day celebration for the amazing teachers of Aakash Coaching Centre — every teacher gets their own dedication page, written with love."
     />
+    <meta name="theme-color" content="#030b26" />
+    <meta property="og:title" content="Happy Teacher's Day 💙 | Aakash Coaching Centre" />
+    <meta
+      property="og:description"
+      content="A little corner of the internet built with love — personal dedication pages for every Aakash teacher."
+    />
+    <meta property="og:type" content="website" />
     <title>Happy Teacher's Day 💙 | Aakash Coaching Centre</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body>
-    <!-- Scroll progress -->
+  <body data-page="home">
     <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
 
     <!-- ===== NAVBAR ===== -->
     <header class="nav" id="nav">
       <div class="container nav-inner">
-        <a class="brand" href="#home">
+        <a class="brand" href="index.html" aria-label="Teacher's Day home">
           <span class="brand-badge">🎓</span>
-          <span class="brand-text">Teacher's <span class="grad-text">Day</span></span>
+          <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
         </a>
-
         <nav class="nav-links" id="nav-links" aria-label="Main navigation">
-          <a href="#home" class="nav-link">Home</a>
-          <a href="#teachers" class="nav-link">Our Teachers</a>
-          <a href="#fun-zone" class="nav-link">Fun Zone</a>
-          <a href="#teachers" class="btn btn-primary btn-sm" data-wish-cta>💌 Send a Wish</a>
+          <a href="index.html" class="nav-link" data-nav="home">Home</a>
+          <a href="teachers.html" class="nav-link" data-nav="teachers">Teachers</a>
+          <a href="memories.html" class="nav-link" data-nav="memories">Memories</a>
+          <a href="about.html" class="nav-link" data-nav="about">About</a>
+          <a href="teachers.html" class="btn btn-gold btn-sm nav-cta">💌 Send a Wish</a>
         </nav>
-
         <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -42,163 +51,237 @@
     </header>
 
     <!-- ===== HERO ===== -->
-    <section class="hero" id="home">
-      <div class="hero-blob blob-a" aria-hidden="true"></div>
-      <div class="hero-blob blob-b" aria-hidden="true"></div>
-      <div class="hero-blob blob-c" aria-hidden="true"></div>
-      <div class="hero-doodles" aria-hidden="true">
-        <span style="--d: 0s; left: 8%; top: 22%">✏️</span>
-        <span style="--d: 1.2s; left: 16%; top: 64%">🖍️</span>
-        <span style="--d: 0.6s; left: 84%; top: 26%">📐</span>
-        <span style="--d: 1.8s; left: 76%; top: 66%">⭐</span>
-        <span style="--d: 0.9s; left: 46%; top: 12%">🧪</span>
-        <span style="--d: 2.2s; left: 60%; top: 80%">📚</span>
+    <section class="hero">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="aurora aurora-a" aria-hidden="true"></div>
+      <div class="aurora aurora-b" aria-hidden="true"></div>
+      <div class="aurora aurora-c" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <div>
+          <p class="hero-badge reveal">
+            <span class="ping-dot"></span>
+            5th September · Teachers' Day 2026 · Aakash Coaching Centre
+          </p>
+          <h1 class="hero-title">
+            Those who light minds deserve a <em>whole celebration.</em>
+          </h1>
+          <p class="hero-sub reveal">
+            A little corner of the internet built with
+            <strong>love, laughter &amp; late-night doubt sessions</strong> — every teacher
+            gets their <strong>own dedication page</strong>, sealed with a letter, a wish
+            and a dhamaka. 💙
+          </p>
+          <div class="hero-actions reveal">
+            <a href="teachers.html" class="btn btn-gold btn-lg">👩‍🏫 Meet Our Superheroes</a>
+            <button class="btn btn-ghost btn-lg" data-celebrate>🎉 Surprise Me</button>
+          </div>
+          <div class="hero-proof reveal">
+            <div class="proof-avatars" aria-hidden="true">
+              <span style="background: linear-gradient(135deg, #2563eb, #0ea5e9)">RK</span>
+              <span style="background: linear-gradient(135deg, #0ea5e9, #22d3ee)">AS</span>
+              <span style="background: linear-gradient(135deg, #4f46e5, #818cf8)">VS</span>
+              <span style="background: linear-gradient(135deg, #0891b2, #34d399)">PV</span>
+              <span style="background: linear-gradient(135deg, #f59e0b, #ff8fb5)">+</span>
+            </div>
+            <p class="proof-text">
+              <strong>8 dedication pages</strong> · 4 subjects · loved by the whole batch
+            </p>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="orbit-ring"></div>
+          <div class="hero-main-card">
+            <span class="big-emoji">🎓</span>
+            <h3>Happy Teacher's Day!</h3>
+            <p>“to the ones who never gave up on us”</p>
+          </div>
+          <div class="float-card fc-1">
+            <span class="fc-emoji">🚀</span>
+            <span>Physics<small>Rakesh Sir · Amit Sir</small></span>
+          </div>
+          <div class="float-card fc-2">
+            <span class="fc-emoji">🧪</span>
+            <span>Chemistry<small>Anjali Ma'am · Neha Ma'am</small></span>
+          </div>
+          <div class="float-card fc-3">
+            <span class="fc-emoji">📐</span>
+            <span>Maths<small>Vikram Sir · Suresh Sir</small></span>
+          </div>
+          <div class="float-card fc-4">
+            <span class="fc-emoji">🧬</span>
+            <span>Biology<small>Priya Ma'am · Kavita Ma'am</small></span>
+          </div>
+        </div>
       </div>
 
-      <div class="container hero-content">
-        <p class="hero-badge reveal">
-          <span class="ping-dot"></span>
-          5th September &middot; Teachers' Day 2026 &middot; Aakash Coaching Centre
-        </p>
-
-        <h1 class="hero-title">
-          Happy <span class="hero-highlight">Teacher's</span> Day!
-        </h1>
-
-        <p class="hero-sub reveal">
-          A little corner of the internet built with <strong>love, laughter &amp; late-night
-          doubt sessions</strong> — a thank-you card for every teacher who makes Aakash feel like a
-          second home. 💙
-        </p>
-
-        <div class="hero-actions reveal">
-          <a href="#teachers" class="btn btn-primary btn-lg">👩‍🏫 Meet Our Superheroes</a>
-          <button class="btn btn-ghost btn-lg" id="hero-surprise">🎉 Surprise Me</button>
-        </div>
-
-        <div class="hero-scroll" aria-hidden="true">
-          <a href="#teachers"><span class="mouse"><span class="wheel"></span></span></a>
-        </div>
+      <div class="hero-scroll" aria-hidden="true">
+        <span class="mouse"><span class="wheel"></span></span>
       </div>
     </section>
 
     <!-- ===== MARQUEE ===== -->
     <div class="marquee" aria-hidden="true">
-      <div class="marquee-track" id="marquee-track">
-        <span>📚 KNOWLEDGE</span><span>✨ GRACE</span><span>📐 MATHS</span><span>🧪 CHEMISTRY</span>
-        <span>🧬 BIOLOGY</span><span>🚀 PHYSICS</span><span>💙 THANKS</span><span>🎓 TEACHERS</span>
+      <div class="marquee-track">
+        <span>📚 KNOWLEDGE</span><span>✨ GRACE</span><span>📐 MATHS</span>
+        <span>🧪 CHEMISTRY</span><span>🧬 BIOLOGY</span><span>🚀 PHYSICS</span>
+        <span>💙 SHUKRIYA</span><span>🎓 TEACHERS</span>
       </div>
     </div>
 
     <!-- ===== STATS ===== -->
-    <section class="stats">
+    <div class="stats-band">
       <div class="container stats-grid">
-        <div class="stat-card reveal">
-          <span class="stat-icon">👩‍🏫</span>
-          <strong class="stat-value" id="stat-teachers">0</strong>
-          <span class="stat-label">Amazing Teachers</span>
-        </div>
-        <div class="stat-card reveal">
-          <span class="stat-icon">📖</span>
-          <strong class="stat-value" id="stat-subjects">0</strong>
-          <span class="stat-label">Subjects Mastered</span>
-        </div>
-        <div class="stat-card reveal">
-          <span class="stat-icon">💌</span>
-          <strong class="stat-value" id="stat-wishes">0</strong>
-          <span class="stat-label">Wishes Sent To Them</span>
-        </div>
-        <div class="stat-card reveal">
-          <span class="stat-icon">♾️</span>
-          <strong class="stat-value">∞</strong>
-          <span class="stat-label">Doubts Cleared</span>
-        </div>
+        <div class="stat-card reveal"><span class="stat-icon">👩‍🏫</span><strong class="stat-value" data-count="8">0</strong><span class="stat-label">Dedication Pages</span></div>
+        <div class="stat-card reveal" style="--delay: 80ms"><span class="stat-icon">📖</span><strong class="stat-value" data-count="4">0</strong><span class="stat-label">Subjects Mastered</span></div>
+        <div class="stat-card reveal" style="--delay: 160ms"><span class="stat-icon">💌</span><strong class="stat-value" data-wish-count>128</strong><span class="stat-label">Wishes Sent</span></div>
+        <div class="stat-card reveal" style="--delay: 240ms"><span class="stat-icon">♾️</span><strong class="stat-value">∞</strong><span class="stat-label">Doubts Cleared</span></div>
       </div>
-    </section>
+    </div>
 
-    <!-- ===== TEACHERS ===== -->
-    <section class="teachers" id="teachers">
+    <!-- ===== FEATURED TEACHERS ===== -->
+    <section class="section">
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">💌 Our Superhero Teachers</span>
-          <h2>Personalised messages,<br /><span class="grad-text">written with heart</span></h2>
+          <h2>Every teacher gets <span class="grad-text">their own page</span></h2>
           <p class="section-sub">
-            Tap any teacher card to read your personal message. Real photos &amp; more names are
-            coming very soon — the love is already here. 💙
+            No more tiny popups — tap any card and walk into a full dedication: a personal
+            letter, their legendary dialogue, wishes and shareable surprises.
           </p>
         </div>
-
-        <div class="teacher-controls reveal">
-          <div class="filter-pills" id="filter-pills" role="group" aria-label="Filter by subject"></div>
-          <label class="search-box" for="teacher-search">
-            <span aria-hidden="true">🔎</span>
-            <input
-              id="teacher-search"
-              type="search"
-              placeholder="Search a teacher or subject…"
-              autocomplete="off"
-            />
-          </label>
+        <div class="teacher-grid" id="featured-grid"></div>
+        <div class="center-cta reveal">
+          <a href="teachers.html" class="btn btn-gold btn-lg">See all 8 teachers →</a>
         </div>
-
-        <div class="teacher-grid" id="teacher-grid"></div>
       </div>
     </section>
 
-    <!-- ===== FUN ZONE ===== -->
-    <section class="fun-zone" id="fun-zone">
-      <div class="container fun-inner">
-        <div class="fun-copy reveal">
-          <span class="eyebrow">🎪 The Fun Zone</span>
-          <h2>Chalkboard truths<br />from our classroom</h2>
-          <p class="section-sub">
-            Real talk about school life, straight from the back bench (we sit there, we know
-            everything). Press the buttons — chaos guaranteed but harmless. 😄
-          </p>
-          <div class="fun-actions">
-            <button class="btn btn-white" id="fact-next">🧮 Next Chalk Fact</button>
-            <button class="btn btn-primary" id="fun-surprise">🎆 Confetti Surprise</button>
+    <!-- ===== SUBJECTS ===== -->
+    <section class="section" style="padding-top: 0">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">📚 Four Kingdoms of Gyaan</span>
+          <h2>Pick your <span class="grad-text">battleground</span></h2>
+          <p class="section-sub">Every subject has its heroes. Choose one and meet the legends behind it.</p>
+        </div>
+        <div class="subject-grid" id="subject-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="section" style="padding-top: 0">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">🪄 How the magic works</span>
+          <h2>Three steps to make<br />their day <span class="grad-text">unforgettable</span></h2>
+        </div>
+        <div class="steps">
+          <div class="step-card reveal"><span class="step-emoji">🔎</span><span class="step-num">01</span><h3>Pick your teacher</h3><p>Browse the gallery and open your teacher's personal dedication page.</p></div>
+          <div class="step-card reveal" style="--delay: 100ms"><span class="step-emoji">💌</span><span class="step-num">02</span><h3>Read the letter aloud</h3><p>A hand-written style letter, their famous dialogue — press play and feel it.</p></div>
+          <div class="step-card reveal" style="--delay: 200ms"><span class="step-emoji">🎆</span><span class="step-num">03</span><h3>Send a wish &amp; share</h3><p>Burst the confetti, add to the wish counter and WhatsApp the page to the class.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QUOTE ===== -->
+    <section class="quote-band">
+      <div class="container">
+        <span class="quote-mark reveal">“</span>
+        <p class="quote-big reveal">The best teachers don't hand out answers — they hand out confidence.</p>
+        <p class="quote-by reveal">— Back bench, front hearts · Aakash Batch of 2026</p>
+      </div>
+    </section>
+
+    <!-- ===== FUN TEASER ===== -->
+    <section class="section" style="padding-top: 0">
+      <div class="container split">
+        <div class="split-visual reveal">
+          <div class="chalkboard chalk-mini">
+            <div class="chalk-head">
+              <span class="chalk-title">Today's Truth</span>
+              <span class="chalk-star"><i></i><i></i><i></i></span>
+            </div>
+            <p class="chalk-fact">“Beta, yeh last topic hai” is the biggest plot twist of every syllabus. 📚</p>
           </div>
         </div>
+        <div class="reveal">
+          <span class="eyebrow">🎪 The Memories Room</span>
+          <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; margin: 18px 0 12px; color: #fff;">
+            Chalkboard truths, a wish wall &amp; confetti cannons
+          </h2>
+          <p class="section-sub">Real talk from the back bench, a wall where the whole batch pins wishes, and buttons that go boom (harmlessly).</p>
+          <ul class="check-list">
+            <li><span class="check-ico">✓</span><span><b>Rotating chalkboard facts</b> — classroom truths, fresh every few seconds.</span></li>
+            <li><span class="check-ico">✓</span><span><b>Wish wall</b> — pin your own message for your favourite teacher.</span></li>
+            <li><span class="check-ico">✓</span><span><b>Confetti playground</b> — because teachers deserve ALL the dhamaka.</span></li>
+          </ul>
+          <div class="hero-actions">
+            <a href="memories.html" class="btn btn-primary btn-lg">🎪 Enter Memories Room</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="chalkboard reveal" id="chalkboard">
-          <div class="chalk-doodles" aria-hidden="true">
-            <span style="left: 6%; top: 10%">✏️</span>
-            <span style="right: 8%; bottom: 12%">🧽</span>
-            <span style="right: 12%; top: 10%">⭐</span>
+    <!-- ===== CTA ===== -->
+    <section class="section" style="padding-top: 0">
+      <div class="container">
+        <div class="cta-banner reveal">
+          <span class="eyebrow">💙 One click = one smile</span>
+          <h2>Ready to make a teacher's whole week?</h2>
+          <p>Open their page, read the letter, smash that wish button and watch the confetti fly. It takes 30 seconds and stays in their heart forever.</p>
+          <div class="cta-actions">
+            <a href="teachers.html" class="btn btn-gold btn-lg">💌 Choose a Teacher</a>
+            <button class="btn btn-ghost btn-lg" data-celebrate>🎆 Test Confetti</button>
           </div>
-          <div class="chalk-head">
-            <span class="chalk-title">Today's Truth</span>
-            <span class="chalk-star" id="fact-dots"><i></i><i></i><i></i></span>
-          </div>
-          <p class="chalk-fact" id="chalk-fact">Starting the chalkboard… ✍️</p>
         </div>
       </div>
     </section>
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
-      <div class="container footer-inner">
-        <p class="footer-title">Made with 💙 by your students</p>
-        <p class="footer-sub">
-          Aakash Coaching Centre &middot; Happy Teacher's Day 2026 &middot; Built with
-          <strong>TypeScript</strong> &amp; a lot of homework breaks
-        </p>
-        <a href="#home" class="footer-top">↑ Back to top</a>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <span class="brand-badge">🎓</span>
+            <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
+          </a>
+          <p>Made with 💙 by your students — late-night doubt sessions, early-morning revisions, and endless gratitude included.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="teachers.html">👩‍🏫 All Teachers</a></li>
+            <li><a href="memories.html">🎪 Memories Room</a></li>
+            <li><a href="about.html">📖 Our Story</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Dedication pages</h4>
+          <div class="footer-teacher-links">
+            <a href="teacher.html?id=rakesh-sir">🚀 Rakesh Sir</a>
+            <a href="teacher.html?id=anjali-mam">🧪 Anjali Ma'am</a>
+            <a href="teacher.html?id=vikram-sir">📐 Vikram Sir</a>
+            <a href="teacher.html?id=priya-mam">🧬 Priya Ma'am</a>
+            <a href="teacher.html?id=amit-sir">⚡ Amit Sir</a>
+            <a href="teacher.html?id=neha-mam">🔬 Neha Ma'am</a>
+            <a href="teacher.html?id=suresh-sir">🧮 Suresh Sir</a>
+            <a href="teacher.html?id=kavita-mam">🌻 Kavita Ma'am</a>
+          </div>
+        </div>
+      </div>
+      <div class="container"><div class="giant-word" aria-hidden="true">SHUKRIYA</div></div>
+      <div class="container footer-bottom">
+        <span>Aakash Coaching Centre · Happy Teacher's Day <span id="year">2026</span> · Built with <strong>TypeScript</strong> &amp; homework breaks</span>
+        <a href="index.html" class="footer-top-link">↑ Back to top</a>
       </div>
     </footer>
 
-    <!-- ===== TEACHER MODAL ===== -->
-    <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
-      <article class="modal-card" id="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-name">
-        <button class="modal-close" id="modal-close" aria-label="Close message">✕</button>
-        <div class="modal-body" id="modal-body"><!-- rendered by TS --></div>
-      </article>
-    </div>
-
-    <!-- ===== TOAST ===== -->
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <button id="to-top" aria-label="Back to top">↑</button>
 
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/home.ts"></script>
   </body>
 </html>

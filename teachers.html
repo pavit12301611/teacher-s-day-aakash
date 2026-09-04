@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Meet every Aakash teacher — filter by subject, search by name, and open each teacher's personal Teacher's Day dedication page."
+    />
+    <meta name="theme-color" content="#030b26" />
+    <meta property="og:title" content="Our Superhero Teachers 💙 | Aakash Teacher's Day" />
+    <meta property="og:type" content="website" />
+    <title>Our Teachers 👩‍🏫 | Aakash Teacher's Day</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-page="teachers">
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
+
+    <header class="nav" id="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html" aria-label="Teacher's Day home">
+          <span class="brand-badge">🎓</span>
+          <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+          <a href="index.html" class="nav-link" data-nav="home">Home</a>
+          <a href="teachers.html" class="nav-link" data-nav="teachers">Teachers</a>
+          <a href="memories.html" class="nav-link" data-nav="memories">Memories</a>
+          <a href="about.html" class="nav-link" data-nav="about">About</a>
+          <a href="teachers.html" class="btn btn-gold btn-sm nav-cta">💌 Send a Wish</a>
+        </nav>
+        <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="container page-hero-inner">
+        <nav class="crumbs reveal" aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>›</span><span class="here">Teachers</span>
+        </nav>
+        <span class="eyebrow reveal">👩‍🏫 The Wall of Legends</span>
+        <h1 class="reveal">Every teacher, one wall <em>of love.</em></h1>
+        <p class="lede reveal">
+          Filter by subject, search a name, then tap a card — each one opens a
+          <strong style="color: #fff">personal dedication page</strong> with a letter,
+          wishes and surprises. Real photos coming soon; the love is already here. 💙
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="section" style="padding-top: 54px">
+      <div class="container">
+        <div class="teacher-controls reveal">
+          <div class="filter-pills" id="filter-pills" role="group" aria-label="Filter by subject"></div>
+          <label class="search-box" for="teacher-search">
+            <span aria-hidden="true">🔎</span>
+            <input id="teacher-search" type="search" placeholder="Search a teacher or subject…" autocomplete="off" />
+          </label>
+        </div>
+        <p class="result-count reveal" id="result-count" aria-live="polite"></p>
+        <div style="height: 18px"></div>
+        <div class="teacher-grid cols-3" id="teacher-grid"></div>
+
+        <div class="section-gap">
+          <div class="cta-banner reveal">
+            <span class="eyebrow">🎪 Pssst… after the letters</span>
+            <h2>Pin your own wish on the wall</h2>
+            <p>The Memories Room has a live wish wall where the whole batch writes to teachers. Add yours — it takes 20 seconds.</p>
+            <div class="cta-actions">
+              <a href="memories.html" class="btn btn-gold btn-lg">🎪 Open Memories Room</a>
+              <a href="index.html" class="btn btn-ghost btn-lg">🏠 Back Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <span class="brand-badge">🎓</span>
+            <span class="brand-text">Teacher's Day<small>Aakash · 2026</small></span>
+          </a>
+          <p>Made with 💙 by your students — late-night doubt sessions, early-morning revisions, and endless gratitude included.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="teachers.html">👩‍🏫 All Teachers</a></li>
+            <li><a href="memories.html">🎪 Memories Room</a></li>
+            <li><a href="about.html">📖 Our Story</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Dedication pages</h4>
+          <div class="footer-teacher-links">
+            <a href="teacher.html?id=rakesh-sir">🚀 Rakesh Sir</a>
+            <a href="teacher.html?id=anjali-mam">🧪 Anjali Ma'am</a>
+            <a href="teacher.html?id=vikram-sir">📐 Vikram Sir</a>
+            <a href="teacher.html?id=priya-mam">🧬 Priya Ma'am</a>
+            <a href="teacher.html?id=amit-sir">⚡ Amit Sir</a>
+            <a href="teacher.html?id=neha-mam">🔬 Neha Ma'am</a>
+            <a href="teacher.html?id=suresh-sir">🧮 Suresh Sir</a>
+            <a href="teacher.html?id=kavita-mam">🌻 Kavita Ma'am</a>
+          </div>
+        </div>
+      </div>
+      <div class="container"><div class="giant-word" aria-hidden="true">SHUKRIYA</div></div>
+      <div class="container footer-bottom">
+        <span>Aakash Coaching Centre · Happy Teacher's Day <span id="year">2026</span> · Built with <strong>TypeScript</strong> &amp; homework breaks</span>
+        <a href="teachers.html" class="footer-top-link">↑ Back to top</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <button id="to-top" aria-label="Back to top">↑</button>
+
+    <script type="module" src="/src/teachers-page.ts"></script>
+  </body>
+</html>
