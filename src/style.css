@@ -5464,3 +5464,277 @@ body.menu-lock {
     min-height: 6px;
   }
 }
+
+/* ============================================================
+   📱 DE-CLUTTER PASS — phones get one idea per screen.
+   Fewer layers, fewer chips, no decoration that repeats what the
+   card already says, and more air between blocks.
+   ============================================================ */
+
+@media (max-width: 640px) {
+  /* --- quiet canvas: dot grid off, grain fainter, two washes not four --- */
+  body::before {
+    display: none;
+  }
+  body::after {
+    opacity: 0.07;
+  }
+  body {
+    background:
+      radial-gradient(560px 300px at 100% -4%, rgba(255, 227, 240, 0.7), transparent 62%),
+      radial-gradient(520px 320px at -12% 100%, rgba(223, 243, 255, 0.65), transparent 60%),
+      var(--paper);
+  }
+  .aurora {
+    display: none;
+  }
+  .stars {
+    display: none;
+  }
+
+  /* --- more air, less noise --- */
+  .section {
+    padding: clamp(56px, 16vw, 78px) 0;
+  }
+  .section-head {
+    margin-bottom: 28px;
+    padding-top: 12px;
+  }
+  .section-head::before {
+    width: 38px;
+    height: 4px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.5rem, 7vw, 1.95rem);
+  }
+  .marquee {
+    padding: 9px 0;
+  }
+  .marquee-track,
+  .thankyou-marquee .marquee-track {
+    gap: 20px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* --- hero: just the message --- */
+  .hero {
+    padding: calc(82px + 4vw) 0 30px;
+  }
+  .hero-inner {
+    gap: 26px;
+  }
+  .hero-visual,
+  .hero-scroll,
+  .orbit-ring,
+  .float-card {
+    display: none;
+  }
+  .hero-badge {
+    gap: 8px;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .hero-title {
+    font-size: clamp(2.2rem, 11vw, 2.9rem);
+    margin: 12px 0 14px;
+  }
+  .hero-title em::after {
+    bottom: -0.08em;
+    height: 0.12em;
+    min-height: 7px;
+  }
+  .hero-sub {
+    font-size: 1.02rem;
+    max-width: 36ch;
+  }
+  .hero-actions {
+    margin-top: 22px;
+    gap: 9px;
+  }
+  .hero-proof {
+    margin-top: 20px;
+  }
+
+  /* --- stats: numbers only --- */
+  .stat-icon {
+    display: none;
+  }
+  .stat-card {
+    padding: 15px 8px;
+    border-top-width: 3px;
+  }
+  .stat-value {
+    font-size: 1.55rem;
+  }
+
+  /* --- teacher card: pill, face, name, one line --- */
+  .teacher-card {
+    padding: 18px 15px 16px;
+    gap: 4px;
+  }
+  .card-strip {
+    height: 3px;
+  }
+  .card-top {
+    margin-bottom: 4px;
+  }
+  .card-goto {
+    width: 34px;
+    height: 34px;
+  }
+  .avatar {
+    width: 78px;
+    height: 78px;
+    border-radius: 26px;
+  }
+  .card-name {
+    font-size: 1.28rem;
+    margin-top: 6px;
+  }
+  .card-tagline {
+    font-size: 0.92rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-topics,
+  .card-meta,
+  .card-btn {
+    display: none;
+  }
+
+  /* --- subject bento: icon, name, one-line pitch --- */
+  .subject-card {
+    padding: 20px 18px;
+    gap: 6px;
+  }
+  .subject-card p {
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .subject-topics,
+  .subject-card::after {
+    display: none;
+  }
+  .subject-link {
+    margin-top: 2px;
+    font-size: 0.82rem;
+  }
+
+  /* --- spotlight: quote + two buttons, no second avatar --- */
+  .spot-tag,
+  .spot-topics,
+  .spot-side {
+    display: none;
+  }
+  .spotlight-card {
+    padding: 24px 20px;
+  }
+
+  /* --- chips: flat tint, no border, no shadow --- */
+  .card-topics span,
+  .subject-topics span,
+  .ded-topics span,
+  .spot-topics span,
+  .cat-chip {
+    border: none;
+    box-shadow: none;
+    background: rgba(27, 20, 66, 0.055);
+    color: var(--ink-soft);
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  /* --- cards sit flatter on a phone --- */
+  .teacher-card,
+  .subject-card,
+  .stat-card,
+  .value-card,
+  .wish-card,
+  .step-card,
+  .pn-card,
+  .dialogue-item,
+  .ded-card,
+  .spotlight-card,
+  .minigame,
+  .daily-wish,
+  .msg-lib {
+    box-shadow: 0 14px 28px -24px rgba(27, 20, 66, 0.6);
+  }
+
+  /* --- inner page heads: shorter --- */
+  .page-hero {
+    padding: calc(86px + 8vw) 0 clamp(34px, 9vw, 48px);
+  }
+  .page-hero h1 {
+    font-size: clamp(1.85rem, 8.2vw, 2.5rem);
+    margin: 12px 0 10px;
+  }
+  .page-hero .section-sub,
+  .page-hero p {
+    font-size: 0.96rem;
+  }
+  .giant-word {
+    display: none;
+  }
+  .crumbs {
+    margin-bottom: 4px;
+  }
+
+  /* --- whiteboard: no doodles --- */
+  .chalk-doodles {
+    display: none;
+  }
+
+  /* --- footer: no repeated blurb --- */
+  .footer {
+    padding-top: 42px;
+    border-radius: 30px 30px 0 0;
+  }
+  .footer-brand p {
+    display: none;
+  }
+  .footer h4 {
+    margin-bottom: 10px;
+  }
+  .footer-links {
+    gap: 6px;
+  }
+  .footer-links a,
+  .footer-teacher-links a {
+    min-height: 38px;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-title {
+    font-size: 2.05rem;
+  }
+  .stats-grid {
+    gap: 8px;
+  }
+  .stat-value {
+    font-size: 1.4rem;
+  }
+  .footer-teacher-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .footer-teacher-links a {
+    justify-content: center;
+  }
+}
