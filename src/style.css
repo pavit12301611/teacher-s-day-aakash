@@ -32,8 +32,8 @@
   --royal: var(--pop-blue);
   --blue: var(--pop-blue);
   --sky: var(--pop-cyan);
-  --gold: #ef8b12;
-  --gold-deep: #d9700a;
+  --gold: var(--pop-amber);
+  --gold-deep: #c96206;
   --rose: var(--pop-pink);
   --ink: #1b1442;
   --ink-soft: #4a4272;
@@ -616,7 +616,6 @@ body[data-page="home"] .section-sub {
   height: 10px;
   border-radius: 50%;
   background: #22c55e;
-  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
   box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
   animation: ping 1.8s ease-out infinite;
 }
@@ -1883,11 +1882,12 @@ body[data-page="home"] .section-sub {
 }
 
 .fact-chip {
-  border-radius: 20px;
-  padding: 20px;
-  background: linear-gradient(160deg, #fffdf8, #fff);
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1.5px solid var(--ink-line);
   border-top: 3px solid var(--tint-solid, var(--pop-blue));
-  border: 1px solid var(--line);
+  box-shadow: var(--hard-sm);
 }
 
 .fact-chip small {
@@ -4519,8 +4519,6 @@ body[data-page="home"] .section-sub {
   margin: clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) 0;
   border-radius: 26px;
   background: linear-gradient(180deg, #eef4ff, #fff);
-  border: 1px solid var(--line);
-  border: 1px solid var(--line);
   padding: 24px;
 }
 
@@ -5736,5 +5734,373 @@ body.menu-lock {
   }
   .footer-teacher-links a {
     justify-content: center;
+  }
+}
+
+/* ============================================================
+   ✨ REFINEMENT PASS
+   Kills the last "generated" tells — rainbow gradient headlines,
+   five different chip recipes, mismatched corner radii — and adds
+   the small details that make a site feel finished.
+   ============================================================ */
+
+:root {
+  /* one corner scale for the whole site */
+  --r-sm: 16px;
+  --r-md: 22px;
+  --r-card: 26px;
+  --r-panel: 34px;
+}
+
+/* ---------------- headlines are highlighted with a marker, not a gradient ---------------- */
+
+.grad-text,
+.grad-text-blue {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: inherit;
+  -webkit-text-fill-color: currentcolor;
+  position: relative;
+  isolation: isolate;
+  padding-inline: 0.06em;
+}
+
+.grad-text::before,
+.grad-text-blue::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.04em;
+  right: -0.04em;
+  bottom: 0.05em;
+  height: 0.42em;
+  border-radius: 5px;
+  background: linear-gradient(92deg, rgba(249, 178, 52, 0.62), rgba(255, 47, 123, 0.42));
+  transform: skew(-16deg) rotate(-0.5deg);
+}
+
+.grad-text-blue::before {
+  background: linear-gradient(92deg, rgba(47, 107, 255, 0.26), rgba(6, 182, 212, 0.42));
+}
+
+/* the same crayon treatment the hero uses, so headlines rhyme everywhere */
+.hero-title em,
+.page-hero h1 em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentcolor;
+  color: var(--pop-grape);
+}
+
+/* ---------------- one chip recipe for the whole site ---------------- */
+
+.subject-topics span,
+.card-topics span,
+.ded-topics span,
+.spot-topics span,
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  border: none;
+  background: var(--soft, rgba(27, 20, 66, 0.055));
+  color: var(--accent, var(--ink-soft));
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: none;
+}
+
+.w-cat {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 11px;
+  border: none;
+  border-radius: 99px;
+  background: #fff2d2;
+  color: #8f5606;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* interactive pills follow the sticker language too */
+.pill,
+.chip {
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--ink-line);
+  background: #fff;
+  color: var(--ink-soft);
+  box-shadow: var(--hard-sm);
+}
+
+@media (max-width: 640px) {
+  .subject-topics span,
+  .card-topics span,
+  .ded-topics span,
+  .spot-topics span,
+  .cat-chip {
+    min-height: 26px;
+    padding: 4px 10px;
+    font-size: 0.68rem;
+  }
+}
+
+/* ---------------- corners: one scale everywhere ---------------- */
+
+.teacher-card,
+.subject-card,
+.value-card,
+.wish-card,
+.step-card,
+.secret-card,
+.pn-card,
+.dialogue-item,
+.ded-card,
+.minigame,
+.daily-wish,
+.msg-lib,
+.secret-box,
+.empty-state,
+.fact-chip {
+  border-radius: var(--r-card);
+}
+
+.spotlight-card,
+.cta-banner,
+.love-note,
+.wish-form-card,
+.chalkboard,
+.ds-section,
+.playground {
+  border-radius: var(--r-panel);
+}
+
+/* ---------------- dark feature panels: one recipe ---------------- */
+
+.cta-banner,
+.love-note,
+.wish-form-card,
+.ds-dark {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), var(--paper-lift-lg);
+}
+
+.chalkboard {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 26px 46px -32px rgba(27, 20, 66, 0.85),
+    0 0 0 6px rgba(255, 255, 255, 0.55);
+}
+
+/* ---------------- avatars become printed photos ---------------- */
+
+.avatar:has(img) {
+  background: #fff;
+  border: 1.5px solid var(--ink-line);
+  padding: 4px;
+  box-shadow: 0 14px 26px -18px rgba(27, 20, 66, 0.8);
+  transform: rotate(-2deg);
+}
+
+.avatar:has(img) img {
+  inset: 4px;
+  width: auto;
+  height: auto;
+  border-radius: 22px;
+}
+
+.avatar.lg:has(img) {
+  padding: 6px;
+}
+
+.avatar.lg:has(img) img {
+  inset: 6px;
+  border-radius: 34px;
+}
+
+.avatar:has(img) .avatar-emoji {
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 0 0 3px #fff, var(--shadow-sm);
+}
+
+/* the photo straightens when you show interest */
+@media (hover: hover) {
+  .teacher-card:hover .avatar {
+    transform: rotate(0deg) scale(1.05);
+  }
+}
+
+/* ---------------- nav: quiet active state, playful brand ---------------- */
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link.active {
+  color: var(--ink);
+  background: #fff;
+  box-shadow: var(--hard-sm);
+  border: 1.5px solid var(--ink-line);
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 6px;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--rainbow-line);
+}
+
+.brand-badge {
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+
+@media (hover: hover) {
+  .brand:hover .brand-badge {
+    transform: rotate(-12deg) scale(1.1);
+  }
+}
+
+/* ---------------- buttons: honest states ---------------- */
+
+.btn {
+  min-height: 46px;
+}
+
+.btn-sm {
+  min-height: 40px;
+}
+
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* ---------------- marquees pause when you read them ---------------- */
+
+@media (hover: hover) {
+  .marquee:hover .marquee-track,
+  .thankyou-marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ---------------- printing a letter should look like paper ---------------- */
+
+@media print {
+  .nav,
+  .nav-scrim,
+  #to-top,
+  .toast,
+  .marquee,
+  .thankyou-marquee,
+  .chalkboard,
+  .minigame,
+  .secret-box,
+  .msg-lib,
+  .daily-wish,
+  .ded-actions,
+  .share-row,
+  .prevnext,
+  .footer {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+  }
+  body::before,
+  body::after {
+    display: none !important;
+  }
+  .paper {
+    margin: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .page-hero,
+  .section {
+    padding: 10px 0 !important;
+  }
+  .grad-text::before,
+  .grad-text-blue::before,
+  .hero-title em::after,
+  .page-hero h1 em::after {
+    display: none !important;
+  }
+}
+
+/* ---------------- the card's signature line is handwritten ---------------- */
+
+/* the tagline becomes a calm line of copy; the spoken line gets the handwriting */
+.card-tagline {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  font-style: normal;
+}
+
+.card-meta {
+  font-family: var(--font-hand);
+  font-size: 1.24rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--accent, var(--pop-grape));
+  margin-top: 2px;
+}
+
+.teacher-coming .card-meta {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* the subject pill belongs to the same chip family as everything else */
+.card-subject {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 5px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---------------- no layout jump when a nav link is the current page ---------------- */
+
+.nav-link {
+  border: 1.5px solid transparent;
+}
+
+/* ---------------- one focus ring everywhere ---------------- */
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--accent-2, var(--pop-grape));
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .card-meta {
+    font-size: 1.1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
