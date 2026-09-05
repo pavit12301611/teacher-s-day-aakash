@@ -7028,6 +7028,21 @@ body {
   .teacher-card {
     border-radius: 30px 30px 26px 26px;
   }
+  /* the corner emoji must not ride over the step heading */
+  .step-card .step-emoji {
+    font-size: 1.45rem;
+    right: 14px;
+    top: 14px;
+  }
+  .step-card h3 {
+    padding-right: 34px;
+  }
+  .hero-main-card {
+    border-radius: 34px;
+  }
+  .swatch {
+    min-height: 62px;
+  }
   .toast {
     box-shadow: var(--clay-hi), var(--clay-drop);
   }
