@@ -150,11 +150,11 @@ export const SUBJECT_META: Record<
   Subject,
   { color: string; color2: string; soft: string }
 > = {
-  Physics: { color: "#2f6bff", color2: "#06b6d4", soft: "#e6efff" },
-  Chemistry: { color: "#e11d74", color2: "#ff7a45", soft: "#ffe7f1" },
-  Mathematics: { color: "#ea780c", color2: "#f5b301", soft: "#fff1dc" },
-  Biology: { color: "#0f9d76", color2: "#4ade80", soft: "#e2faf1" },
-  "SST & English": { color: "#7b2ff7", color2: "#c026d3", soft: "#f0e7ff" }
+  Physics: { color: "#5b7ce8", color2: "#4fbcd8", soft: "#e5ecfb" },
+  Chemistry: { color: "#cf4f86", color2: "#f0977a", soft: "#fbe7f0" },
+  Mathematics: { color: "#dd8637", color2: "#f3b54a", soft: "#fbeede" },
+  Biology: { color: "#3ea883", color2: "#7fd6a4", soft: "#e4f6ee" },
+  "SST & English": { color: "#8a6ce0", color2: "#cd77d8", soft: "#ece6fb" }
 };
 
 export interface SubjectInfo {

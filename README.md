@@ -97,8 +97,9 @@ teacher a joke. Ask and we'll paint the dropped photos into `<id>-art.png` for y
 - **4 hidden secrets** per teacher — tap a card to unseal it (remembered on this device)
 - **"From your students" message library** — browse the class's thank-yous with ← → arrows
 - **Design System page** — the pop palette, subject accents, type and every component, tap a swatch to copy hex
-- **Bright "Pop Celebration" theme** — paper-white pages, rainbow washes, confetti dots, coloured
-  card strips and a signature hue per subject (blue · pink · amber · mint · grape)
+- **Claymorphism look** — every surface is modelled like soft clay: lit top edge, shaded underside,
+  a soft violet drop, squircle corners and a signature hue per subject
+  (periwinkle · rose · apricot · jade · grape)
 - **Memories Room** — whiteboard with rotating student-life facts + your own wish wall
 - Filter by subject (deep-linkable: `teachers.html?subject=Physics`) + instant search
 - Confetti everywhere, scroll progress bar, cursor glow, 3D tilt + spotlight cards,
@@ -107,11 +108,11 @@ teacher a joke. Ask and we'll paint the dropped photos into `<id>-art.png` for y
   16px form text (no iOS zoom), safe-area padding, a dimmed drawer you can tap away,
   and lighter effects (glow/aurora off) so it stays smooth on a mid-range handset
 
-### 🎨 The look: "festive paper studio"
+### 🪆 The look: clay
 
-Every page is printed on the same stock: paper-white canvas + grain, ink hairline borders
-with a hard offset shadow, washi tape holding the hero card, rainbow tick marks above each
-section heading, sticker eyebrows, Fraunces display type with italic pull-quotes, and one
-signature hue per subject. `design.html` documents all of it.
+Nothing is drawn with outlines — shape comes from light. Pastel clay slabs sit on a soft
+coloured bed, catch a highlight along the top edge and shade underneath, and sink when you
+press them. Rounded Baloo 2 headlines, handwritten Caveat notes, one clay hue per subject.
+`design.html` documents the whole system.
 
 Happy Teacher's Day! 🎓💙
