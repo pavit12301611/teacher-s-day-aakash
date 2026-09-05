@@ -2,29 +2,25 @@
 import {
   SUBJECT_META,
   initialsOf,
-  portraitsFor,
+  portraitOf,
   subjectTopics,
   teacherUrl,
   type Teacher
 } from "./teachers";
 import { escapeHtml } from "./site";
 
-/** Inline fallback: try the painted portrait, then the raw photo, then initials. */
-const IMG_ONERROR =
-  "(function(i){if(i.dataset.alt){var a=i.dataset.alt;i.removeAttribute('data-alt');i.src=a;}else{i.remove();}})(this)";
-
 export function avatarHTML(t: Teacher, large = false): string {
   const meta = SUBJECT_META[t.subject];
-  const { src, alt } = portraitsFor(t);
-  const img = src
-    ? `<img src="${escapeHtml(src)}" alt="${escapeHtml(
-        t.name
-      )}" loading="lazy" decoding="async"${
-        alt ? ` data-alt="${escapeHtml(alt)}"` : ""
-      } onerror="${IMG_ONERROR}" />`
+  const portrait = portraitOf(t);
+  const img = portrait.src
+    ? `<img src="${escapeHtml(portrait.src)}" alt="${escapeHtml(
+        portrait.alt
+      )}" loading="lazy" decoding="async" />`
     : "";
   return `
-    <div class="avatar${large ? " lg" : ""}" style="--accent:${meta.color};--accent-2:${meta.color2};--soft:${meta.soft}">
+    <div class="avatar${large ? " lg" : ""}${
+      portrait.src ? " has-photo" : " initials-only"
+    }" style="--accent:${meta.color};--accent-2:${meta.color2};--soft:${meta.soft}">
       <span class="avatar-initials">${escapeHtml(initialsOf(t.name))}</span>
       ${img}
       <span class="avatar-emoji" aria-hidden="true">${t.emoji}</span>

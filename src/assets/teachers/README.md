@@ -1,16 +1,16 @@
-# 🎨 Painted teacher portraits
+# 🎨 Painted portraits
 
-Drop a hand-painted portrait here and it is wired up automatically — no code edits:
+One file per teacher, named after the teacher `id` in `src/teachers.ts`:
 
-    gaurav-sir.png      →  🧬 Biology
-    harshita-mam.png    →  🧪 Chemistry
-    rahul-sir.jpg       →  🚀 Physics
-    wajid-sir.png       →  🗺️ SST & English
-    shivam-sir.png      →  📐 Mathematics
+    gaurav-sir.webp     (also accepted: .png / .jpg / .jpeg, or <id>-art.webp)
 
-Any of .png / .jpg / .jpeg / .webp works, and `<id>-art.png` is accepted too.
-A portrait here always wins over `public/teachers/<id>.jpg` and over the
-`photo:` field in `src/teachers.ts`. Square images look best (1:1, 800px+).
+Vite bundles and hashes these automatically, and they are the ONLY images the site
+shows: card avatar, dedication-page portrait plate, share previews. Drop a file in,
+reload — no code changes anywhere.
 
-Keep them warm and respectful: head and shoulders, friendly smile, bright
-colours — never a caricature.
+Pipeline: raw photos go to `public/teachers/<id>.jpg` as drafts, get hand-painted,
+then land here as `<id>.png` and are packed with `npm run portraits` (760px WebP,
+~60KB, phone-safe). `npm run photos` tells you who has what.
+
+Rules for the art: head and shoulders, warm light, big friendly smile, bright
+colours, faithful likeness — respectful, never a caricature.

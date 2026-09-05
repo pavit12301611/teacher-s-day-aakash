@@ -6104,3 +6104,233 @@ body.menu-lock {
     overflow: hidden;
   }
 }
+
+/* ============================================================
+   🖼️ PAINTED PORTRAITS
+   The portrait is the first thing you meet on a teacher's page: a
+   big hand-painted plate taped to the paper, then the words.
+   A teacher without a portrait gets a monogram crest instead — the
+   photo column simply isn't there, no empty frame anywhere.
+   ============================================================ */
+
+.portrait-plate {
+  position: relative;
+  width: min(440px, 100%);
+  margin: 8px auto clamp(24px, 3.6vw, 38px);
+  padding: 14px 14px 0;
+  background: #fff;
+  border: 1.5px solid var(--ink-line);
+  border-radius: var(--r-panel) var(--r-panel) 22px 22px;
+  box-shadow: var(--hard), 0 36px 62px -34px rgba(27, 20, 66, 0.6);
+  transform: rotate(-1.1deg);
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.portrait-plate:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.portrait-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 22px 22px 4px 4px;
+  background: var(--soft, #f6f4ff);
+}
+
+.portrait-cap {
+  display: block;
+  padding: 12px 6px 15px;
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  line-height: 1.2;
+  color: var(--accent, var(--pop-grape));
+}
+
+.portrait-tape {
+  position: absolute;
+  top: -13px;
+  width: 96px;
+  height: 26px;
+  background: linear-gradient(180deg, rgba(255, 214, 92, 0.8), rgba(255, 186, 54, 0.62));
+  border-inline: 1px dashed rgba(255, 255, 255, 0.6);
+  box-shadow: 0 6px 14px rgba(27, 20, 66, 0.16);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.portrait-tape.tape-l {
+  left: -20px;
+  transform: rotate(-8deg);
+}
+
+.portrait-tape.tape-r {
+  top: auto;
+  bottom: -12px;
+  right: -18px;
+  width: 74px;
+  transform: rotate(6deg);
+}
+
+/* --- monogram plate for teachers whose portrait is not painted yet --- */
+
+.portrait-crest {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  margin: 6px auto 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 46px;
+  background: linear-gradient(140deg, var(--accent, var(--pop-blue)), var(--accent-2, var(--pop-grape)));
+  box-shadow: var(--hard), 0 28px 46px -26px rgba(27, 20, 66, 0.75);
+  transform: rotate(-3deg);
+}
+
+.crest-initials {
+  font-family: var(--font-display);
+  font-size: 3.1rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.crest-emoji {
+  position: absolute;
+  right: -12px;
+  bottom: -14px;
+  font-size: 2rem;
+  background: #fff;
+  padding: 6px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+.portrait-note {
+  max-width: 42ch;
+  margin: 0 auto clamp(20px, 3vw, 28px);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* --- the words live under the portrait now, so they centre themselves --- */
+
+.ded-id {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto clamp(24px, 3.6vw, 40px);
+}
+
+.ded-id h2 {
+  font-size: clamp(2.1rem, 5.4vw, 3.1rem);
+  line-height: 1.06;
+  margin: 10px 0 8px;
+}
+
+.ded-tagline {
+  font-size: 1.12rem;
+  color: var(--ink-soft);
+}
+
+.ded-quote {
+  max-width: 48ch;
+  margin-inline: auto;
+}
+
+.ded-topics,
+.ded-actions {
+  justify-content: center;
+}
+
+/* --- avatars that hold a real portrait get the printed-photo frame --- */
+
+.avatar.has-photo,
+.avatar:has(img) {
+  background: #fff;
+  border: 1.5px solid var(--ink-line);
+  padding: 4px;
+  box-shadow: 0 14px 26px -18px rgba(27, 20, 66, 0.8);
+  transform: rotate(-2deg);
+}
+
+.avatar.has-photo img,
+.avatar:has(img) img {
+  inset: 4px;
+  width: auto;
+  height: auto;
+  border-radius: 22px;
+}
+
+.avatar.lg.has-photo,
+.avatar.lg:has(img) {
+  padding: 6px;
+}
+
+.avatar.lg.has-photo img,
+.avatar.lg:has(img) img {
+  inset: 6px;
+  border-radius: 34px;
+}
+
+.avatar.has-photo .avatar-initials,
+.avatar:has(img) .avatar-initials {
+  color: transparent;
+}
+
+@media (max-width: 640px) {
+  .portrait-plate {
+    width: 100%;
+    padding: 10px 10px 0;
+    border-radius: 26px 26px 18px 18px;
+    box-shadow: 0 18px 32px -26px rgba(27, 20, 66, 0.6);
+    transform: none;
+  }
+  .portrait-img {
+    border-radius: 18px 18px 4px 4px;
+  }
+  .portrait-cap {
+    font-size: 1.12rem;
+    padding-bottom: 12px;
+  }
+  .portrait-tape {
+    width: 64px;
+    height: 19px;
+    top: 6px;
+  }
+  .portrait-tape.tape-l {
+    left: 10px;
+  }
+  .portrait-tape.tape-r {
+    width: 52px;
+    top: auto;
+    bottom: 6px;
+    right: 10px;
+  }
+  .portrait-crest {
+    width: 132px;
+    height: 132px;
+    border-radius: 38px;
+  }
+  .crest-initials {
+    font-size: 2.4rem;
+  }
+  .avatar.has-photo .avatar-emoji,
+  .avatar:has(img) .avatar-emoji {
+    width: 26px;
+    height: 26px;
+    font-size: 0.82rem;
+  }
+}
+
+@media print {
+  .portrait-tape,
+  .portrait-note {
+    display: none;
+  }
+  .portrait-plate {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    transform: none;
+  }
+}

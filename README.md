@@ -63,12 +63,13 @@ Names are matched to teacher ids — no code edit needed:
 
 | What you add                                   | What happens |
 |------------------------------------------------|--------------|
-| `src/assets/teachers/rahul-sir.png`            | 🎨 hand-painted portrait — bundled, hashed, **always preferred** |
-| `public/teachers/rahul-sir.jpg`                | 📷 raw photo — used when no painted portrait exists |
-| `photo: "/somewhere/rahul.png"` in `teachers.ts` | manual override, wins over both |
-| nothing                                        | colourful initials avatar with a dashed subject ring |
+| `src/assets/teachers/gaurav-sir.webp`          | 🎨 hand-painted portrait — the **only** image the site shows (card avatar, portrait plate on their page, previews) |
+| `src/assets/teachers/gaurav-sir.png`           | same, then shrink it for phones with `npm run portraits` (760px WebP, ~60KB) |
+| `public/teachers/gaurav-sir.jpg`               | 📷 raw photo — a draft only, never shown on the site |
+| nothing                                        | colourful initials avatar + a monogram crest on their page instead of a portrait |
 
-Run `npm run photos` any time to see which teachers already have a portrait.
+Teachers without a portrait lose the photo column entirely — no empty frame, no 404.
+Run `npm run photos` any time to see which teacher resolves to which file.
 
 The painted version is the one to aim for: fun and colourful, but always respectful —
 head-and-shoulders, warm light, a big smile, nothing caricatured, no props that make a

@@ -38,7 +38,9 @@ for (const id of ids) {
     console.log(`  ✅ ${id.padEnd(16)} ${picked}`);
   } else {
     missing++;
-    console.log(`  ⌛ ${id.padEnd(16)} no portrait yet → painted: src/assets/teachers/${id}.png   raw: public/teachers/${id}.jpg`);
+    console.log(
+      `  ⌛ ${id.padEnd(16)} no portrait yet → paint one at src/assets/teachers/${id}.png, then run npm run portraits`
+    );
   }
 }
 

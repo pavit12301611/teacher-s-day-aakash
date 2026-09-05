@@ -3,12 +3,14 @@
    ------------------------------------------------------------
    1. Copy one block below and change the details (TypeScript
       will even check it for you).
-   2. Photos are zero-config: drop a file at
-         public/teachers/<id>.jpg          (raw photo)
-         public/teachers/<id>-art.png      (hand-painted version — wins if present)
-      and it shows up everywhere automatically. No photo? The
-      colourful initials avatar is used instead. Set
-      photo: "/teachers/some-other-name.png" to override.
+   2. Portraits are zero-config: put a hand-painted portrait at
+         src/assets/teachers/<id>.webp   (also .png/.jpg/.jpeg)
+      and it is bundled, hashed and shown on the card, the avatar
+      and the big portrait plate at the top of their page. Raw
+      photos in public/teachers/ are only drafts — the site always
+      shows the painted version, so a teacher without one simply
+      keeps the colourful initials avatar.
+      `photo: "/somewhere.png"` overrides the lookup by hand.
    3. Every teacher automatically gets an individual dedication
       page at  teacher.html?id=<id>  — no extra work needed.
    ============================================================ */
@@ -271,12 +273,14 @@ export function initialsOf(name: string): string {
     .join("");
 }
 
-/* -------------------- photos (shared) -------------------- */
+/* -------------------- portraits (shared) -------------------- */
 
 /**
  * Hand-painted portraits live in src/assets/teachers/ and are wired up
- * automatically by Vite — a file named `<id>.png` (or `<id>-art.png`)
- * shows up on the card, the avatar and every preview, no code needed.
+ * automatically by Vite — `<id>.webp` (or .png/.jpg/.jpeg, optionally
+ * `<id>-art.ext`) is bundled, hashed and used everywhere. A teacher
+ * without a painted portrait gets the colourful initials avatar and a
+ * text-only dedication page: no empty frame, no broken image.
  */
 const PAINTED = import.meta.glob<string>("./assets/teachers/*.{png,jpg,jpeg,webp}", {
   eager: true,
@@ -291,20 +295,28 @@ for (const path of Object.keys(PAINTED)) {
   if (id) PAINTED_FOR[id] = PAINTED[path]!;
 }
 
-export interface Portraits {
-  /** best available image (painted portrait > photo field > dropped raw photo) */
+export interface Portrait {
+  /** portrait url, or "" when this teacher has no painted portrait yet */
   src: string;
-  /** optional second source to try if the first 404s — "" when nothing else to try */
+  /** true when there is a real image to show (painted portrait or photo override) */
+  painted: boolean;
+  /** descriptive alt text for the portrait */
   alt: string;
 }
 
-/** Resolve the portrait for a teacher: painted version always wins. */
-export function portraitsFor(t: Teacher): Portraits {
+/** The painted portrait for a teacher — the only kind the site ever shows. */
+export function portraitOf(t: Teacher): Portrait {
   const painted = PAINTED_FOR[t.id];
-  if (painted) return { src: painted, alt: "" };
-  if (t.photo) return { src: t.photo, alt: `/teachers/${t.id}.jpg` };
-  const dropped = `/teachers/${t.id}.jpg`;
-  return { src: dropped, alt: `/teachers/${t.id}.png` };
+  if (painted) {
+    return { src: painted, painted: true, alt: `Hand-painted portrait of ${t.name}` };
+  }
+  if (t.photo) return { src: t.photo, painted: true, alt: `Portrait of ${t.name}` };
+  return { src: "", painted: false, alt: "" };
+}
+
+/** Does this teacher have a portrait to show? (drives the portrait-first layout) */
+export function hasPortrait(t: Teacher): boolean {
+  return portraitOf(t).painted;
 }
 
 /* -------------------- page helpers (shared) -------------------- */

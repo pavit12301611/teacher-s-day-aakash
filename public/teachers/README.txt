@@ -1,8 +1,8 @@
-Drop raw teacher photos here, named after the teacher id in src/teachers.ts:
+Raw teacher photos land here as drafts, named after the teacher id:
 
-  rahul-sir.jpg    (or rahul-sir.png)
+  gaurav-sir.jpg
 
-Painted portraits live in src/assets/teachers/<id>.png and always win over the
-raw photo here. Missing in both places? The colourful initials avatar shows.
-Keep painted portraits warm and respectful: head and shoulders, friendly smile,
-bright colours - never a caricature.
+These are NOT shown on the site. Each photo is hand-painted and the painted
+portrait (src/assets/teachers/<id>.webp) is what the site displays. A teacher
+with no painted portrait keeps the colourful initials avatar and a text-only
+dedication page - no empty frame, no broken image.
