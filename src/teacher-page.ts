@@ -4,6 +4,9 @@ import {
   TEACHERS,
   SUBJECT_META,
   getTeacher,
+  initialsOf,
+  portraitOf,
+  subjectTopics,
   prevTeacher,
   nextTeacher,
   relatedTeachers,
@@ -23,7 +26,7 @@ import {
   createSpeech,
   preferredVoice
 } from "./site";
-import { avatarHTML, teacherCardHTML } from "./cards";
+import { teacherCardHTML } from "./cards";
 import { launchConfetti } from "./confetti";
 import { renderMinigame } from "./minigames";
 import {
@@ -87,6 +90,7 @@ function dedicationHTML(t: Teacher): string {
   const pm = SUBJECT_META[prev.subject];
   const nm = SUBJECT_META[next.subject];
   const related = relatedTeachers(t, 3);
+  const portrait = portraitOf(t);
   const pageUrl = `${window.location.origin}${window.location.pathname}?id=${t.id}`;
 
   return `
@@ -96,18 +100,45 @@ function dedicationHTML(t: Teacher): string {
       <span class="here">${escapeHtml(t.salutation)}</span>
     </nav>
 
-    <article class="ded-card reveal" style="--accent:${m.color};--soft:${m.soft}">
-      <div class="ded-top">
-        ${avatarHTML(t, true)}
-        <div class="ded-id">
-          <span class="ded-role">${t.emoji} ${t.subject} Teacher · Aakash</span>
-          <h2>${escapeHtml(t.name)}</h2>
-          <p class="ded-tagline">“${escapeHtml(t.tagline)}”</p>
-          <p class="ded-quote">${escapeHtml(t.quote)}</p>
-          <div class="ded-actions">
-            <button class="btn btn-outline btn-sm" id="btn-listen">🔊 Read Aloud</button>
-            <button class="btn btn-primary btn-sm" id="btn-wish">💙 Send a Wish</button>
-          </div>
+    <article class="ded-card ${portrait.src ? "has-portrait" : "no-portrait"} reveal"
+             style="--accent:${m.color};--accent-2:${m.color2};--soft:${m.soft}">
+      <span class="ded-strip" aria-hidden="true"></span>
+
+      <!-- 🖼️ the painted portrait leads the page; content comes after it -->
+      ${
+        portrait.src
+          ? `<figure class="portrait-plate">
+               <img class="portrait-img" src="${escapeHtml(portrait.src)}"
+                    alt="${escapeHtml(portrait.alt)}" width="760" height="760"
+                    decoding="async" fetchpriority="high" />
+               <span class="portrait-tape tape-l" aria-hidden="true"></span>
+               <span class="portrait-tape tape-r" aria-hidden="true"></span>
+               <figcaption class="portrait-cap">🎨 Painted for ${escapeHtml(
+                 t.salutation
+               )} · ${escapeHtml(t.subject)}</figcaption>
+             </figure>`
+          : `<div class="portrait-crest" role="img" aria-label="${escapeHtml(
+              t.name
+            )} monogram">
+               <span class="crest-emoji" aria-hidden="true">${t.emoji}</span>
+               <span class="crest-initials">${escapeHtml(initialsOf(t.name))}</span>
+             </div>
+             <p class="portrait-note">🎨 ${escapeHtml(
+               t.salutation
+             )}'s portrait is still on the easel — the whole page works without it.</p>`
+      }
+
+      <div class="ded-id">
+        <span class="ded-role">${t.emoji} ${t.subject} Teacher · Aakash</span>
+        <h2>${escapeHtml(t.name)}</h2>
+        <p class="ded-tagline">“${escapeHtml(t.tagline)}”</p>
+        <p class="ded-quote">${escapeHtml(t.quote)}</p>
+        <p class="ded-topics">${subjectTopics(t.subject)
+          .map((x) => `<span>${escapeHtml(x)}</span>`)
+          .join("")}</p>
+        <div class="ded-actions">
+          <button class="btn btn-outline btn-sm" id="btn-listen">🔊 Read Aloud</button>
+          <button class="btn btn-primary btn-sm" id="btn-wish">💙 Send a Wish</button>
         </div>
       </div>
 
@@ -177,11 +208,11 @@ function dedicationHTML(t: Teacher): string {
 
     <div class="prevnext">
       <a class="pn-card reveal" href="teacher.html?id=${prev.id}" aria-label="Previous teacher">
-        <span class="pn-mini" style="--accent:${pm.color}">←</span>
+        <span class="pn-mini" style="--accent:${pm.color};--accent-2:${pm.color2}">←</span>
         <span><small>← Previous</small><strong>${escapeHtml(prev.name)}</strong></span>
       </a>
       <a class="pn-card next reveal" style="--delay:90ms" href="teacher.html?id=${next.id}" aria-label="Next teacher">
-        <span class="pn-mini" style="--accent:${nm.color}">→</span>
+        <span class="pn-mini" style="--accent:${nm.color};--accent-2:${nm.color2}">→</span>
         <span><small>Next →</small><strong>${escapeHtml(next.name)}</strong></span>
       </a>
     </div>

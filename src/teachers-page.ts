@@ -7,7 +7,8 @@ import {
   initSpotlight,
   initTilt,
   must,
-  qs
+  qs,
+  escapeHtml
 } from "./site";
 import { teacherCardHTML, comingSoonCardHTML } from "./cards";
 
@@ -43,9 +44,9 @@ function renderPills(): void {
   pills.innerHTML = subjects
     .map(
       (s) => `
-      <button class="pill ${s === activeFilter ? "active" : ""}" data-filter="${s}"
+      <button class="pill ${s === activeFilter ? "active" : ""}" data-filter="${escapeHtml(String(s))}"
         aria-pressed="${s === activeFilter}">
-        ${s === "All" ? "✨ All Teachers" : s}
+        ${s === "All" ? "✨ All Teachers" : escapeHtml(String(s))}
       </button>`
     )
     .join("");

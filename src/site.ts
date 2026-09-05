@@ -32,14 +32,19 @@ export function must<T extends HTMLElement = HTMLElement>(sel: string): T {
 /* ------------------------- confetti presets ------------------------- */
 
 const PARTY_COLORS = [
-  "#2f7cf6",
-  "#38bdf8",
-  "#7dd3fc",
-  "#ffffff",
-  "#ffc94d",
-  "#ff8fb5",
-  "#a5b4fc"
+  "#ff2f7b",
+  "#ff5d5d",
+  "#ff8a3d",
+  "#f9b234",
+  "#84cc16",
+  "#0f9d76",
+  "#06b6d4",
+  "#2f6bff",
+  "#7b2ff7",
+  "#c026d3",
+  "#ffffff"
 ];
+
 
 export function bigCelebration(): void {
   launchConfetti({
@@ -340,17 +345,36 @@ function initNav(): void {
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  burger?.addEventListener("click", () => {
-    const open = links?.classList.toggle("open") ?? false;
-    burger.setAttribute("aria-expanded", String(open));
+  // 📱 Drawer: scrim behind it, page scroll locked while it is open.
+  const scrim = document.createElement("div");
+  scrim.className = "nav-scrim";
+  scrim.setAttribute("aria-hidden", "true");
+
+  const setMenu = (open: boolean): void => {
+    links?.classList.toggle("open", open);
     nav?.classList.toggle("menu-open", open);
+    document.body.classList.toggle("menu-lock", open);
+    burger?.setAttribute("aria-expanded", String(open));
+    burger?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    if (open) document.body.appendChild(scrim);
+    else scrim.remove();
+  };
+
+  burger?.addEventListener("click", () => {
+    setMenu(!links?.classList.contains("open"));
+  });
+  scrim.addEventListener("click", () => {
+    setMenu(false);
+    burger?.focus();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setMenu(false);
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) setMenu(false);
   });
   links?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      links.classList.remove("open");
-      nav?.classList.remove("menu-open");
-      burger?.setAttribute("aria-expanded", "false");
-    });
+    link.addEventListener("click", () => setMenu(false));
   });
 
   // Subjects dropdown (desktop hover/click + mobile drawer + touch)

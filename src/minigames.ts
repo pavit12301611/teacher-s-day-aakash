@@ -2,10 +2,11 @@
    🕹️ Subject minigames — one tiny, dependency-free toy per subject.
    Rendered inside every dedication page so each teacher's corner
    feels different. Mathematics = π, Physics = Web Audio sound lab,
-   Chemistry = periodic-table name-speller, Biology = quick quiz.
+   Chemistry = periodic-table name-speller, Biology = quick quiz,
+   SST & English = history + grammar rapid round.
    ============================================================ */
 
-import { type Subject, type Teacher } from "./teachers";
+import { SUBJECT_META, type Subject, type Teacher } from "./teachers";
 import { launchConfetti } from "./confetti";
 
 /* ------------------------- tiny helpers ------------------------- */
@@ -242,7 +243,7 @@ function renderSoundLab(mount: HTMLElement): void {
   });
 }
 
-/* ------------------------- Chemistry & Biology: periodic speller ------------------------- */
+/* ------------------------- Chemistry: periodic-table name speller ------------------------- */
 
 const ELEMENTS: Array<{ sym: string; full: string; num: number }> = [
   { sym: "H", full: "Hydrogen", num: 1 },
@@ -405,21 +406,37 @@ function renderPeriodicSpeller(mount: HTMLElement, subject: Subject): void {
   paint();
 }
 
-/* ------------------------- Biology: quick quiz ------------------------- */
+/* ------------------------- quiz games (Biology / SST & English) ------------------------- */
 
-const BIO_QUIZ: Array<{ q: string; options: string[]; answer: number }> = [
+interface QuizQ {
+  q: string;
+  options: string[];
+  answer: number;
+}
+
+const BIO_QUIZ: QuizQ[] = [
   { q: "What is the powerhouse of the cell?", options: ["Nucleus", "Mitochondria", "Ribosome", "Golgi"], answer: 1 },
   { q: "Photosynthesis produces glucose and…?", options: ["Oxygen", "Carbon dioxide", "Water only", "Nitrogen"], answer: 0 },
   { q: "Which of these is a blood cell?", options: ["Neuron", "Platelet", "Enzyme", "Antibody"], answer: 1 },
   { q: "DNA stands for?", options: ["Deoxyribonucleic acid", "Dynamic nuclear acid", "Double nucleic adapter", "Data nucleotide array"], answer: 0 }
 ];
 
-function renderBiologyQuiz(mount: HTMLElement): void {
-  const quiz = BIO_QUIZ.slice(0, 3);
+const SST_ENGLISH_QUIZ: QuizQ[] = [
+  { q: "Which battle opened the door to British rule in India?", options: ["Panipat", "Plassey", "Buxar", "Talikota"], answer: 1 },
+  { q: "Who wrote the play “Romeo and Juliet”?", options: ["Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen"], answer: 1 },
+  { q: "“She has been studying since 6 am.” Which tense?", options: ["Present perfect continuous", "Past continuous", "Simple present", "Future perfect"], answer: 0 },
+  { q: "Which is the correct sentence?", options: ["He don't like maths.", "He doesn't likes maths.", "He doesn't like maths.", "He not like maths."], answer: 2 }
+];
+
+function renderQuiz(
+  mount: HTMLElement,
+  opts: { title: string; sub: string; bank: QuizQ[] }
+): void {
+  const quiz = opts.bank.slice(0, 3);
   mount.innerHTML = `
     <div class="mg-quiz" data-game="quiz">
-      <p class="mg-title">🧬 Rapid-fire Biology Quiz</p>
-      <p class="mg-sub">Three quick questions — no pressure, just fun. Your brain is a powerhouse too. 💪</p>
+      <p class="mg-title">${escape(opts.title)}</p>
+      <p class="mg-sub">${escape(opts.sub)}</p>
       <div class="mg-quiz-body" id="mg-quiz-body"></div>
       <p class="mg-result" id="mg-quiz-result"></p>
     </div>`;
@@ -478,11 +495,13 @@ export function renderMinigame(mount: HTMLElement, teacher: Teacher): void {
     Physics: { title: "Sound Lab", icon: "🔈" },
     Chemistry: { title: "Element Speller", icon: "⚗️" },
     Mathematics: { title: "π Type", icon: "🥧" },
-    Biology: { title: "Biology Quiz", icon: "🧬" }
+    Biology: { title: "Biology Quiz", icon: "🧬" },
+    "SST & English": { title: "SST & English Round", icon: "🗺️" }
   };
   const m = meta[teacher.subject];
   mount.classList.add("minigame");
-  mount.style.setProperty("--accent", teacher.subject === "Mathematics" ? "#4f46e5" : teacher.subject === "Biology" ? "#0891b2" : teacher.subject === "Physics" ? "#2563eb" : "#0ea5e9");
+  mount.style.setProperty("--accent", SUBJECT_META[teacher.subject].color);
+  mount.style.setProperty("--accent-2", SUBJECT_META[teacher.subject].color2);
   const title = document.createElement("div");
   title.className = "mg-head";
   title.innerHTML = `<span class="mg-icon">${m.icon}</span><div><b>${escape(m.title)}</b><small>a tiny toy for ${escape(teacher.salutation)}</small></div>`;
@@ -495,11 +514,18 @@ export function renderMinigame(mount: HTMLElement, teacher: Teacher): void {
   if (teacher.subject === "Mathematics") renderPiType(body);
   else if (teacher.subject === "Physics") renderSoundLab(body);
   else if (teacher.subject === "Chemistry") renderPeriodicSpeller(body, "Chemistry");
-  else if (teacher.subject === "Biology") renderBiologyQuiz(body);
-  else {
-    // fallback (unreachable with current types)
-    body.innerHTML = `<p class="mg-title">A surprise toy is loading. ✨</p>`;
-  }
+  else if (teacher.subject === "Biology")
+    renderQuiz(body, {
+      title: "🧬 Rapid-fire Biology Quiz",
+      sub: "Three quick questions — no pressure, just fun. Your brain is a powerhouse too. 💪",
+      bank: BIO_QUIZ
+    });
+  else
+    renderQuiz(body, {
+      title: "🗺️ SST & English Quick Round",
+      sub: "Three quick questions — one foot in history, one in grammar. Go! 📖",
+      bank: SST_ENGLISH_QUIZ
+    });
 }
 
 export { seededRandom, hashSeed, makeId };

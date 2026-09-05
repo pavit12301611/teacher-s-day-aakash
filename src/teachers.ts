@@ -3,25 +3,33 @@
    ------------------------------------------------------------
    1. Copy one block below and change the details (TypeScript
       will even check it for you).
-   2. When you get the real photos:
-      - Drop the photo into  public/teachers/  (e.g. rakesh-sir.jpg)
-      - Set  photo: "/teachers/rakesh-sir.jpg"
-   3. No photo? Just keep  photo: null — a pretty auto-avatar
-      with their initials appears automatically.
-   4. Every teacher automatically gets an individual dedication
+   2. Portraits are zero-config: put a hand-painted portrait at
+         src/assets/teachers/<id>.webp   (also .png/.jpg/.jpeg)
+      and it is bundled, hashed and shown on the card, the avatar
+      and the big portrait plate at the top of their page. Raw
+      photos in public/teachers/ are only drafts — the site always
+      shows the painted version, so a teacher without one simply
+      keeps the colourful initials avatar.
+      `photo: "/somewhere.png"` overrides the lookup by hand.
+   3. Every teacher automatically gets an individual dedication
       page at  teacher.html?id=<id>  — no extra work needed.
    ============================================================ */
 
-export type Subject = "Physics" | "Chemistry" | "Mathematics" | "Biology";
+export type Subject =
+  | "Physics"
+  | "Chemistry"
+  | "Mathematics"
+  | "Biology"
+  | "SST & English";
 
 export interface Teacher {
   id: string;
   name: string;
-  salutation: string; // how we greet them e.g. "Rakesh Sir"
+  salutation: string; // how we greet them e.g. "Rahul Sir"
   subject: Subject;
   emoji: string; // subject doodle
   tagline: string; // short fun line on the card
-  photo: string | null; // e.g. "/teachers/rakesh-sir.jpg" or null
+  photo?: string | null; // optional override, e.g. "/teachers/rahul-sir.jpg"
   message: string[]; // personal letter, one paragraph per entry
   note: string; // fun fact shown with the letter
   quote: string; // signature line shown big on their page
@@ -29,173 +37,124 @@ export interface Teacher {
   dialogue: string; // their legendary classroom dialogue
 }
 
+/** The five teachers of our batch — one per subject. */
 export const TEACHERS: Teacher[] = [
   {
-    id: "rakesh-sir",
-    name: "Rakesh Kumar",
-    salutation: "Rakesh Sir",
-    subject: "Physics",
-    emoji: "🚀",
-    tagline: "The Newton of our classroom",
-    photo: null,
-    message: [
-      "Dear Rakesh Sir, for the longest time physics felt like a scary monster. Then you walked in, drew a tiny diagram on the board, and suddenly the monster turned into a friendly robot who explains everything. 🤖✨",
-      "Thank you for never getting tired of our \"ek baar aur samjhaiye\" — even when we asked a 47th time. Your patience is stronger than a JEE-level problem, and your energy is higher than our marks (which you somehow keep fixing).",
-      "You made F = ma feel like a formula for friendship too! Have a wonderful Teacher's Day, Sir. We promise to never forget you — just like we never forget to ask doubts right before a test. 😄"
-    ],
-    note: "Fun fact: You explain so well that even our toppers pretend they didn't understand, just to hear the explanation again.",
-    quote: "Physics is not tough — bas direction sahi hona chahiye.",
-    superpower: "Any numerical surrenders in 2 diagrams",
-    dialogue: "“Ek baar aur samjhaiye? Arre 47 baar sahi!”"
-  },
-  {
-    id: "anjali-mam",
-    name: "Anjali Sharma",
-    salutation: "Anjali Ma'am",
-    subject: "Chemistry",
-    emoji: "🧪",
-    tagline: "Master of magical reactions",
-    photo: null,
-    message: [
-      "Dear Anjali Ma'am, you are the catalyst that turned our boring chemistry class into pure fun. Every time you say \"ab dekho ek magic hoga\", we know something awesome is about to happen — like our marks, after your revision series! 🪄",
-      "Thank you for teaching us that chemistry is everywhere: in the bond we share, in the salt of our tears after a tough test (yes, we cried a little inside), and in organic reactions you explain better than any YouTube channel.",
-      "You balance equations so beautifully that we wish life was that easy. Happy Teacher's Day, Ma'am! Stay sparkling, stay magical, and never leave the class without that one final tip. 💙"
-    ],
-    note: "Fun fact: Your \"one last thing\" before the bell is 10 minutes long and we still love every second.",
-    quote: "Har reaction ka ek reason hota hai — bas catalyst tum ho.",
-    superpower: "Organic mechanisms on her fingertips",
-    dialogue: "“Ab dekho, ek magic hoga!” ✨"
-  },
-  {
-    id: "vikram-sir",
-    name: "Vikram Singh",
-    salutation: "Vikram Sir",
-    subject: "Mathematics",
-    emoji: "📐",
-    tagline: "Hero of every equation",
-    photo: null,
-    message: [
-      "Dear Vikram Sir, maths used to be that cousin we avoided at family functions. You walked in with a marker, a smile, and a legendary phrase — \"simple hai, ek minute\" — and turned us into fans. 📏",
-      "Thank you for making integrals feel like puzzles instead of punishments, and for never letting anyone feel stupid for getting it wrong. Your \"mistake is the first step to marks\" has fixed more student mood-swings than any motivation video.",
-      "Equation after equation, chapter after chapter, you have been our constant. Happy Teacher's Day, Sir! May your logic always be flawless — and your doubt queue always long, because everyone wants to learn from you. 💙"
-    ],
-    note: "Fun fact: We can forget our own birthday, but never your shortcut notes. They are literally legend.",
-    quote: "Maths se dosti kar lo, life set hai.",
-    superpower: "Shortcuts that toppers whisper about",
-    dialogue: "“Simple hai, ek minute!”"
-  },
-  {
-    id: "priya-mam",
-    name: "Priya Verma",
-    salutation: "Priya Ma'am",
+    id: "gaurav-sir",
+    name: "Gaurav Sir",
+    salutation: "Gaurav Sir",
     subject: "Biology",
     emoji: "🧬",
-    tagline: "The heartbeat of our class",
+    tagline: "Turns every cell into a story",
     photo: null,
     message: [
-      "Dear Priya Ma'am, you have a superpower: you can make mitochondria sound like a love story and photosynthesis sound like a family drama. Nobody else makes diagrams smile — but somehow yours always do. 🌿",
-      "Thank you for turning biology into a subject we genuinely enjoy. From the first cell to the last diagram, your \"yeh yaad rakho\" actually sticks, and your handwritten notes are more precious to us than our phones (and we LOVE our phones).",
-      "You taught us that every living thing deserves care — and you live that lesson with every student you teach. Happy Teacher's Day, Ma'am! You are the heartbeat of our class, forever. 💙"
+      "Dear Gaurav Sir, biology reached us as a wall of Latin terms and left as a living city — organelles with jobs, enzymes with personalities, and a Krebs cycle you could narrate from memory. That transformation is entirely yours.",
+      "Thank you for the labelled diagrams we still copy exactly as you drew them, for connecting genetics to our own families so inheritance finally made sense, and for insisting that a biological answer is only complete when the reasoning is written beside it.",
+      "You taught us that life is systematic even when it looks messy — and that lesson reaches far beyond the syllabus. Happy Teacher's Day, Sir. 💙"
     ],
-    note: "Fun fact: Your diagrams are so pretty that even the non-bio students secretly photograph them.",
-    quote: "Har cell mein ek kahani chhupi hai.",
-    superpower: "Diagrams that belong in a museum",
-    dialogue: "“Yeh yaad rakho — pakka aayega!”"
+    note: "Fun fact: Your human-heart diagram has been photographed so many times that a version of it exists somewhere in every phone in the batch.",
+    quote: "Every cell tells a story — read it carefully.",
+    superpower: "Museum-grade diagrams, drawn in ninety seconds",
+    dialogue: "“Label it properly and half the answer is done.”"
   },
   {
-    id: "amit-sir",
-    name: "Amit Patel",
-    salutation: "Amit Sir",
-    subject: "Physics",
-    emoji: "⚡",
-    tagline: "Charged with 100% positivity",
-    photo: null,
-    message: [
-      "Dear Amit Sir, you once said \"yeh question tumhare level se upar hai\" — and then spent twenty minutes making sure it was not. That is who you are: someone who refuses to let any student stay below their own level. ⚡",
-      "Thank you for the razor-sharp concepts, the perfectly timed jokes in the middle of the hardest topic, and the confidence you build in us one problem at a time. You teach like a current — smooth, powerful, and always in the right direction.",
-      "Aapke padhane mein jo current hai, woh humare sapno ko charge karta hai. Happy Teacher's Day, Sir! Stay charged, stay legendary, and keep converting our \"nahi aayega\" into \"ho gaya\"."
-    ],
-    note: "Fun fact: The class, like a capacitor, stores every single thing you say. Discharge rate: never.",
-    quote: "Current ki tarah bano — always in the right direction.",
-    superpower: "JEE-level dread → 20-minute clarity",
-    dialogue: "“Yeh tumhare level se upar hai… tha!”"
-  },
-  {
-    id: "neha-mam",
-    name: "Neha Gupta",
-    salutation: "Neha Ma'am",
+    id: "harshita-mam",
+    name: "Harshita Ma'am",
+    salutation: "Harshita Ma'am",
     subject: "Chemistry",
-    emoji: "🔬",
-    tagline: "Bonds with every student",
+    emoji: "🧪",
+    tagline: "Every reaction has a reason",
     photo: null,
     message: [
-      "Dear Neha Ma'am, you make organic chemistry feel like solving a mystery — every reaction has a motive, a plot twist, and a happy ending. And the best part? You always solve it WITH us, never just for us. 🔬",
-      "Thank you for the endless patience with our \"yeh naam kyun hai\" questions (some were curiosity, some were pure fun) and for making every single student feel noticed in a class full of people.",
-      "You are the bond that holds our chemistry journey together. Happy Teacher's Day, Ma'am! May your class always be full of curiosity, and your students always full of gratitude. 💙"
+      "Dear Harshita Ma'am, you began every chapter the same way — with a question instead of a definition. Why does the rate change? Why is this isomer more stable? By the time we reached the answer, the concept had already settled in.",
+      "Thank you for the mole concept taught without fear, for arrow-pushing mechanisms drawn one step at a time, and for making titration practicals feel like real laboratory work rather than a formality.",
+      "You balanced our equation between marks and understanding, and both sides came out right. Happy Teacher's Day, Ma'am. 💙"
     ],
-    note: "Fun fact: You remember every student's weak chapter better than we remember our own names.",
-    quote: "Chemistry is everywhere — even in our bond.",
-    superpower: "Remembers everyone's weak chapter",
-    dialogue: "“Last thing, bas 10 minute…”"
+    note: "Fun fact: Your 'one last thing' before the bell runs about ten minutes long — and the class leans in for every one of them.",
+    quote: "Chemistry is everywhere — start asking why.",
+    superpower: "Organic mechanisms explained from memory, never from the book",
+    dialogue: "“Watch the arrow — the electron decides.”"
   },
   {
-    id: "suresh-sir",
-    name: "Suresh Iyer",
-    salutation: "Suresh Sir",
+    id: "rahul-sir",
+    name: "Rahul Sir",
+    salutation: "Rahul Sir",
+    subject: "Physics",
+    emoji: "🚀",
+    tagline: "Two diagrams and the numerical surrenders",
+    photo: null,
+    message: [
+      "Dear Rahul Sir, physics arrived as a list of formulas and left as a set of pictures. Free-body diagrams first, equations second — that order changed how our entire batch thinks about a problem.",
+      "Thank you for rotational mechanics that finally rotated, for simple harmonic motion we could actually sketch, and for treating a wrong answer as a starting point instead of a verdict.",
+      "You made forces feel like support rather than pressure, and that is the part of physics we have kept. Happy Teacher's Day, Sir. 🚀"
+    ],
+    note: "Fun fact: Our toppers have been caught re-asking a solved question just to hear your second, shorter method.",
+    quote: "Get the direction right and the magnitude follows.",
+    superpower: "Any numerical surrenders within two diagrams",
+    dialogue: "“Draw it first. The maths is just follow-up.”"
+  },
+  {
+    id: "wajid-sir",
+    name: "Wajid Sir",
+    salutation: "Wajid Sir",
+    subject: "SST & English",
+    emoji: "🗺️",
+    tagline: "Maps, civics and the perfect comma",
+    photo: null,
+    message: [
+      "Dear Wajid Sir, you carry two subjects and give each of them full attention. History stopped being a list of dates the day you taught it as cause and consequence, and English stopped being a grammar checklist the day you made us read our own sentences aloud.",
+      "Thank you for the map work that made geography visual, for the Constitution chapter that made civics matter, and for red-pen notes that explained the mark instead of just awarding it.",
+      "You gave us the argument and the language to deliver it. Happy Teacher's Day, Sir. 💙"
+    ],
+    note: "Fun fact: Your half-slate summary of an entire chapter has quietly out-performed printed guides for three batches running.",
+    quote: "A date is forgettable; the reason behind it never is.",
+    superpower: "Converts a thin answer into a full-mark five-marker",
+    dialogue: "“Point, evidence, conclusion — marks follow.”"
+  },
+  {
+    id: "shivam-sir",
+    name: "Shivam Sir",
+    salutation: "Shivam Sir",
     subject: "Mathematics",
-    emoji: "🧮",
-    tagline: "The calculus of kindness",
+    emoji: "📐",
+    tagline: "Makes the long method look short",
     photo: null,
     message: [
-      "Dear Suresh Sir, if teaching were a function, you would be the one that never stops growing. From \"pehle basics\" to \"ab full speed\", you took us step by step — and never once made us feel small for asking a simple question. 🧮",
-      "Thank you for the legendary whiteboard sessions, the calm \"let's try again\" when the whole class went wrong, and for treating our mistakes as data instead of defects. You taught us that maths, like life, is about the process, not just the answer.",
-      "You are proof that the best teachers don't just teach the subject — they teach courage. Happy Teacher's Day, Sir! We are forever your students, and forever in your limit. 😄"
+      "Dear Shivam Sir, your classroom runs on one calm sentence: it is simple, give me a minute. And every time, it actually was — definite integrals split into parts, coordinate geometry reduced to a clean sketch, proofs that finally looked logical.",
+      "Thank you for the practice sets that got harder in exactly the right order, for the shortcut sheet the whole batch trades like currency, and for never moving on before the last hand went down.",
+      "You taught us that a wrong step is information, not failure. Our method — in exams and outside them — still looks like yours. Happy Teacher's Day, Sir. 💙"
     ],
-    note: "Fun fact: The moment you say \"it's a 3-mark question\", the whole class — toppers included — starts sweating. Legendary.",
-    quote: "Maths is about the process, not just the answer.",
-    superpower: "Calm whiteboard comebacks",
-    dialogue: "“Pehle basics, phir full speed.”"
-  },
-  {
-    id: "kavita-mam",
-    name: "Kavita Rao",
-    salutation: "Kavita Ma'am",
-    subject: "Biology",
-    emoji: "🌻",
-    tagline: "Where every student blooms",
-    photo: null,
-    message: [
-      "Dear Kavita Ma'am, plant taxonomy may have made our brains dizzy, but you made sure we all \"root\" for ourselves. You teach like sunlight in a garden — patiently, warmly, and with zero judgement. 🌻",
-      "Thank you for the beautiful practical classes, the \"observe se seekho\" philosophy, and for being the person who genuinely celebrates when any student improves. Your happiness is the most contagious thing in our batch.",
-      "You taught us that growth takes time — and that's okay. Happy Teacher's Day, Ma'am! May you forever have a classroom full of blooming minds and messy but happy experiments. 💙"
-    ],
-    note: "Fun fact: You can identify a plant from one tiny leaf. We can identify your footsteps in the corridor from the same distance.",
-    quote: "Growth takes time — and that's okay.",
-    superpower: "Identifies plants from a single leaf",
-    dialogue: "“Observe se seekho!”"
+    note: "Fun fact: Your reduction formula for ∫xⁿeˣ has been recited in corridors more accurately than any anthem.",
+    quote: "Maths rewards the process, not the panic.",
+    superpower: "Shortcuts that toppers quietly trade with each other",
+    dialogue: "“It's simple — give me one minute.”"
   }
 ];
 
-/* Fun, rotating chalkboard facts about student life */
+/** Chalkboard truths — one flavour per subject, straight from the batch. */
 export const CHALK_FACTS: string[] = [
-  "Physics is easy when the teacher explains it — like rocket science is easy for NASA. 🚀",
-  "y = mx + c is the only friendship equation that is ALWAYS true. 📈",
-  "A teacher's day: 4 hours class, 3 hours doubt solving, 1 hour \"beta thoda aur padho\". ⏰",
-  "Mitochondria is the powerhouse of the cell, but the teacher is the powerhouse of the class. ⚡",
-  "Organic chemistry = 50% magic + 50% hard work + 100% \"ek baar aur samjhaiye\". 🧪",
-  "Homework is just love hidden inside a question paper. 💌",
-  "The best teachers don't hand out answers — they hand out confidence. 💙",
-  "Ask your doubts, not your tuition fees' worth! (Okay, that one's just free advice.) 😄",
-  "Back-benchers notice everything — especially which teacher truly cares. 👀",
-  "\"Beta, yeh last topic hai\" is the biggest plot twist of every syllabus. 📚"
+  "Physics: the numerical was never the hard part — the free-body diagram was. 🚀",
+  "Chemistry: the mole concept is just a very large dozen. Somebody finally said it. 🧪",
+  "Mathematics: definite integrals are 50% logic and 50% not panicking at the limits. 📐",
+  "Biology: a labelled diagram answers the question before the examiner reaches the reasoning. 🧬",
+  "SST & English: cause, consequence, conclusion — history and an essay run on the same rails. 🗺️",
+  "Homework is love hidden inside a question paper. 💌",
+  "The best teachers hand out method, not answers. 💙",
+  "Back-benchers notice everything — especially which teacher genuinely cares. 👀",
+  "“Last topic today” is the most reliable plot twist in the entire syllabus. 📚",
+  "A comma changes a sentence; a good teacher changes a whole answer sheet. ✍️"
 ];
 
-/** Blue-family accent per subject so the palette stays on-theme */
-export const SUBJECT_META: Record<Subject, { color: string; soft: string }> = {
-  Physics: { color: "#2563eb", soft: "#e5efff" },
-  Chemistry: { color: "#0ea5e9", soft: "#e3f6ff" },
-  Mathematics: { color: "#4f46e5", soft: "#e9e8ff" },
-  Biology: { color: "#0891b2", soft: "#e0f7fb" }
+/** Blue-to-colour accent per subject: `color` is the ink, `color2` the gradient partner. */
+export const SUBJECT_META: Record<
+  Subject,
+  { color: string; color2: string; soft: string }
+> = {
+  Physics: { color: "#5b7ce8", color2: "#4fbcd8", soft: "#e5ecfb" },
+  Chemistry: { color: "#cf4f86", color2: "#f0977a", soft: "#fbe7f0" },
+  Mathematics: { color: "#dd8637", color2: "#f3b54a", soft: "#fbeede" },
+  Biology: { color: "#3ea883", color2: "#7fd6a4", soft: "#e4f6ee" },
+  "SST & English": { color: "#8a6ce0", color2: "#cd77d8", soft: "#ece6fb" }
 };
 
 export interface SubjectInfo {
@@ -210,26 +169,32 @@ export const SUBJECTS: SubjectInfo[] = [
   {
     subject: "Physics",
     icon: "🚀",
-    blurb: "From scary numericals to friendly diagrams — the subject that taught us to think.",
-    topics: ["Mechanics", "Electromagnetism", "Optics"]
+    blurb: "Mechanics to modern physics — taught as diagrams first, equations second.",
+    topics: ["Mechanics", "Electromagnetism", "Optics & Modern"]
   },
   {
     subject: "Chemistry",
     icon: "🧪",
-    blurb: "Magic in a test tube. Every reaction explained like a story with a happy ending.",
-    topics: ["Organic", "Physical", "Inorganic"]
+    blurb: "Physical, organic, inorganic — every reaction with a reason behind it.",
+    topics: ["Mole Concept", "Organic Mechanisms", "Equilibrium"]
   },
   {
     subject: "Mathematics",
     icon: "📐",
-    blurb: "Integrals turned into puzzles, mistakes turned into marks. Pure logic, pure love.",
-    topics: ["Calculus", "Algebra", "Geometry"]
+    blurb: "Calculus, algebra and geometry — where the method matters more than the answer.",
+    topics: ["Calculus", "Algebra", "Coordinate Geometry"]
   },
   {
     subject: "Biology",
     icon: "🧬",
-    blurb: "Mitochondria love-stories and museum-worthy diagrams. Life, taught lively.",
-    topics: ["Human Body", "Botany", "Genetics"]
+    blurb: "Cell to ecosystem — diagrams that teach the concept without a single lecture.",
+    topics: ["Cell Biology", "Genetics", "Human Physiology"]
+  },
+  {
+    subject: "SST & English",
+    icon: "🗺️",
+    blurb: "History, civics and communication — where the argument and the language both count.",
+    topics: ["Modern History", "Civics & Economy", "Grammar & Writing"]
   }
 ];
 
@@ -264,37 +229,37 @@ export const WALL_WISHES: WallWish[] = [
   {
     name: "Back Bench Batch",
     forTeacher: "All Teachers",
-    text: "Sorry for the last-bench noise, thank you for never giving up on us. You are the real MVPs! 💙",
+    text: "Sorry for the noise at the back. Thank you for never writing us off — you are the real MVPs. 💙",
     category: "Funny"
   },
   {
     name: "Neet Aspirant '26",
-    forTeacher: "Priya Ma'am",
-    text: "Your diagrams got me through the whole human physiology chapter in one night. Legend! 🌿",
+    forTeacher: "Gaurav Sir",
+    text: "Your labelled diagrams carried me through human physiology in a single night. Anatomy has never looked so organised. 🧬",
     category: "Thank You"
   },
   {
     name: "JEE Warrior",
-    forTeacher: "Rakesh Sir",
-    text: "Rotational mechanics finally rotates in my brain instead of scaring it. Thank you, Sir! 🚀",
+    forTeacher: "Rahul Sir",
+    text: "Rotational mechanics finally rotates in my head instead of scaring it. Draw it first — I still do that in every subject. 🚀",
     category: "Inspirational"
   },
   {
     name: "Class Topper (nervous)",
-    forTeacher: "Vikram Sir",
-    text: "Your shortcut notes are my most-guarded treasure. Happy Teacher's Day! 📐",
+    forTeacher: "Shivam Sir",
+    text: "Your shortcut sheet is my most guarded possession. The method, not just the answer — noted, Sir. 📐",
     category: "Funny"
   },
   {
-    name: "Front Bench First-Row",
-    forTeacher: "Anjali Ma'am",
-    text: "\"Ab dekho ek magic hoga\" — and suddenly chemistry felt like home. I'll carry that magic everywhere. 🧪",
+    name: "Front Bench First Row",
+    forTeacher: "Harshita Ma'am",
+    text: "You made organic mechanisms look like a story with a motive. I can still push the arrows in my sleep. 🧪",
     category: "Emotional"
   },
   {
-    name: "Silent Doubt Asker",
-    forTeacher: "Neha Ma'am",
-    text: "Thank you for answering my silliest questions like they were the smartest ones. 🔬",
+    name: "Answer-Sheet Redeemed",
+    forTeacher: "Wajid Sir",
+    text: "You turned my three-line answers into a proper five-marker: point, evidence, conclusion. Both subjects, both fixed. 🗺️",
     category: "Thank You"
   }
 ];
@@ -306,6 +271,52 @@ export function initialsOf(name: string): string {
     .map((part) => part[0]!.toUpperCase())
     .slice(0, 2)
     .join("");
+}
+
+/* -------------------- portraits (shared) -------------------- */
+
+/**
+ * Hand-painted portraits live in src/assets/teachers/ and are wired up
+ * automatically by Vite — `<id>.webp` (or .png/.jpg/.jpeg, optionally
+ * `<id>-art.ext`) is bundled, hashed and used everywhere. A teacher
+ * without a painted portrait gets the colourful initials avatar and a
+ * text-only dedication page: no empty frame, no broken image.
+ */
+const PAINTED = import.meta.glob<string>("./assets/teachers/*.{png,jpg,jpeg,webp}", {
+  eager: true,
+  query: "?url",
+  import: "default"
+});
+
+const PAINTED_FOR: Record<string, string> = {};
+for (const path of Object.keys(PAINTED)) {
+  const file = path.split("/").pop() ?? "";
+  const id = file.replace(/-art\.[a-z]+$/i, "").replace(/\.[a-z]+$/i, "").toLowerCase();
+  if (id) PAINTED_FOR[id] = PAINTED[path]!;
+}
+
+export interface Portrait {
+  /** portrait url, or "" when this teacher has no painted portrait yet */
+  src: string;
+  /** true when there is a real image to show (painted portrait or photo override) */
+  painted: boolean;
+  /** descriptive alt text for the portrait */
+  alt: string;
+}
+
+/** The painted portrait for a teacher — the only kind the site ever shows. */
+export function portraitOf(t: Teacher): Portrait {
+  const painted = PAINTED_FOR[t.id];
+  if (painted) {
+    return { src: painted, painted: true, alt: `Hand-painted portrait of ${t.name}` };
+  }
+  if (t.photo) return { src: t.photo, painted: true, alt: `Portrait of ${t.name}` };
+  return { src: "", painted: false, alt: "" };
+}
+
+/** Does this teacher have a portrait to show? (drives the portrait-first layout) */
+export function hasPortrait(t: Teacher): boolean {
+  return portraitOf(t).painted;
 }
 
 /* -------------------- page helpers (shared) -------------------- */
@@ -341,4 +352,12 @@ export function teachersBySubject(subject: Subject): Teacher[] {
 
 export function subjectCount(subject: Subject): number {
   return TEACHERS.filter((t) => t.subject === subject).length;
+}
+
+export function subjectTopics(subject: Subject): string[] {
+  return SUBJECTS.find((s) => s.subject === subject)?.topics ?? [];
+}
+
+export function subjectBlurb(subject: Subject): string {
+  return SUBJECTS.find((s) => s.subject === subject)?.blurb ?? "";
 }

@@ -1,6 +1,7 @@
 # 💙 Teacher's Day @ Aakash (Multipage Edition)
 
-A beautiful, fast, blue-white-and-gold website to wish **Happy Teacher's Day** to every
+A beautiful, fast, **bright and colourful** (paper-white canvas + a ten-colour pop palette,
+one signature hue per subject) website to wish **Happy Teacher's Day** to every
 teacher of Aakash Coaching Centre — where **each teacher gets their own individual
 dedication page** with a personal letter.
 
@@ -14,12 +15,12 @@ confetti engine, buttery smooth animations).
 | Home | `index.html` | Aurora hero, multilingual thank-you marquee, a **daily wish that changes each weekday**, stats, spotlight, featured teachers, subjects, how-it-works, **shuffling quote pool**, CTA |
 | All Teachers | `teachers.html` | Search + filter by subject, gallery of every teacher |
 | **Teacher dedication** | `teacher.html?id=<teacher-id>` | **Individual page per teacher** — a **sealed letter that types itself out** (time-of-day greeting), Read Aloud, Send a Wish, **a subject minigame**, **4 hidden secrets**, a **"from your students" message library**, WhatsApp share, prev/next, related teachers |
-| Memories Room | `memories.html` | Chalkboard fun zone, live wish wall (saved on device), confetti playground |
+| Memories Room | `memories.html` | Whiteboard fun zone, live wish wall (saved on device), confetti playground |
 | Our Story | `about.html` | Values, timeline of an Aakash day, love note |
 | Subject Category | `category.html?subject=Physics` | 🗂️ Landing page per subject — line-up, famous dialogues, quotes |
 | Design System | `design.html` | 🎨 Categorised style guide — colours (tap to copy hex), type, components |
 
-Example individual pages: `teacher.html?id=rakesh-sir`, `teacher.html?id=anjali-mam`, …
+Example individual pages: `teacher.html?id=rahul-sir`, `teacher.html?id=gaurav-sir`, …
 
 ## 🚀 Run it
 
@@ -39,10 +40,11 @@ Open **`src/teachers.ts`**. Each teacher is one object:
   id: "rahul-sir",
   name: "Rahul Verma",
   salutation: "Rahul Sir",
-  subject: "Physics",                  // Physics | Chemistry | Mathematics | Biology
+  subject: "Physics",                  // Physics | Chemistry | Mathematics | Biology | SST & English
+  // photos are auto-detected from public/teachers/<id>.jpg — this field is only an override
   emoji: "🚀",
   tagline: "A short fun line",
-  photo: null,                          // e.g. "/teachers/rahul-sir.jpg"
+  photo: null,                          // optional override
   message: ["Paragraph 1...", "Paragraph 2..."],
   note: "Fun fact shown with the letter.",
   quote: "Signature line on their page",
@@ -55,11 +57,23 @@ Just copy a block, change the details — their **dedication page appears automa
 at `teacher.html?id=<your-id>`, plus links in the gallery, home preview and footer.
 TypeScript validates the shape for you.
 
-## 📸 Add real photos
+## 📸 Add real photos (zero-config)
 
-1. Save the photo into **`public/teachers/`** — e.g. `public/teachers/rahul-sir.jpg`
-2. Set `photo: "/teachers/rahul-sir.jpg"` in `src/teachers.ts`
-3. No photo? Keep `photo: null` — a pretty auto-avatar with their initials shows up.
+Names are matched to teacher ids — no code edit needed:
+
+| What you add                                   | What happens |
+|------------------------------------------------|--------------|
+| `src/assets/teachers/gaurav-sir.webp`          | 🎨 hand-painted portrait — the **only** image the site shows (card avatar, portrait plate on their page, previews) |
+| `src/assets/teachers/gaurav-sir.png`           | same, then shrink it for phones with `npm run portraits` (760px WebP, ~60KB) |
+| `public/teachers/gaurav-sir.jpg`               | 📷 raw photo — a draft only, never shown on the site |
+| nothing                                        | colourful initials avatar + a monogram crest on their page instead of a portrait |
+
+Teachers without a portrait lose the photo column entirely — no empty frame, no 404.
+Run `npm run photos` any time to see which teacher resolves to which file.
+
+The painted version is the one to aim for: fun and colourful, but always respectful —
+head-and-shoulders, warm light, a big smile, nothing caricatured, no props that make a
+teacher a joke. Ask and we'll paint the dropped photos into `<id>-art.png` for you.
 
 ## 🎉 Fun features
 
@@ -79,12 +93,26 @@ TypeScript validates the shape for you.
   - 🔈 **Physics** — a Web Audio "sound lab" with a live frequency wave + heartbeat pulse
   - ⚗️ **Chemistry** — spell your name as periodic-table element tiles
   - 🧬 **Biology** — a rapid-fire 3-question quiz
+  - 🗺️ **SST & English** — a history + grammar rapid round
 - **4 hidden secrets** per teacher — tap a card to unseal it (remembered on this device)
 - **"From your students" message library** — browse the class's thank-yous with ← → arrows
-- **Design System page** — every colour/font/component categorised, tap any swatch to copy hex
-- **Memories Room** — chalkboard with rotating student-life facts + your own wish wall
+- **Design System page** — the pop palette, subject accents, type and every component, tap a swatch to copy hex
+- **Claymorphism look** — every surface is modelled like soft clay: lit top edge, shaded underside,
+  a soft violet drop, squircle corners and a signature hue per subject
+  (periwinkle · rose · apricot · jade · grape)
+- **Memories Room** — whiteboard with rotating student-life facts + your own wish wall
 - Filter by subject (deep-linkable: `teachers.html?subject=Physics`) + instant search
 - Confetti everywhere, scroll progress bar, cursor glow, 3D tilt + spotlight cards,
-  count-up stats, fully responsive with mobile menu
+  count-up stats
+- **Built phone-first** — 360–430px pass with swipe-snap teacher rail, 44px tap targets,
+  16px form text (no iOS zoom), safe-area padding, a dimmed drawer you can tap away,
+  and lighter effects (glow/aurora off) so it stays smooth on a mid-range handset
+
+### 🪆 The look: clay
+
+Nothing is drawn with outlines — shape comes from light. Pastel clay slabs sit on a soft
+coloured bed, catch a highlight along the top edge and shade underneath, and sink when you
+press them. Rounded Baloo 2 headlines, handwritten Caveat notes, one clay hue per subject.
+`design.html` documents the whole system.
 
 Happy Teacher's Day! 🎓💙
