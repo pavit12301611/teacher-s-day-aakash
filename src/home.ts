@@ -5,6 +5,7 @@ import {
   SUBJECTS,
   SUBJECT_META,
   subjectCount,
+  subjectTopics,
   teacherUrl,
   type Teacher
 } from "./teachers";
@@ -20,23 +21,28 @@ import {
 } from "./site";
 import { avatarHTML, teacherCardHTML } from "./cards";
 
+/** One little note per weekday — each one tied to a subject. */
 const DAILY_WISHES: Array<{ day: string; emoji: string; title: string; text: string }> = [
-  { day: "Sunday", emoji: "🌞", title: "A day to rest & recharge", text: "Even the best teachers need a Sunday. Today, wish them a slow morning and a warm chai — they've earned it." },
-  { day: "Monday", emoji: "🌅", title: "Fresh start, fresh mind", text: "A brand-new week for the people who make Monday feel a little less Monday. Start it with a smile for them." },
-  { day: "Tuesday", emoji: "📚", title: "The doubt-clearing hour", text: "Somewhere a teacher is answering that '45th time' a doubt. Send them a little patience today." },
-  { day: "Wednesday", emoji: "💙", title: "Mid-week gratitude", text: "You've made it to the middle of the week. Take 30 seconds and thank a teacher who changed your mood." },
-  { day: "Thursday", emoji: "🎯", title: "Focus & fire", text: "The ones who keep us focused deserve a little focus back. Today, no noise — just a heartfelt 'thank you'." },
-  { day: "Friday", emoji: "🎉", title: "Almost the weekend", text: "The last school day energy is real. Celebrate a teacher who made the week a little lighter." },
-  { day: "Saturday", emoji: "✨", title: "Weekend magic", text: "Teachers' weekends are for marking, planning and coffee. Sneak in a tiny wish to make it sweeter." }
+  { day: "Sunday", emoji: "🌞", title: "A day to rest and recharge", text: "Even the finest teachers need a Sunday. Wish them a slow morning and an unhurried cup of chai — it is more than earned." },
+  { day: "Monday", emoji: "🌅", title: "Fresh week, first period", text: "Monday is the day a Physics teacher explains motion by moving the whole class through it. Say thank you for the energy." },
+  { day: "Tuesday", emoji: "📚", title: "The doubt-clearing hour", text: "Somewhere a Chemistry teacher is answering the forty-fifth question with the same patience as the first. Send them some grace today." },
+  { day: "Wednesday", emoji: "💙", title: "Mid-week gratitude", text: "Halfway through the week. Take thirty seconds to thank the Biology teacher who made one hard chapter feel obvious." },
+  { day: "Thursday", emoji: "🎯", title: "Method over marks", text: "The Mathematics teacher who insisted on the method, not the answer, is still shaping how we work. Tell them today." },
+  { day: "Friday", emoji: "🎉", title: "Last period energy", text: "Friday feels lighter when an SST & English teacher has just made an entire chapter sound like a story worth telling." },
+  { day: "Saturday", emoji: "✨", title: "Marking, planning, coffee", text: "Weekends belong to answer sheets and next week's board plan. Add one small wish to make the desk feel brighter." }
 ];
 
 const QUOTE_POOL: Array<{ quote: string; by: string }> = [
-  { quote: "The best teachers don't hand out answers — they hand out confidence.", by: "Back bench, front hearts · Aakash Batch of 2026" },
-  { quote: "A teacher takes a hand, opens a mind, and touches a heart.", by: "Aakash students · everywhere" },
-  { quote: "Teaching is the one profession that creates all other professions.", by: "The back bench, being deep" },
-  { quote: "Mistakes are the first step to marks — and they taught us that.", by: "Aakash Batch of 2026" },
+  { quote: "The best teachers don't hand out answers — they hand out method.", by: "Back bench, front hearts · Aakash Batch of 2026" },
+  { quote: "Draw the diagram first. The rest of the answer follows.", by: "Rahul Sir · Physics, every single class" },
+  { quote: "Every reaction has a reason. Finding it is the actual subject.", by: "Harshita Ma'am · Chemistry" },
+  { quote: "Maths rewards the process, not the panic.", by: "Shivam Sir · Mathematics" },
+  { quote: "Label it properly and half the answer is already done.", by: "Gaurav Sir · Biology" },
+  { quote: "A date is forgettable; the reason behind it never is.", by: "Wajid Sir · SST & English" },
+  { quote: "Teaching is the one profession that creates all other professions.", by: "The back bench, being thoughtful" },
+  { quote: "A wrong step is information, never a verdict.", by: "Aakash Batch of 2026" },
   { quote: "Some give knowledge. The great ones give courage.", by: "Your students · every year" },
-  { quote: "It takes a big heart to shape little minds.", by: "The front bench, whispering" },
+  { quote: "It takes a big heart to shape a stubborn mind.", by: "The front bench, quietly agreeing" },
   { quote: "The classroom is where futures get their first draft.", by: "Aakash · Class of 2026" },
   { quote: "They saw the best in us before we could.", by: "Every student who ever doubted themselves" },
   { quote: "A good teacher is a light that never dims.", by: "The night-before-exam batch" }
@@ -133,6 +139,8 @@ function renderSpotlight(): void {
   });
 
   root.style.setProperty("--accent", m.color);
+  root.style.setProperty("--accent-2", m.color2);
+  root.style.setProperty("--soft", m.soft);
   root.innerHTML = `
     <div class="spot-glow" aria-hidden="true"></div>
     <div class="spot-main">
@@ -140,6 +148,9 @@ function renderSpotlight(): void {
       <h2>${escapeHtml(t.salutation)} \u2728</h2>
       <p class="spot-quote">\u201C${escapeHtml(t.quote)}\u201D</p>
       <p class="spot-tag">${t.emoji} ${t.subject} \u00B7 \u201C${escapeHtml(t.tagline)}\u201D</p>
+      <p class="spot-topics">${subjectTopics(t.subject)
+        .map((x) => `<span>${escapeHtml(x)}</span>`)
+        .join("")}</p>
       <div class="hero-actions">
         <a href="${teacherUrl(t)}" class="btn btn-gold">\u{1F48C} Open Dedication</a>
         <button class="btn btn-ghost" id="spot-party">\u{1F389} Celebrate Them</button>
@@ -157,7 +168,11 @@ function renderSubjects(): void {
   const grid = must("#subject-grid");
   grid.innerHTML = SUBJECTS.map(
     (s, i) => `
-    <a class="subject-card tilt spot reveal" style="--delay:${i * 70}ms" href="category.html?subject=${encodeURIComponent(
+    <a class="subject-card tilt spot reveal" style="--delay:${
+      i * 70
+    }ms;--accent:${SUBJECT_META[s.subject].color};--accent-2:${
+      SUBJECT_META[s.subject].color2
+    };--soft:${SUBJECT_META[s.subject].soft}" href="category.html?subject=${encodeURIComponent(
       s.subject
     )}" aria-label="See ${s.subject} teachers">
       <span class="subject-icon">${s.icon}</span>

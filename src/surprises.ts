@@ -133,53 +133,54 @@ export function stopTypewriter(): void {
 
 /* ------------------------- hidden secrets ------------------------- */
 
+/** Four subject-specific secrets per teacher, unsealed one at a time. */
 const SUBJECT_SECRETS: Record<Subject, string[]> = {
   Physics: [
-    "You once explained friction with two erasers rubbing a desk — that class never forgot it.",
-    "Your whiteboard diagrams are so neat that students photograph them before the bell.",
-    "You carry a calculator that's seen more problems than any of your students' notebooks.",
-    "Before a big test, you quietly wish each student 'all the best' — we heard it every time."
+    "You explain friction with two erasers and a desk — the class has never forgotten that demonstration.",
+    "Your free-body diagrams are so clean that students photograph the board before the bell rings.",
+    "You keep a ruled notebook of 'questions above level' — and then you teach until they are not.",
+    "Before every major test you quietly wish each student good luck. We heard it every single time."
   ],
   Chemistry: [
-    "Your 'one last thing' before the bell is famously 10 minutes long. We never once minded.",
-    "You can smell a burnt lab from the other end of the corridor. It's a superpower.",
-    "You gave every student a fun element nickname once — nobody ever forgot theirs.",
-    "Your titration diagrams are museum-grade. Students have literally framed them."
+    "Your 'one last thing' before the bell runs ten minutes long. Not once has anyone minded.",
+    "You can identify a burnt laboratory from the far end of the corridor. That is a genuine superpower.",
+    "You gave every student a periodic-table nickname for one week. Nobody has recovered theirs.",
+    "Your titration curve, drawn freehand, belongs in a textbook rather than on a whiteboard."
   ],
   Mathematics: [
-    "Your shortcut notes are passed around the batch like a family treasure.",
-    "You say 'simple hai, ek minute' — and somehow it always is.",
-    "You remember every student's weak chapter better than we remember our own names.",
-    "You round up mistakes to 'data points', never to marks. That changed how we see errors."
+    "Your shortcut sheet travels through the batch like a family heirloom.",
+    "You say 'it is simple, give me a minute' — and the minute is always enough.",
+    "You remember each student's weakest chapter better than they remember it themselves.",
+    "You treat a wrong answer as a data point, never as a mark. It changed how we handle failure."
   ],
   Biology: [
-    "Your diagrams smile. Nobody else's drawings do. That's a real fact.",
-    "You can name a plant from a single leaf — students test you on purpose.",
-    "You make mitochondria sound like a love story. Exceptional.",
-    "You celebrate every student's improvement like your own victory. It shows."
+    "Your diagrams have labels, arrows and a small caption. The textbook has nothing.",
+    "You can identify a plant from one leaf, and students keep testing you on purpose.",
+    "You made genetics feel like family gossip — and half the class finally understood inheritance.",
+    "You celebrate a single-mark improvement as loudly as a topper's result."
   ],
   "SST & English": [
-    "You mark an answer for 2/5 and still write 'but the English was lovely' underneath. We keep those copies.",
-    "You recognise a student's handwriting from the answer sheet alone — before even reaching the name.",
-    "Your half-slate board summary beats a full chapter in any guide. Everyone knows it, nobody admits it.",
-    "Reading the best paragraph of the class out loud is the real award. We've all wanted it."
+    "You marked an answer 2/5 and wrote 'but the paragraph was well built' underneath. We still have that copy.",
+    "You recognise a student by handwriting alone, one full page before the name appears.",
+    "Your map work on the board takes ninety seconds and beats every printed outline map.",
+    "Reading one strong paragraph aloud at the start of class is the real award. Everyone wants it."
   ]
 };
 
 const GENERIC_SECRETS: string[] = [
-  "Students rehearse lines just to make you laugh in class. It's a whole art form.",
-  "Your voice from the corridor is the loudest 'sit down' we ever obeyed.",
-  "Behind the scenes, you remember birthdays, festivals and favourite chocolates.",
-  "You never let a student feel small for a doubt — that's your quietest superpower.",
-  "You've given at least one pep talk that we still repeat in exam season.",
-  "Your patience is the most-used resource in the whole building.",
-  "You always find the 'one good thing' in an answer, even when it's mostly wrong.",
-  "Students argue over who's your favourite. We'll never know — you're too fair."
+  "Students rehearse lines just to make you laugh in class. It is a whole art form.",
+  "Your footsteps in the corridor carry one instruction that nobody disobeys.",
+  "Behind the scenes you remember birthdays, festivals and who was unwell last week.",
+  "You never let a student feel small for asking. That is your quietest superpower.",
+  "You have delivered at least one pep talk we still repeat during exam season.",
+  "Your patience is the most-used resource in the entire building.",
+  "You always find one good thing in an answer, even when most of it is wrong.",
+  "The class argues over who is the favourite. We will never know — you are too fair."
 ];
 
 function pickSecrets(t: Teacher): string[] {
   const rnd = seededRandom(hashSeed(makeId(t)));
-  const pool = [...SUBJECT_SECRETS[t.subject], ...GENERIC_SECRETS];
+  const pool = [...(SUBJECT_SECRETS[t.subject] ?? []), ...GENERIC_SECRETS];
   const picks: string[] = [];
   while (picks.length < 4 && pool.length > 0) {
     const i = Math.floor(rnd() * pool.length);
@@ -191,28 +192,58 @@ function pickSecrets(t: Teacher): string[] {
 
 /* ------------------------- message library ------------------------- */
 
+/** Thanks that speak the teacher's own subject language. */
+const SUBJECT_MESSAGES: Record<Subject, string[]> = {
+  Physics: [
+    "Thank you for insisting on the diagram before the formula — I still solve problems that way.",
+    "Rotational mechanics stopped being a fear and became a method. That is entirely your doing.",
+    "You never said 'this is above your level'. You said 'not yet'.",
+    "Every numerical we conquer has your free-body diagram inside it."
+  ],
+  Chemistry: [
+    "You made organic mechanisms readable. Arrow, bond, reason — that is the whole subject.",
+    "Thank you for the ten-minute 'one last thing' that was always worth staying for.",
+    "The mole concept finally clicked the day you compared it to a dozen eggs.",
+    "You taught us to ask why a reaction happens, not only what it gives."
+  ],
+  Mathematics: [
+    "Thank you for grading the method, not only the answer.",
+    "Your shortcut sheet is the reason integration stops feeling personal.",
+    "You never moved on until the last hand went down. That is rare.",
+    "A wrong step became information in your class, not an embarrassment."
+  ],
+  Biology: [
+    "Your labelled diagrams saved me twice — in the exam and in understanding.",
+    "Thank you for making physiology feel like a system instead of a list.",
+    "Genetics finally made sense the day you mapped it onto our own family.",
+    "You taught the chapter, and then you taught the curiosity behind it."
+  ],
+  "SST & English": [
+    "Thank you for turning my three-line answers into a structured five-marker.",
+    "History became cause and consequence, not dates to memorise.",
+    "You corrected my grammar and protected my voice at the same time.",
+    "The civics chapter you taught is the reason I read the news properly now."
+  ]
+};
+
 const MESSAGE_POOL: string[] = [
-  "Thank you for making a scary subject feel like a friendly robot. 🤖",
-  "Your patience is stronger than any 3-mark question. We noticed. 💙",
-  "We argued over who's your favourite. We'll settle it at the reunion. 😄",
-  "Your 'last topic' was 10 minutes long and we loved every second.",
-  "You never made anyone feel stupid for asking. That's everything.",
-  "Every doubt you cleared is a tiny brick in our confidence. Thank you.",
-  "You turned our worst grades into our best comebacks. Legend.",
-  "We rehearse your dialogue in the corridor now. It's a whole show.",
-  "Your classroom was the calmest corner of our day. We needed it.",
-  "You remember our names, our weak chapters, our favourite chocolates.",
-  "You believed in us before we believed in ourselves. That shaped us.",
-  "Happy Teacher's Day, you absolute legend. 🎓💙",
-  "Some teachers give answers. You gave us the confidence to find them.",
-  "We'll never forget the day you turned a 'nahi aayega' into a 'ho gaya'.",
-  "Your chalkboard diagrams are tiny works of art. We have them memorised.",
-  "You taught us the subject and the courage. Both stuck."
+  "Thank you for making a difficult subject feel manageable, one class at a time.",
+  "Your patience is stronger than any three-mark question. We noticed.",
+  "We argued over who your favourite is. We will settle it at the reunion.",
+  "You never made anyone feel foolish for asking. That is everything.",
+  "Every doubt you cleared is a brick in our confidence. Thank you.",
+  "You turned our weakest grades into our best comebacks.",
+  "We still rehearse your classroom lines in the corridor. It is a whole show.",
+  "Your classroom was the calmest corner of our day, and we needed that.",
+  "You remembered our names, our weak chapters and our bad weeks.",
+  "You believed in us before we managed it ourselves. That shaped us.",
+  "Happy Teacher's Day to an absolute legend of a teacher.",
+  "Some teachers give answers. You gave us the method to find them."
 ];
 
 function pickMessages(t: Teacher, count: number): string[] {
   const rnd = seededRandom(hashSeed(makeId(t)));
-  const pool = [...MESSAGE_POOL];
+  const pool = [...(SUBJECT_MESSAGES[t.subject] ?? []), ...MESSAGE_POOL];
   const picks: string[] = [];
   while (picks.length < count && pool.length > 0) {
     const i = Math.floor(rnd() * pool.length);

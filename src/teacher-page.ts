@@ -4,6 +4,7 @@ import {
   TEACHERS,
   SUBJECT_META,
   getTeacher,
+  subjectTopics,
   prevTeacher,
   nextTeacher,
   relatedTeachers,
@@ -96,7 +97,8 @@ function dedicationHTML(t: Teacher): string {
       <span class="here">${escapeHtml(t.salutation)}</span>
     </nav>
 
-    <article class="ded-card reveal" style="--accent:${m.color};--soft:${m.soft}">
+    <article class="ded-card reveal" style="--accent:${m.color};--accent-2:${m.color2};--soft:${m.soft}">
+      <span class="ded-strip" aria-hidden="true"></span>
       <div class="ded-top">
         ${avatarHTML(t, true)}
         <div class="ded-id">
@@ -104,6 +106,9 @@ function dedicationHTML(t: Teacher): string {
           <h2>${escapeHtml(t.name)}</h2>
           <p class="ded-tagline">“${escapeHtml(t.tagline)}”</p>
           <p class="ded-quote">${escapeHtml(t.quote)}</p>
+          <p class="ded-topics">${subjectTopics(t.subject)
+            .map((x) => `<span>${escapeHtml(x)}</span>`)
+            .join("")}</p>
           <div class="ded-actions">
             <button class="btn btn-outline btn-sm" id="btn-listen">🔊 Read Aloud</button>
             <button class="btn btn-primary btn-sm" id="btn-wish">💙 Send a Wish</button>
@@ -177,11 +182,11 @@ function dedicationHTML(t: Teacher): string {
 
     <div class="prevnext">
       <a class="pn-card reveal" href="teacher.html?id=${prev.id}" aria-label="Previous teacher">
-        <span class="pn-mini" style="--accent:${pm.color}">←</span>
+        <span class="pn-mini" style="--accent:${pm.color};--accent-2:${pm.color2}">←</span>
         <span><small>← Previous</small><strong>${escapeHtml(prev.name)}</strong></span>
       </a>
       <a class="pn-card next reveal" style="--delay:90ms" href="teacher.html?id=${next.id}" aria-label="Next teacher">
-        <span class="pn-mini" style="--accent:${nm.color}">→</span>
+        <span class="pn-mini" style="--accent:${nm.color};--accent-2:${nm.color2}">→</span>
         <span><small>Next →</small><strong>${escapeHtml(next.name)}</strong></span>
       </a>
     </div>

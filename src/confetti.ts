@@ -30,7 +30,7 @@ export interface ConfettiOptions {
   power?: number; // burst strength
 }
 
-const DEFAULT_COLORS = ["#2f7cf6", "#38bdf8", "#7dd3fc", "#ffffff", "#93c5fd", "#e0f2fe", "#60a5fa"];
+const DEFAULT_COLORS = ["#2f6bff", "#06b6d4", "#0f9d76", "#84cc16", "#f9b234", "#ea780c", "#ff5d5d", "#ff2f7b", "#7b2ff7", "#ffffff"];
 
 let canvas: HTMLCanvasElement | null = null;
 let ctx: CanvasRenderingContext2D | null = null;

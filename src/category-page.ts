@@ -30,6 +30,7 @@ function paintHero(subject: Subject): void {
   const info = SUBJECTS.find((s) => s.subject === subject);
   const hero = must("#cat-hero");
   hero.style.setProperty("--accent", meta.color);
+  hero.style.setProperty("--accent-2", meta.color2);
   hero.style.setProperty("--soft", meta.soft);
 
   document.title = `${subject} Heroes ${info?.icon ?? "📚"} | Aakash Teacher's Day`;
@@ -45,9 +46,11 @@ function paintHero(subject: Subject): void {
   must("#cat-topics").innerHTML = (info?.topics ?? [])
     .map((t) => `<span class="cat-chip">📖 ${escapeHtml(t)}</span>`)
     .join("");
+  const teacherCount = subjectCount(subject);
+  const pageCount = TEACHERS.filter((t) => t.subject === subject).length;
   must("#cat-count").innerHTML =
-    `<span class="cat-chip">👩‍🏫 ${subjectCount(subject)} teachers</span>` +
-    `<span class="cat-chip">💌 ${TEACHERS.filter((t) => t.subject === subject).length} dedication pages</span>`;
+    `<span class="cat-chip">👩‍🏫 ${teacherCount} teacher${teacherCount === 1 ? "" : "s"}</span>` +
+    `<span class="cat-chip">💌 ${pageCount} dedication page${pageCount === 1 ? "" : "s"}</span>`;
   qs("#cat-crumb-here")!.textContent = subject;
 }
 
@@ -64,7 +67,7 @@ function renderDialogues(list: Teacher[]): void {
   must("#cat-dialogues").innerHTML = list
     .map(
       (t, i) => `
-      <div class="dialogue-item reveal" style="--delay:${i * 70}ms;--soft:${meta.soft}">
+      <div class="dialogue-item reveal" style="--delay:${i * 70}ms;--soft:${meta.soft};--accent:${meta.color}">
         <span class="d-emoji">${t.emoji}</span>
         <div>
           <blockquote>${escapeHtml(t.dialogue)}</blockquote>
@@ -100,7 +103,7 @@ function renderChooser(): void {
   const grid = must("#cat-teachers");
   grid.innerHTML = SUBJECTS.map(
     (s) => `
-    <a class="subject-card tilt spot reveal" href="category.html?subject=${encodeURIComponent(
+    <a class="subject-card tilt spot reveal" style="--accent:${SUBJECT_META[s.subject].color};--accent-2:${SUBJECT_META[s.subject].color2};--soft:${SUBJECT_META[s.subject].soft}" href="category.html?subject=${encodeURIComponent(
       s.subject
     )}" aria-label="Open the ${s.subject} category">
       <span class="subject-icon">${s.icon}</span>

@@ -501,6 +501,7 @@ export function renderMinigame(mount: HTMLElement, teacher: Teacher): void {
   const m = meta[teacher.subject];
   mount.classList.add("minigame");
   mount.style.setProperty("--accent", SUBJECT_META[teacher.subject].color);
+  mount.style.setProperty("--accent-2", SUBJECT_META[teacher.subject].color2);
   const title = document.createElement("div");
   title.className = "mg-head";
   title.innerHTML = `<span class="mg-icon">${m.icon}</span><div><b>${escape(m.title)}</b><small>a tiny toy for ${escape(teacher.salutation)}</small></div>`;

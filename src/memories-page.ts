@@ -176,7 +176,7 @@ function wireForm(): void {
     const forTeacher = qs<HTMLSelectElement>("#wish-for")?.value || "All Teachers";
     const text = qs<HTMLTextAreaElement>("#wish-text")?.value.trim() || "";
     if (text.length < 4) {
-      showToast("Thoda aur likho na — dil se! 💌");
+      showToast("Add a few more words — from the heart 💌");
       return;
     }
     const list = storedWall();

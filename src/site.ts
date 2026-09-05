@@ -32,14 +32,19 @@ export function must<T extends HTMLElement = HTMLElement>(sel: string): T {
 /* ------------------------- confetti presets ------------------------- */
 
 const PARTY_COLORS = [
-  "#2f7cf6",
-  "#38bdf8",
-  "#7dd3fc",
-  "#ffffff",
-  "#ffc94d",
-  "#ff8fb5",
-  "#a5b4fc"
+  "#ff2f7b",
+  "#ff5d5d",
+  "#ff8a3d",
+  "#f9b234",
+  "#84cc16",
+  "#0f9d76",
+  "#06b6d4",
+  "#2f6bff",
+  "#7b2ff7",
+  "#c026d3",
+  "#ffffff"
 ];
+
 
 export function bigCelebration(): void {
   launchConfetti({
