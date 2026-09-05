@@ -7047,3 +7047,221 @@ body {
     box-shadow: var(--clay-hi), var(--clay-drop);
   }
 }
+
+/* ============================================================
+   📱 PHONE SKIN v2 — every overlap, measured from the CSS
+   (stats band, letter toolbar, timeline, toast, badges, digits)
+   ============================================================ */
+
+/* ---------- desktop bugs that were never phone-only ---------- */
+
+/* the stats row used to ride 34px up into the marquee band */
+.stats-band {
+  margin-top: 0;
+}
+.stats-band .stats-grid {
+  margin-top: -26px;
+}
+@media (min-width: 861px) {
+  .stats-band .stats-grid {
+    margin-top: -46px;
+  }
+}
+
+/* the sealed-letter toolbar was absolutely pinned over the letter heading */
+.paper .letter-toolbar {
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 14px;
+}
+
+/* the type-spec rows are a list, not cards — no clay slab, no clipped edges */
+.type-spec > * {
+  box-shadow: none;
+  border-radius: 0;
+  border: none;
+  padding: 0 0 16px;
+}
+
+/* long digit strings must never burst the speller panel */
+.mg-pi-display,
+.mg-pi-typed {
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+/* ---------- phones: no decorations on top of content ---------- */
+
+@media (max-width: 700px) {
+  html {
+    overflow-x: clip;
+  }
+  .container {
+    max-width: 100%;
+  }
+
+  /* phones: the stats row sits below the marquee, never on top of it */
+  .stats-band .stats-grid {
+    margin-top: 0;
+  }
+
+  /* absolutely positioned ornaments off — nothing rides over text */
+  .card-strip,
+  .ded-strip,
+  .avatar-emoji,
+  .step-emoji,
+  .spot-glow,
+  .cat-glow,
+  .teacher-card.spot::before {
+    display: none;
+  }
+
+  /* every slab keeps its own breathing room */
+  .teacher-card,
+  .subject-card,
+  .stat-card,
+  .value-card,
+  .wish-card,
+  .quote-card,
+  .step-card,
+  .secret-card,
+  .pn-card,
+  .dialogue-item,
+  .fact-chip,
+  .ded-card,
+  .spotlight-card,
+  .minigame,
+  .msg-lib,
+  .msg-lib-body,
+  .daily-wish,
+  .secret-box,
+  .wish-form-card,
+  .cta-banner,
+  .love-note,
+  .t-item,
+  .empty-state,
+  .check-list li {
+    padding-left: max(16px, 4.4vw);
+    padding-right: max(16px, 4.4vw);
+  }
+  .teacher-card,
+  .subject-card,
+  .stat-card,
+  .value-card,
+  .wish-card,
+  .quote-card,
+  .step-card,
+  .secret-card,
+  .pn-card,
+  .dialogue-item,
+  .fact-chip {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  /* headline + names can never overflow a slab */
+  .card-name,
+  .ded-id h2,
+  .spot-main h2,
+  .section-head h2,
+  .page-hero h1,
+  .hero-title,
+  .portrait-cap,
+  .letter-body p,
+  .card-tagline,
+  .msg-text,
+  .quote-big {
+    overflow-wrap: anywhere;
+  }
+
+  /* timeline: plain list again, dot and rail aligned inside the container */
+  .timeline {
+    padding-left: 30px;
+  }
+  .timeline::before {
+    left: 10px;
+    width: 6px;
+  }
+  .t-item {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: none;
+    padding: 0 0 26px 6px;
+  }
+  .t-item::before {
+    left: -27px;
+    top: 2px;
+    width: 13px;
+    height: 13px;
+    border-width: 3px;
+    box-shadow: 0 0 0 4px var(--paper);
+  }
+
+  /* toast and back-to-top must not share the same corner */
+  .toast {
+    left: 12px;
+    right: 12px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+  }
+  #to-top {
+    width: 42px;
+    height: 42px;
+    right: 12px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+
+  /* actions stack cleanly */
+  .hero-actions,
+  .cta-actions,
+  .ded-actions,
+  .share-row,
+  .comp-row {
+    gap: 10px;
+  }
+  .ded-actions .btn,
+  .share-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* the seal covers the whole letter, so keep it inside the paper */
+  .seal-overlay {
+    padding: 14px;
+  }
+  .seal-inner {
+    max-width: 100%;
+    padding: 20px 16px;
+  }
+
+  /* swatches / design grid rows never touch their own rounded corner */
+  .swatch {
+    border-radius: 20px;
+  }
+  .swatch .sw-info {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+@media (max-width: 430px) {
+  .stats-band .stats-grid {
+    margin-top: 0;
+  }
+  .ded-id h2 {
+    font-size: 1.62rem;
+  }
+  .stat-value {
+    font-size: 1.34rem;
+  }
+  .mg-pi-display {
+    font-size: 1.2rem;
+  }
+  .portrait-cap {
+    font-size: 1.05rem;
+  }
+}
