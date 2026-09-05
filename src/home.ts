@@ -93,11 +93,17 @@ function renderQuotePool(): void {
 
 function featured(): Teacher[] {
   // One hero per subject so the home preview feels complete
-  const pick = ["rakesh-sir", "anjali-mam", "vikram-sir", "priya-mam"];
+  const pick = [
+    "rahul-sir",
+    "harshita-mam",
+    "shivam-sir",
+    "gaurav-sir",
+    "wajid-sir"
+  ];
   const found = pick
     .map((id) => TEACHERS.find((t) => t.id === id))
     .filter((t): t is Teacher => Boolean(t));
-  return found.length === 4 ? found : TEACHERS.slice(0, 4);
+  return found.length === pick.length ? found : TEACHERS.slice(0, pick.length);
 }
 
 function renderFeatured(): void {

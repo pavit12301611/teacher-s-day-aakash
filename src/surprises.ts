@@ -157,6 +157,12 @@ const SUBJECT_SECRETS: Record<Subject, string[]> = {
     "You can name a plant from a single leaf — students test you on purpose.",
     "You make mitochondria sound like a love story. Exceptional.",
     "You celebrate every student's improvement like your own victory. It shows."
+  ],
+  "SST & English": [
+    "You mark an answer for 2/5 and still write 'but the English was lovely' underneath. We keep those copies.",
+    "You recognise a student's handwriting from the answer sheet alone — before even reaching the name.",
+    "Your half-slate board summary beats a full chapter in any guide. Everyone knows it, nobody admits it.",
+    "Reading the best paragraph of the class out loud is the real award. We've all wanted it."
   ]
 };
 

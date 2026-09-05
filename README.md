@@ -19,7 +19,7 @@ confetti engine, buttery smooth animations).
 | Subject Category | `category.html?subject=Physics` | 🗂️ Landing page per subject — line-up, famous dialogues, quotes |
 | Design System | `design.html` | 🎨 Categorised style guide — colours (tap to copy hex), type, components |
 
-Example individual pages: `teacher.html?id=rakesh-sir`, `teacher.html?id=anjali-mam`, …
+Example individual pages: `teacher.html?id=rahul-sir`, `teacher.html?id=gaurav-sir`, …
 
 ## 🚀 Run it
 
@@ -39,7 +39,7 @@ Open **`src/teachers.ts`**. Each teacher is one object:
   id: "rahul-sir",
   name: "Rahul Verma",
   salutation: "Rahul Sir",
-  subject: "Physics",                  // Physics | Chemistry | Mathematics | Biology
+  subject: "Physics",                  // Physics | Chemistry | Mathematics | Biology | SST & English
   emoji: "🚀",
   tagline: "A short fun line",
   photo: null,                          // e.g. "/teachers/rahul-sir.jpg"
@@ -79,6 +79,7 @@ TypeScript validates the shape for you.
   - 🔈 **Physics** — a Web Audio "sound lab" with a live frequency wave + heartbeat pulse
   - ⚗️ **Chemistry** — spell your name as periodic-table element tiles
   - 🧬 **Biology** — a rapid-fire 3-question quiz
+  - 🗺️ **SST & English** — a history + grammar rapid round
 - **4 hidden secrets** per teacher — tap a card to unseal it (remembered on this device)
 - **"From your students" message library** — browse the class's thank-yous with ← → arrows
 - **Design System page** — every colour/font/component categorised, tap any swatch to copy hex

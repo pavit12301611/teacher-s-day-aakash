@@ -787,6 +787,11 @@ body[data-page]:not([data-page="home"]) .nav:not(.scrolled) {
   right: 6%;
   animation-delay: 0.8s;
 }
+.fc-5 {
+  top: 55%;
+  right: -5%;
+  animation-delay: 2s;
+}
 
 .hero-scroll {
   position: relative;
@@ -1266,7 +1271,7 @@ body[data-page]:not([data-page="home"]) .search-box {
 
 .subject-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 18px;
 }
 
@@ -2539,6 +2544,9 @@ body[data-page]:not([data-page="home"]) .check-list b {
   .subject-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .subject-grid > .subject-card:nth-child(5) {
+    grid-column: 1 / -1;
+  }
   .steps {
     grid-template-columns: 1fr;
   }
@@ -2567,6 +2575,8 @@ body[data-page]:not([data-page="home"]) .check-list b {
     align-items: stretch;
     gap: 6px;
     padding: 100px 26px 30px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: rgba(4, 12, 36, 0.97);
     backdrop-filter: blur(20px);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -2642,7 +2652,8 @@ body[data-page]:not([data-page="home"]) .check-list b {
     width: 100%;
   }
   .fc-2,
-  .fc-3 {
+  .fc-3,
+  .fc-5 {
     display: none;
   }
   .paper p {
