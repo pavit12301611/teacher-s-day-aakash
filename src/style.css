@@ -2508,14 +2508,39 @@ body[data-page="home"] .section-sub {
 }
 
 /* ------------------------------ responsive ------------------------------ */
+/*
+   Breakpoints: 1180 · 1024 · 860 (nav becomes a drawer) · 640 (phone) · 430 (small phone)
+   The phone pass is written for 360-430px viewports: 44px tap targets, 16px form text
+   (so iOS never zooms in), swipe-snap card rails instead of cramped grids, safe-area
+   padding for notches, lighter effects, and no sideways overflow anywhere.
+*/
+
+@media (max-width: 1180px) {
+  .subject-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 5.2vw, 3.9rem);
+  }
+  .float-card {
+    padding: 10px 15px 10px 11px;
+    font-size: 0.83rem;
+  }
+}
 
 @media (max-width: 1024px) {
+  .hero {
+    padding: clamp(116px, 15vw, 150px) 0 clamp(58px, 8vw, 84px);
+  }
   .hero-inner {
     grid-template-columns: 1fr;
+    gap: clamp(26px, 5vw, 44px);
   }
   .hero-visual {
     min-height: 420px;
     max-width: 560px;
+    width: 100%;
+    margin-inline: auto;
   }
   .teacher-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -2526,39 +2551,48 @@ body[data-page="home"] .section-sub {
   .subject-grid > .subject-card:nth-child(5) {
     grid-column: 1 / -1;
   }
-  .steps {
+  .steps,
+  .wish-layout,
+  .split,
+  .quote-wall,
+  .spotlight-card {
     grid-template-columns: 1fr;
   }
-  .wish-layout {
-    grid-template-columns: 1fr;
+  .spotlight-card {
+    gap: 26px;
   }
   .wish-form-card {
     position: static;
   }
-  .values-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  .values-grid,
   .footer-grid {
     grid-template-columns: 1fr 1fr;
+  }
+  #cursor-glow {
+    display: none;
   }
 }
 
 @media (max-width: 860px) {
+  body {
+    background-attachment: scroll; /* fixed gradient washes cost a lot on mobile scroll */
+  }
   .nav-links {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    width: min(320px, 84vw);
+    width: min(340px, 88vw);
     flex-direction: column;
     align-items: stretch;
-    gap: 6px;
-    padding: 100px 26px 30px;
+    gap: 4px;
+    padding: 88px 22px calc(26px + env(safe-area-inset-bottom));
     overflow-y: auto;
     overscroll-behavior: contain;
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     border-left: 1px solid var(--line);
+    box-shadow: -30px 0 60px rgba(43, 30, 94, 0.16);
     transform: translateX(105%);
     transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
   }
@@ -2566,11 +2600,17 @@ body[data-page="home"] .section-sub {
     transform: translateX(0);
   }
   .nav-link {
-    padding: 14px 18px;
-    font-size: 1.05rem;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    font-size: 1.02rem;
+    border-radius: 14px;
   }
   .nav-cta {
-    margin: 10px 0 0;
+    margin: 12px 0 0;
+    padding: 14px 20px;
     text-align: center;
   }
   .nav-burger {
@@ -2585,6 +2625,37 @@ body[data-page="home"] .section-sub {
   .nav.menu-open .nav-burger span:nth-child(3) {
     transform: translateY(-7.5px) rotate(-45deg);
   }
+  /* the Subjects menu flows inside the drawer instead of floating over it */
+  .drop-menu {
+    position: static;
+    min-width: 0;
+    width: 100%;
+    display: none;
+    padding: 2px 0 6px 12px;
+    border: none;
+    border-left: 2px solid var(--line);
+    border-radius: 0 0 14px 14px;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  .nav-drop.open .drop-menu {
+    display: block;
+  }
+  .page-hero {
+    padding: clamp(108px, 21vw, 140px) 0 clamp(42px, 8vw, 60px);
+  }
+  .page-hero h1 {
+    font-size: clamp(2.05rem, 8.6vw, 3rem);
+    max-width: 22ch;
+  }
+  .giant-word {
+    font-size: clamp(2.8rem, 15vw, 6rem);
+    -webkit-text-stroke-width: 1.2px;
+  }
+  .aurora {
+    filter: blur(64px);
+  }
   .ded-top {
     grid-template-columns: 1fr;
     text-align: center;
@@ -2596,47 +2667,624 @@ body[data-page="home"] .section-sub {
   .ded-actions {
     justify-content: center;
   }
-  .fact-grid {
-    grid-template-columns: 1fr;
-  }
-  .prevnext {
-    grid-template-columns: 1fr;
-  }
-  .split {
-    grid-template-columns: 1fr;
-  }
+  .fact-grid,
+  .prevnext,
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+  .footer {
+    border-radius: 34px 34px 0 0;
   }
 }
 
 @media (max-width: 640px) {
-  .teacher-grid,
-  .teacher-grid.cols-3 {
-    grid-template-columns: 1fr;
+  /* --- rhythm --- */
+  html {
+    scroll-padding-top: 76px;
   }
-  .subject-grid {
-    grid-template-columns: 1fr;
+  .section {
+    padding: clamp(42px, 12.5vw, 62px) 0;
   }
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .container,
+  .narrow {
+    width: 91%;
   }
-  .wish-wall {
-    grid-template-columns: 1fr;
+  .section-head {
+    margin-bottom: 24px;
+    padding-top: 16px;
   }
-  .values-grid {
-    grid-template-columns: 1fr;
+  .section-head h2 {
+    font-size: clamp(1.6rem, 7.4vw, 2.1rem);
+    line-height: 1.16;
+    margin: 12px 0 10px;
+  }
+  .section-sub {
+    font-size: 0.96rem;
+  }
+  .eyebrow {
+    padding: 7px 13px;
+    font-size: 0.66rem;
+    letter-spacing: 0.13em;
+  }
+
+  /* --- hero --- */
+  .hero {
+    padding: calc(86px + 6vw) 0 34px;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 10.2vw, 2.75rem);
+    line-height: 1.03;
+    letter-spacing: -0.02em;
+    margin: 14px 0 12px;
+  }
+  .hero-sub {
+    font-size: 1rem;
+  }
+  .hero-badge {
+    gap: 8px;
+    padding: 7px 13px 7px 10px;
+    font-size: 0.76rem;
+  }
+  .hero-actions {
+    gap: 10px;
+    margin-top: 22px;
   }
   .hero-actions .btn {
     width: 100%;
+    padding: 14px 22px;
+    font-size: 1rem;
+  }
+  .hero-proof {
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .proof-avatars span {
+    width: 34px;
+    height: 34px;
+    font-size: 0.7rem;
+    margin-left: -8px;
+  }
+  .proof-text {
+    font-size: 0.84rem;
+  }
+  .hero-visual {
+    min-height: 322px;
+  }
+  .hero-main-card {
+    inset: 13% 5% 13% 5%;
+    padding: 24px 20px 20px;
+    border-radius: 26px;
+    gap: 8px;
+  }
+  .hero-main-card .big-emoji {
+    font-size: 3rem;
+  }
+  .hero-main-card h3 {
+    font-size: 1.3rem;
+  }
+  .hero-main-card p {
+    font-size: 1.1rem;
+  }
+  .float-card {
+    gap: 8px;
+    padding: 8px 12px 8px 9px;
+    font-size: 0.74rem;
+    border-radius: 15px;
+  }
+  .float-card .fc-emoji {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+  .float-card small {
+    font-size: 0.66rem;
+  }
+  .fc-1 {
+    top: -8px;
+    left: -2px;
+  }
+  .fc-4 {
+    bottom: -8px;
+    right: -2px;
   }
   .fc-2,
   .fc-3,
   .fc-5 {
     display: none;
   }
+  .hero-scroll {
+    margin-top: 24px;
+  }
+  .hero-scroll .mouse {
+    display: none;
+  }
+  .stars {
+    animation: none;
+    opacity: 0.4;
+  }
+  .aurora-a,
+  .aurora-c {
+    display: none;
+  }
+  /* big blurred blobs are the most expensive thing on a phone GPU — shrink them */
+  .aurora-b {
+    width: 260px;
+    height: 260px;
+    filter: blur(54px);
+  }
+  .cat-glow,
+  .spot-glow {
+    width: 280px;
+    height: 280px;
+    filter: blur(52px);
+  }
+  .cat-glow {
+    right: -120px;
+    top: -140px;
+  }
+  .spot-glow {
+    left: -100px;
+    bottom: -130px;
+  }
+
+  /* --- stats --- */
+  .stats-band {
+    margin-top: -14px;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 16px 10px;
+    border-radius: 20px;
+  }
+  .stat-icon {
+    font-size: 1.35rem;
+  }
+  .stat-value {
+    font-size: 1.62rem;
+  }
+  .stat-label {
+    font-size: 0.76rem;
+  }
+
+  /* --- marquees --- */
+  .marquee {
+    padding: 11px 0;
+  }
+  .marquee-track,
+  .thankyou-marquee .marquee-track {
+    gap: 24px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+  }
+  .thankyou-marquee .ty-dot {
+    font-size: 0.7rem;
+  }
+
+  /* --- teacher cards: horizontal snap rail on the home page --- */
+  .teacher-grid,
+  .teacher-grid.cols-3 {
+    grid-template-columns: 1fr;
+  }
+  body[data-page="home"] .teacher-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(80%, 320px);
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    margin-inline: -4.5%;
+    padding: 6px 4.5% 16px;
+    scrollbar-width: none;
+  }
+  body[data-page="home"] .teacher-grid::-webkit-scrollbar {
+    display: none;
+  }
+  body[data-page="home"] .teacher-grid > * {
+    scroll-snap-align: center;
+  }
+  .teacher-card {
+    padding: 26px 18px 22px;
+    gap: 7px;
+  }
+  .avatar {
+    width: 92px;
+    height: 92px;
+    border-radius: 30px;
+  }
+  .avatar-initials {
+    font-size: 1.7rem;
+  }
+  .card-name {
+    font-size: 1.24rem;
+  }
+  .card-tagline,
+  .card-meta {
+    font-size: 0.86rem;
+  }
+  .card-topics {
+    gap: 6px;
+  }
+  .card-topics span {
+    padding: 5px 10px;
+    font-size: 0.68rem;
+  }
+  .card-btn {
+    width: 100%;
+    padding: 12px 18px;
+  }
+  .card-goto {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* --- subject bento --- */
+  .subject-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .subject-card {
+    min-height: 0;
+    padding: 24px 20px 22px;
+    border-radius: 24px;
+  }
+  .subject-card::after {
+    width: 170px;
+    height: 170px;
+    opacity: 0.28;
+  }
+  .subject-icon {
+    font-size: 1.9rem;
+  }
+  .subject-card h3 {
+    font-size: 1.22rem;
+  }
+  .subject-topics {
+    gap: 6px;
+  }
+  .subject-topics span,
+  .cat-chip {
+    padding: 6px 11px;
+    font-size: 0.72rem;
+  }
+
+  /* --- spotlight --- */
+  .spotlight-card {
+    padding: clamp(22px, 6vw, 30px);
+    border-radius: 26px;
+  }
+  .spot-main h2 {
+    font-size: clamp(1.55rem, 7.6vw, 2rem);
+  }
+  .spot-quote {
+    font-size: 1.08rem;
+  }
+  .spot-side {
+    border-left: none;
+    border-top: 1px dashed var(--line);
+    padding-top: 18px;
+  }
+
+  /* --- forms: 16px text stops iOS auto-zoom on focus --- */
+  .field {
+    margin-bottom: 12px;
+  }
+  .field input,
+  .field select,
+  .field textarea,
+  .search-box input,
+  .mg-pi-input,
+  .mg-name-input {
+    font-size: 16px;
+    padding: 13px 14px;
+  }
+  .field label {
+    font-size: 0.74rem;
+  }
+  .wish-form-card {
+    border-radius: 24px;
+  }
+  .search-box {
+    padding: 8px 14px;
+  }
+  .teacher-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .filter-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin-inline: -4.5%;
+    padding-inline: 4.5%;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .filter-pills::-webkit-scrollbar {
+    display: none;
+  }
+  .pill {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.86rem;
+  }
+  .chip {
+    min-height: 44px;
+    padding: 9px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* --- wish wall, quotes, values, steps --- */
+  .wish-wall,
+  .values-grid,
+  .fact-grid,
+  .quote-wall {
+    gap: 12px;
+  }
+  .wish-card {
+    padding: 20px 18px;
+  }
+  .value-card,
+  .step-card,
+  .quote-card {
+    padding: 22px 20px;
+  }
+  .step-num {
+    font-size: 2.6rem;
+  }
+  .step-card h3 {
+    font-size: 1.15rem;
+  }
+  .quote-mark {
+    font-size: 3.4rem;
+    margin-bottom: 10px;
+  }
+  .quote-big {
+    font-size: clamp(1.35rem, 6.6vw, 1.8rem);
+    max-width: 26ch;
+  }
+  .quote-by {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+  }
+  .quote-band {
+    padding: clamp(44px, 12vw, 66px) 0;
+  }
+
+  /* --- whiteboard + cta --- */
+  .chalkboard {
+    padding: 22px 18px 26px;
+  }
+  .chalk-title {
+    font-size: 1.05rem;
+  }
+  .chalk-fact {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .cta-banner {
+    padding: clamp(28px, 7vw, 40px) clamp(20px, 6vw, 32px);
+    border-radius: 26px;
+  }
+  .cta-banner h2 {
+    font-size: clamp(1.5rem, 7vw, 2.1rem);
+  }
+  .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cta-actions .btn {
+    width: 100%;
+  }
+
+  /* --- dedication / letter / share --- */
+  .ded-card {
+    padding: clamp(22px, 6vw, 30px);
+  }
+  .ded-id h2 {
+    font-size: clamp(1.62rem, 7.6vw, 2.2rem);
+  }
+  .ded-role,
+  .ded-tagline {
+    font-size: 0.86rem;
+  }
+  .ded-topics {
+    justify-content: flex-start;
+  }
+  .ded-actions .btn {
+    flex: 1 1 46%;
+  }
+  .paper,
+  .share-row,
+  .secret-box,
+  .msg-lib,
+  .fact-grid,
+  .note-callout {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .paper {
+    padding: 22px 18px;
+  }
   .paper p {
-    line-height: 32px;
+    line-height: 30px;
+    font-size: 1rem;
+  }
+  .letter-body {
+    font-size: 1.02rem;
+  }
+  .share-btn {
+    flex: 1 1 44%;
+    justify-content: center;
+    min-height: 44px;
+  }
+  .dialogue-item {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+
+  /* --- minigame + surprises --- */
+  .minigame,
+  .playground,
+  .secret-box,
+  .msg-lib,
+  .daily-wish {
+    padding: clamp(20px, 6vw, 26px);
+  }
+  .mg-tiles {
+    gap: 8px;
+  }
+  .mg-tile {
+    width: 54px;
+    height: 54px;
+    border-radius: 13px;
+    font-size: 1.05rem;
+  }
+  .mg-slider input[type="range"] {
+    height: 30px;
+  }
+  .mg-opt {
+    padding: 13px 14px;
+    font-size: 0.95rem;
+  }
+  .mg-pi-display {
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+  .secret-card {
+    padding: 16px 14px;
+  }
+  .msg-text {
+    font-size: 1rem;
+  }
+
+  /* --- footer --- */
+  .footer {
+    padding-top: 46px;
+  }
+  .footer-grid {
+    gap: 26px;
+  }
+  .footer-brand p {
+    font-size: 0.9rem;
+  }
+  .footer-links a,
+  .footer-teacher-links a {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+  }
+  .footer-bottom {
+    padding: 18px 0 calc(18px + env(safe-area-inset-bottom));
+    font-size: 0.78rem;
+  }
+
+  /* --- fixed chrome --- */
+  #to-top {
+    width: 46px;
+    height: 46px;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    font-size: 1.05rem;
+  }
+  .toast {
+    left: 4%;
+    right: 4%;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    transform: translateY(90px);
+    max-width: none;
+    width: auto;
+    padding: 13px 18px;
+    font-size: 0.9rem;
+  }
+  .toast.show {
+    transform: translateY(0);
+  }
+  .lede,
+  .check-list li {
+    font-size: 0.95rem;
+  }
+  .crumbs {
+    font-size: 0.78rem;
+    gap: 8px;
+  }
+  .cat-chips,
+  .chip-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .result-count {
+    font-size: 0.82rem;
+  }
+  .ded-wrap {
+    padding-bottom: 56px;
+  }
+  .timeline {
+    padding-left: 26px;
+  }
+  .t-item {
+    padding: 16px 16px;
+  }
+  .empty-state {
+    padding: 40px 20px;
+  }
+  .notfound-wrap .big {
+    font-size: 3rem;
+  }
+  .ds-section {
+    padding: 34px 22px;
+  }
+  .type-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 430px) {
+  .container,
+  .narrow {
+    width: 92%;
+  }
+  .hero-title {
+    font-size: clamp(1.85rem, 9.6vw, 2.3rem);
+  }
+  .hero-visual {
+    min-height: 288px;
+  }
+  .hero-main-card {
+    inset: 12% 4% 12% 4%;
+  }
+  body[data-page="home"] .teacher-grid {
+    grid-auto-columns: min(88%, 300px);
+  }
+  .stats-grid {
+    gap: 8px;
+  }
+  .stat-value {
+    font-size: 1.45rem;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+  }
+  .btn-lg {
+    padding: 14px 24px;
+    font-size: 0.98rem;
+  }
+  .ded-actions .btn {
+    width: 100%;
+  }
+  .swatch-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .share-btn {
+    flex: 1 1 100%;
   }
 }
 
@@ -2648,6 +3296,17 @@ body[data-page="home"] .section-sub {
     transition-duration: 0.001s !important;
   }
   html {
+    scroll-behavior: auto;
+  }
+  .marquee-track,
+  .thankyou-marquee .marquee-track,
+  .float-card,
+  .hero-main-card,
+  .aurora,
+  .stars {
+    animation: none !important;
+  }
+  body[data-page="home"] .teacher-grid {
     scroll-behavior: auto;
   }
 }
@@ -4318,4 +4977,490 @@ body::before {
 .share-btn:focus-visible {
   outline: 3px solid var(--accent-2, var(--pop-grape));
   outline-offset: 3px;
+}
+
+/* ============================================================
+   ✨ SIGNATURE LAYER — "festive paper studio"
+   Ink hairlines, washi tape, paper grain, hard offset shadows,
+   and touch-safe interaction states. Appended last on purpose:
+   this is what the finished site looks like on every page.
+   ============================================================ */
+
+:root {
+  --ink-line: rgba(27, 20, 66, 0.13);
+  --ink-line-soft: rgba(27, 20, 66, 0.07);
+  --paper-lift: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 22px 40px -32px rgba(27, 20, 66, 0.55);
+  --paper-lift-lg: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 36px 62px -32px rgba(27, 20, 66, 0.55);
+  --hard-sm: 3px 4px 0 rgba(27, 20, 66, 0.06);
+  --hard: 6px 8px 0 rgba(27, 20, 66, 0.07);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* ---------------- paper grain over the whole canvas ---------------- */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: 160px 160px;
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+}
+
+/* ---------------- touch ergonomics ---------------- */
+
+a,
+button,
+.pill,
+.chip,
+.teacher-card,
+.subject-card,
+.share-btn,
+.card-goto,
+.nav-burger,
+.mg-opt {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn,
+.pill,
+.chip,
+.share-btn,
+.nav-burger,
+.nav-link,
+.card-goto,
+.drop-btn,
+.mg-opt,
+.msg-arrow,
+.quote-next {
+  touch-action: manipulation;
+}
+
+/* press feedback that also works with a thumb */
+.btn:active,
+.pill:active,
+.chip:active,
+.share-btn:active,
+.mg-opt:active,
+.teacher-card:active,
+.subject-card:active {
+  transform: translateY(1px) scale(0.988);
+}
+
+/* hover effects are for pointers only — no stuck "lit" cards on phones */
+@media (hover: none) {
+  .teacher-card:hover,
+  .subject-card:hover,
+  .stat-card:hover,
+  .value-card:hover,
+  .wish-card:hover,
+  .quote-card:hover,
+  .step-card:hover,
+  .pn-card:hover,
+  .secret-card:hover,
+  .pill:hover,
+  .chip:hover,
+  .float-card:hover,
+  .dialogue-item:hover,
+  .msg-arrow:hover,
+  .quote-next:hover,
+  .share-btn:hover,
+  .card-btn:hover,
+  .fact-chip:hover,
+  .btn:hover {
+    transform: none;
+  }
+  .teacher-card.spot::before {
+    opacity: 0 !important;
+  }
+}
+
+/* ---------------- drawer scrim (mobile menu) ---------------- */
+
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 880;
+  background: radial-gradient(120% 90% at 80% 0%, rgba(43, 30, 94, 0.28), rgba(43, 30, 94, 0.5));
+  backdrop-filter: blur(2px);
+  animation: scrimIn 0.25s ease both;
+}
+
+@keyframes scrimIn {
+  from {
+    opacity: 0;
+  }
+}
+
+body.menu-lock {
+  overflow: hidden;
+}
+
+/* ---------------- ink hairlines + paper stack on every card ---------------- */
+
+/* light paper cards only: the saturated panels (.quote-card, .wish-form-card),
+   the dashed .secret-box / .note-callout and .playground keep their own skin */
+.teacher-card,
+.subject-card,
+.stat-card,
+.value-card,
+.wish-card,
+.step-card,
+.secret-card,
+.pn-card,
+.dialogue-item,
+.ded-card,
+.spotlight-card,
+.minigame,
+.daily-wish,
+.msg-lib,
+.empty-state,
+.check-list li {
+  border: 1.5px solid var(--ink-line);
+  box-shadow: var(--paper-lift);
+}
+
+/* keep the coloured ledger edges those cards already had */
+.stat-card {
+  border-top: 4px solid var(--tint-solid, var(--pop-blue));
+}
+.step-card {
+  border-left: 5px solid var(--tint-solid, var(--pop-blue));
+}
+.value-card,
+.wish-card {
+  border-top: 4px solid var(--tint-solid, var(--pop-blue));
+}
+.dialogue-item {
+  border-left: 4px solid var(--accent, var(--pop-blue));
+}
+.paper {
+  border-left: 5px solid var(--pop-pink);
+}
+.note-callout,
+.secret-box {
+  box-shadow: var(--paper-lift);
+}
+.fact-chip {
+  border: 1.5px solid var(--ink-line);
+  box-shadow: var(--hard-sm);
+}
+
+/* ---------------- buttons: sticker edges + press ---------------- */
+
+.btn-primary,
+.btn-gold,
+.btn-dark,
+.btn-white {
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+}
+
+.btn-primary {
+  box-shadow: var(--hard-sm), 0 16px 30px -18px rgba(47, 107, 255, 0.85);
+}
+
+.btn-gold {
+  box-shadow: var(--hard-sm), 0 16px 30px -18px rgba(249, 178, 52, 0.95);
+}
+
+.btn-dark {
+  box-shadow: var(--hard-sm), 0 16px 30px -18px rgba(43, 30, 94, 0.9);
+}
+
+.btn-ghost,
+.btn-outline {
+  border: 1.5px solid var(--ink-line);
+  box-shadow: var(--hard-sm);
+}
+
+/* ---------------- editorial ticks + sticker eyebrows ---------------- */
+
+.section-head {
+  position: relative;
+  padding-top: clamp(14px, 2vw, 20px);
+}
+
+.section-head::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 62px;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--rainbow-line);
+  background-size: 200% 100%;
+}
+
+.section-head.center::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-head h2,
+.page-hero h1,
+.hero-title {
+  text-wrap: balance;
+}
+
+.section-sub,
+.hero-sub,
+.card-tagline,
+.letter-body {
+  text-wrap: pretty;
+}
+
+.eyebrow {
+  gap: 10px;
+  padding: 8px 15px;
+  background: #fff;
+  border: 1.5px solid var(--ink-line);
+  box-shadow: var(--hard-sm);
+  color: var(--ink);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  background: var(--accent, var(--pop-pink));
+}
+
+/* the sticker version for the dark feature panels */
+.cta-banner .eyebrow,
+.love-note .eyebrow,
+.ds-dark .eyebrow,
+.ds-dark .eyebrow-light {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+  color: #fff;
+}
+
+.cta-banner .eyebrow::before,
+.love-note .eyebrow::before,
+.ds-dark .eyebrow::before {
+  background: #fff;
+}
+
+/* ---------------- washi tape: the signature flourish ---------------- */
+
+.hero-visual::before,
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  width: clamp(74px, 9vw, 108px);
+  height: 26px;
+  background: linear-gradient(180deg, rgba(255, 214, 92, 0.72), rgba(255, 186, 54, 0.58));
+  border-inline: 1px dashed rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 16px rgba(27, 20, 66, 0.14);
+  mix-blend-mode: multiply;
+}
+
+.hero-visual::before {
+  top: 13.5%;
+  left: 11%;
+  transform: rotate(-7deg);
+}
+
+.hero-visual::after {
+  bottom: 11%;
+  right: 12%;
+  transform: rotate(6deg);
+}
+
+@keyframes floaty-tilt {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.3deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-1.3deg);
+  }
+}
+
+.hero-main-card {
+  animation-name: floaty-tilt;
+  background: #fff;
+  border: 1px solid var(--ink-line-soft);
+  box-shadow: var(--paper-lift-lg);
+}
+
+/* floating stickers riding the dashed orbit */
+.orbit-ring::before,
+.orbit-ring::after {
+  position: absolute;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 8px 14px rgba(27, 20, 66, 0.18));
+}
+
+.orbit-ring::before {
+  content: "✏️";
+  top: -16px;
+  left: 14%;
+}
+
+.orbit-ring::after {
+  content: "🎈";
+  bottom: -14px;
+  right: 16%;
+}
+
+@media (max-width: 640px) {
+  .hero-visual::before {
+    top: 10.5%;
+    left: 8%;
+    height: 20px;
+    width: 66px;
+  }
+  .hero-visual::after {
+    bottom: 8.5%;
+    right: 9%;
+    height: 20px;
+    width: 58px;
+  }
+  .orbit-ring::before,
+  .orbit-ring::after {
+    font-size: 1.15rem;
+  }
+}
+
+/* ---------------- cards: one crafted hover language ---------------- */
+
+@media (hover: hover) {
+  .teacher-card:hover,
+  .subject-card:hover,
+  .stat-card:hover,
+  .value-card:hover,
+  .wish-card:hover,
+  .quote-card:hover,
+  .pn-card:hover,
+  .secret-card:hover {
+    transform: translateY(-8px) rotate(-0.35deg);
+    border-color: var(--accent, var(--pop-blue));
+    box-shadow: var(--hard), var(--shadow-lg);
+  }
+  .pill:hover,
+  .chip:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hard-sm);
+  }
+  .teacher-card:hover .card-goto,
+  .subject-card:hover .subject-link {
+    transform: rotate(-35deg) scale(1.06);
+  }
+}
+
+/* ---------------- feature panels: deeper, more intentional ---------------- */
+
+.cta-banner,
+.love-note {
+  border-radius: 34px;
+  box-shadow: var(--paper-lift-lg);
+}
+
+.spotlight-card,
+.wish-form-card,
+.ded-card {
+  box-shadow: var(--paper-lift-lg);
+}
+
+.chalkboard {
+  box-shadow: 0 26px 50px -34px rgba(27, 20, 66, 0.8), 0 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* ---------------- footer: curved paper ending ---------------- */
+
+.footer {
+  border-radius: 44px 44px 0 0;
+  box-shadow: 0 -26px 60px -40px rgba(27, 20, 66, 0.9);
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--rainbow-line);
+  opacity: 0.9;
+}
+
+/* ---------------- type finishing ---------------- */
+
+.brand-text {
+  letter-spacing: -0.01em;
+}
+
+.card-name,
+.spot-main h2,
+.page-hero h1,
+.section-head h2,
+.hero-title {
+  letter-spacing: -0.028em;
+}
+
+.hero-title em {
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+.cat-chip,
+.card-topics span,
+.ded-topics span,
+.spot-topics span,
+.subject-topics span {
+  overflow-wrap: anywhere;
+}
+
+::selection {
+  background: #ffd7ea;
+  color: #6d093c;
+}
+
+/* ---------------- crayon underline on the italic part of a headline ---------------- */
+
+.hero-title em,
+.page-hero h1 em {
+  position: relative;
+}
+
+.hero-title em::after,
+.page-hero h1 em::after {
+  content: "";
+  position: absolute;
+  left: 1%;
+  right: 1%;
+  bottom: -0.14em;
+  height: 0.16em;
+  min-height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='14' viewBox='0 0 120 14'%3E%3Cpath d='M2 9C20 2 38 13 56 7S92 2 118 8' fill='none' stroke='%23ff2f7b' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  opacity: 0.85;
+}
+
+/* the second headline colour gets its own crayon so pages never repeat twice */
+.page-hero h1 em::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='14' viewBox='0 0 120 14'%3E%3Cpath d='M2 9C20 2 38 13 56 7S92 2 118 8' fill='none' stroke='%232f6bff' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 640px) {
+  .hero-title em::after,
+  .page-hero h1 em::after {
+    bottom: -0.1em;
+    height: 0.14em;
+    min-height: 6px;
+  }
 }

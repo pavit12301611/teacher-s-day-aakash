@@ -101,6 +101,16 @@ teacher a joke. Ask and we'll paint the dropped photos into `<id>-art.png` for y
 - **Memories Room** — whiteboard with rotating student-life facts + your own wish wall
 - Filter by subject (deep-linkable: `teachers.html?subject=Physics`) + instant search
 - Confetti everywhere, scroll progress bar, cursor glow, 3D tilt + spotlight cards,
-  count-up stats, fully responsive with mobile menu
+  count-up stats
+- **Built phone-first** — 360–430px pass with swipe-snap teacher rail, 44px tap targets,
+  16px form text (no iOS zoom), safe-area padding, a dimmed drawer you can tap away,
+  and lighter effects (glow/aurora off) so it stays smooth on a mid-range handset
+
+### 🎨 The look: "festive paper studio"
+
+Every page is printed on the same stock: paper-white canvas + grain, ink hairline borders
+with a hard offset shadow, washi tape holding the hero card, rainbow tick marks above each
+section heading, sticker eyebrows, Fraunces display type with italic pull-quotes, and one
+signature hue per subject. `design.html` documents all of it.
 
 Happy Teacher's Day! 🎓💙
