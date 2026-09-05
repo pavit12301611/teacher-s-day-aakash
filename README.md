@@ -75,6 +75,25 @@ The painted version is the one to aim for: fun and colourful, but always respect
 head-and-shoulders, warm light, a big smile, nothing caricatured, no props that make a
 teacher a joke. Ask and we'll paint the dropped photos into `<id>-art.png` for you.
 
+## 🖨️ Print cards (`Teachers_Day_Cards_5.pdf`)
+
+One A4-landscape sheet per teacher, double-sided, **flip on long edge**, then fold on the
+dashed centre line. Every card carries two QR codes (small one on the back panel, big one
+inside) plus tap links, all pointing at that teacher's own page:
+
+    https://teacher-s-day-aakash.vercel.app/teacher.html?id=<teacher-id>
+
+Re-patch the file after changing teachers, roll number or copy:
+
+    pip install pymupdf qrcode pillow fonttools
+    python3 scripts/fix-card-pdf.py
+
+`scripts/fix-card-pdf.py` edits the PDF in place — it swaps in per-teacher QR codes, drops
+each teacher's hand-painted portrait (`src/assets/teachers/<id>.webp`) into the photo ring,
+refreshes the branding/roll line and rewrites the "how to scan" steps. The original artwork,
+colours and fonts are kept; nothing is re-laid-out.
+
+
 ## 🎉 Fun features
 
 - **Individual dedication page per teacher** — paper-style letter, Read Aloud (Indian
