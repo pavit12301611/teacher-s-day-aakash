@@ -6918,3 +6918,117 @@ body {
     letter-spacing: 0.06em;
   }
 }
+
+/* ============================================================
+   🪆 CLAY FIX — nothing overlaps, nothing touches an edge
+   ============================================================ */
+
+/* 1 · the headline highlight was painting OVER the words: push it behind */
+.hero-title em,
+.page-hero h1 em {
+  isolation: isolate;
+}
+
+.hero-title em::after,
+.page-hero h1 em::after {
+  z-index: -1;
+  height: 0.32em;
+  min-height: 9px;
+  bottom: -0.03em;
+  left: -0.06em;
+  right: -0.06em;
+  opacity: 0.75;
+}
+
+/* 2 · card ridges were floating bars over the card content: mould them into the top */
+.card-strip,
+.ded-strip {
+  inset: 0 0 auto 0;
+  height: 7px;
+  border-radius: var(--r-card) var(--r-card) 99px 99px;
+}
+
+/* 3 · subject colour back on the cards whose borders the clay pass removed */
+.stat-card,
+.value-card,
+.wish-card {
+  box-shadow: inset 0 5px 0 var(--tint-solid, var(--pop-blue)), var(--clay-hi), var(--clay-lo),
+    var(--clay-drop);
+}
+
+.step-card {
+  box-shadow: inset 5px 0 0 var(--tint-solid, var(--pop-blue)), var(--clay-hi), var(--clay-mid),
+    var(--clay-lo), var(--clay-drop);
+}
+
+.dialogue-item {
+  box-shadow: inset 5px 0 0 var(--accent, var(--pop-blue)), var(--clay-hi), var(--clay-lo),
+    var(--clay-drop);
+}
+
+.msg-lib-body {
+  box-shadow: inset 5px 0 0 var(--pop-grape), var(--clay-hi), var(--clay-mid),
+    0 12px 20px -16px rgba(93, 78, 150, 0.6);
+}
+
+/* 4 · the chalkboard's white ring was spilling onto the sections around it */
+.chalkboard {
+  box-shadow: inset 0 4px 8px rgba(255, 255, 255, 0.22), inset 0 -16px 28px rgba(0, 0, 0, 0.32),
+    0 28px 46px -32px rgba(66, 58, 104, 0.9);
+}
+
+/* 5 · nav hairline sits under the bar instead of on top of the links */
+.nav.scrolled::after {
+  height: 4px;
+  bottom: -2px;
+}
+
+/* 6 · clay tubes: no rounding across a full-bleed band on phones */
+@media (max-width: 640px) {
+  .marquee,
+  .thankyou-marquee {
+    border-radius: 0;
+  }
+
+  /* the hero badge is a flat label on phones — clay must not re-add a padded pill */
+  .hero-badge {
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* room for the portrait plate inside the dedication slab */
+  .ded-card {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+  .portrait-plate {
+    margin-bottom: 20px;
+  }
+  .portrait-cap {
+    padding-bottom: 11px;
+  }
+  .card-strip,
+  .ded-strip {
+    height: 6px;
+  }
+  .section-head {
+    padding-top: 14px;
+  }
+  .section-head::before {
+    height: 6px;
+  }
+  .hero-title em::after,
+  .page-hero h1 em::after {
+    height: 0.26em;
+    min-height: 8px;
+  }
+  .teacher-card {
+    border-radius: 30px 30px 26px 26px;
+  }
+  .toast {
+    box-shadow: var(--clay-hi), var(--clay-drop);
+  }
+}
